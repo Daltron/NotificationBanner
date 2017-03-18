@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'NotificationBanner_Example' do
+  pod 'NotificationBanner', :path => '../'
+
+  target 'NotificationBanner_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
