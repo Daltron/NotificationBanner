@@ -1,0 +1,6 @@
+framework module NotificationBanner {
+  umbrella header "NotificationBanner-umbrella.h"
+
+  export *
+  module * { export * }
+}
