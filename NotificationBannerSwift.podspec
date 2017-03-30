@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
     s.name             = 'NotificationBannerSwift'
     s.version          = '1.0.0'
-    s.summary          = 'The easiest way to display in app notification banners in iOS'
+    s.summary          = 'The easiest way to display in app notification banners in iOS.'
 
     s.description      = <<-DESC
 NotificationBanner is an extremely customizable and lightweight library that makes the task of displaying in app notification banners and drop down alerts an absolute breeze in iOS.
