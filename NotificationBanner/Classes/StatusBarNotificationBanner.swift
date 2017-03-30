@@ -43,12 +43,12 @@ public class StatusBarNotificationBanner: BaseNotificationBanner {
         updateMarqueeLabelsDurations()
     }
     
-    convenience init(title: String, style: BannerStyle = .info) {
+    public convenience init(title: String, style: BannerStyle = .info) {
         self.init(style: style)
         titleLabel!.text = title
     }
     
-    convenience init(attributedTitle: NSAttributedString, style: BannerStyle = .info) {
+    public convenience init(attributedTitle: NSAttributedString, style: BannerStyle = .info) {
         self.init(style: style)
         titleLabel!.attributedText = attributedTitle
     }
