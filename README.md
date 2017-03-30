@@ -1,9 +1,9 @@
 ![Notification Banner](NotificationBanner/Assets/header.png)
 
-[![Version](https://img.shields.io/cocoapods/v/NotificationBanner.svg?style=flat)](http://cocoapods.org/pods/NotificationBanner)
-[![Platform](https://img.shields.io/cocoapods/p/NotificationBanner.svg?style=flat)](http://cocoapods.org/pods/NotificationBanner)
+[![Version](https://img.shields.io/cocoapods/v/NotificationBanner.svg?style=flat)](http://cocoapods.org/pods/NotificationBannerSwift)
+[![Platform](https://img.shields.io/cocoapods/p/NotificationBanner.svg?style=flat)](http://cocoapods.org/pods/NotificationBannerSwift)
 <a href="https://developer.apple.com/swift"><img src="https://img.shields.io/badge/swift-3.0-4BC51D.svg?style=flat" alt="Language: Swift" /></a>
-[![License](https://img.shields.io/cocoapods/l/NotificationBanner.svg?style=flat)](http://cocoapods.org/pods/NotificationBanner)
+[![License](https://img.shields.io/cocoapods/l/NotificationBanner.svg?style=flat)](http://cocoapods.org/pods/NotificationBannerSwift)
 
 ## Written in Swift 3
 
@@ -33,7 +33,7 @@ NotificationBanner is available through [CocoaPods](http://cocoapods.org). To in
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'NotificationBanner'
+pod 'NotificationBannerSwift'
 ```
 
 ## Usage

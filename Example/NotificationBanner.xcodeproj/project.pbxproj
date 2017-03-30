@@ -35,7 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		23D0884ED7027DCB5F8507CC /* NotificationBanner.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NotificationBanner.podspec; path = ../NotificationBanner.podspec; sourceTree = "<group>"; };
+		23D0884ED7027DCB5F8507CC /* NotificationBannerSwift.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NotificationBannerSwift.podspec; path = ../NotificationBannerSwift.podspec; sourceTree = "<group>"; };
 		3088C9C352176F7A8F6F90A2 /* Pods-NotificationBanner_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationBanner_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NotificationBanner_Example/Pods-NotificationBanner_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		5C0BFCB61E7DFCD400FE49EB /* NotificationBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationBanner.swift; path = ../../NotificationBanner/Classes/NotificationBanner.swift; sourceTree = "<group>"; };
 		5C0BFCBC1E7E2CCF00FE49EB /* NotificationBannerQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationBannerQueue.swift; path = ../../NotificationBanner/Classes/NotificationBannerQueue.swift; sourceTree = "<group>"; };
@@ -161,7 +161,7 @@
 		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				23D0884ED7027DCB5F8507CC /* NotificationBanner.podspec */,
+				23D0884ED7027DCB5F8507CC /* NotificationBannerSwift.podspec */,
 				BB150F775F66DF9A8CE833B3 /* README.md */,
 				994F519A87A30C0CFB80BF18 /* LICENSE */,
 			);
