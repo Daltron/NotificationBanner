@@ -131,7 +131,7 @@ Adding a banner to the front of the queue will temporarily suspend the currently
 
 ## Feature Requests
 
-I'd love to know anything that you think NotificationBanner is missing. Open an issue and add the `feature request` tag to it and I'll do everything I can to accomodate that request if it is in the library's best interest. 😄 
+I'd love to know anything that you think NotificationBanner is missing. Open an issue and add the `feature request` label to it and I'll do everything I can to accomodate that request if it is in the library's best interest. 😄 
 
 ## Author
 
