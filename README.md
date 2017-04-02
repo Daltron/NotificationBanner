@@ -72,6 +72,24 @@ public enum BannerStyle {
 
 By default, the `.info` style will be applied to the banner if no style is provided in the init method. You can set the background color of a banner at any time by simply setting the `backgroundColor`.
 
+If you want to change the default colors for the prebuilt styles you can do so like this from anywhere in your project:
+
+```swift
+extension BannerStyle {
+	var color: UIColor {
+		switch self.type {
+			case .danger: return UIColor.red;
+    		case .info: return UIColor.yellow;
+    		case .none: return UIColor.white;
+    		case .success: return UIColor.green;
+    		case .warning: return UIColor.orange;
+		}
+	}
+}
+
+```
+
+
 ### Banners with Side Views
 
 A notification banner can have a left acessory view, a right acessory view, or both:
