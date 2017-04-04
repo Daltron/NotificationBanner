@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import NotificationBanner
+import NotificationBannerSwift
+
 
 class ExampleViewController: UIViewController {
     
@@ -31,6 +32,7 @@ class ExampleViewController: UIViewController {
     }
 
 }
+
 
 extension ExampleViewController : ExampleViewDelegate {
     
@@ -145,6 +147,14 @@ extension ExampleViewController : ExampleViewDelegate {
         }
     }
     
+    func customStructNotification(at index: Int) {
+        if index == 0 {
+            let config = BannerConfiguration(color: UIColor.green, title: "Custom Notification from a struct", attributedTitle: nil, subtitle: "Extremely Customizable", attributedSubtitle: nil, leftView: nil, rightView: nil, customView: nil, bannerHeight: 100, duration: 2)
+            let banner = NotificationBanner(config: config)
+            banner.show(queuePosition: selectedQueuePosition())
+        }
+    }
+    
     func numberOfCells(for section: Int) -> Int {
         switch section {
         case 0:
@@ -155,6 +165,8 @@ extension ExampleViewController : ExampleViewDelegate {
             return 1
         case 3:
             return 5
+        case 4:
+            return 1
         default:
             return 0
         }
@@ -170,6 +182,8 @@ extension ExampleViewController : ExampleViewDelegate {
             return "Notification Banner with Custom View"
         case 3:
             return "Status Bar Notifications"
+        case 4:
+            return "Custom Banner from Struct"
         default:
             return ""
         }
@@ -184,6 +198,8 @@ extension ExampleViewController : ExampleViewDelegate {
         case 2:
             return UIColor(red:0.23, green:0.60, blue:0.85, alpha:1.00)
         case 3:
+            return UIColor(red:1.00, green:0.66, blue:0.16, alpha:1.00)
+        case 4:
             return UIColor(red:1.00, green:0.66, blue:0.16, alpha:1.00)
         default:
             return UIColor(red:0.54, green:0.40, blue:0.54, alpha:1.00)
@@ -235,6 +251,13 @@ extension ExampleViewController : ExampleViewDelegate {
                 return ("Warning Notification", nil)
             case 4:
                 return ("Custom Notification", nil)
+            default:
+                return ("", nil)
+            }
+        } else if indexPath.section == 4 {
+            switch  indexPath.row {
+            case 0:
+                return ("Custom Notification", "With 2 second duration and 100px height")
             default:
                 return ("", nil)
             }

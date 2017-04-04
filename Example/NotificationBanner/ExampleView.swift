@@ -18,6 +18,7 @@ protocol ExampleViewDelegate : class {
     func basicNotificationCellWithSideViewsSelected(at index: Int)
     func basicCustomNotificationCellSelected(at index: Int)
     func basicStatusBarNotificationCellSelected(at index: Int)
+    func customStructNotification(at index: Int)
 }
 
 class ExampleView: UIView {
@@ -75,7 +76,7 @@ class ExampleView: UIView {
 extension ExampleView : UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 5
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -120,6 +121,8 @@ extension ExampleView : UITableViewDelegate {
             delegate!.basicCustomNotificationCellSelected(at: indexPath.row)
         } else if indexPath.section == 3 {
             delegate!.basicStatusBarNotificationCellSelected(at: indexPath.row)
+        } else if indexPath.section == 4 {
+            delegate!.customStructNotification(at: indexPath.row)
         }
     }
 }

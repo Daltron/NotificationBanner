@@ -21,11 +21,11 @@ import MarqueeLabel
 
 public class BaseNotificationBanner: UIView {
     
-    // The height of the banner when it is presented
-    public var bannerHeight: CGFloat = 64.0
     
     // The topmost label of the notification if a custom view is not desired
-    public internal(set) var titleLabel: MarqueeLabel?
+    lazy public internal(set) var titleLabel: MarqueeLabel = {
+        return self.createTitleLabel()
+    }()
     
     // The time before the notificaiton is automatically dismissed
     public var duration: TimeInterval = 5.0 {
@@ -41,7 +41,9 @@ public class BaseNotificationBanner: UIView {
     public var onTap: (() -> Void)?
 
     // The view that the notification layout is presented on. The constraints/frame of this should not be changed
-    internal var contentView: UIView!
+    lazy internal var contentView: UIView = {
+       return UIView()
+    }()
     
     // The default padding between edges and views
     internal var padding: CGFloat = 15.0
@@ -56,7 +58,9 @@ public class BaseNotificationBanner: UIView {
     private let APP_WINDOW: UIWindow = UIApplication.shared.delegate!.window!!
     
     // A view that helps the spring animation look nice when the banner appears
-    private var spacerView: UIView!
+    lazy private var spacerView: UIView = {
+       return UIView()
+    }()
     
     public override var backgroundColor: UIColor? {
         get {
@@ -67,40 +71,42 @@ public class BaseNotificationBanner: UIView {
         }
     }
     
-    init(style: BannerStyle) {
+    var config: BannerConfiguration
+    
+    convenience init(style: BannerStyle) {
+        self.init(config: style.getConfiguration(withTitle: ""))
+    }
+    
+    init(config: BannerConfiguration) {
+        self.config = config
         super.init(frame: .zero)
-        
-        spacerView = UIView()
-        addSubview(spacerView)
-        
-        spacerView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(-10)
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-            make.height.equalTo(10)
-        }
-        
-        contentView = UIView()
-        addSubview(contentView)
-        
-        contentView.snp.makeConstraints { (make) in
-            make.top.equalTo(spacerView.snp.bottom)
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
-        
-        backgroundColor = color(for: style)
-        
+        //set up first (this will create the left/right view which needs to exist for add views)
+        setUp(withConfig: config)
+        addViews()
+        setNeedsUpdateConstraints()
         NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
     
     required public init?(coder aDecoder: NSCoder) {
+        self.config = BannerStyle.info.getConfiguration(withTitle: "")
         super.init(coder: aDecoder)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+    }
+    
+    func addViews() {
+        addSubview(spacerView)
+        addSubview(contentView)
+    }
+    func setUp(withConfig config: BannerConfiguration) {
+        backgroundColor = config.color
+        duration = config.duration
+    }
+   
+    func createTitleLabel() -> MarqueeLabel {
+        return MarqueeLabel()
     }
     
     public func dismiss() {
@@ -123,7 +129,7 @@ public class BaseNotificationBanner: UIView {
         if placeOnQueue {
             bannerQueue.addBanner(self, queuePosition: queuePosition)
         } else {
-            self.frame = CGRect(x: 0, y: -bannerHeight, width: APP_WINDOW.frame.width, height: bannerHeight)
+            self.frame = CGRect(x: 0, y: -config.bannerHeight, width: APP_WINDOW.frame.width, height: config.bannerHeight)
             APP_WINDOW.addSubview(self)
             APP_WINDOW.windowLevel = UIWindowLevelStatusBar + 1
             UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveLinear, animations: {
@@ -162,18 +168,29 @@ public class BaseNotificationBanner: UIView {
         onTap?()
     }
     
-    private func color(for type: BannerStyle) -> UIColor {
-        switch type {
-            case .danger:   return UIColor(red:0.90, green:0.31, blue:0.26, alpha:1.00)
-            case .info:     return UIColor(red:0.23, green:0.60, blue:0.85, alpha:1.00)
-            case .none:     return UIColor.clear
-            case .success:  return UIColor(red:0.22, green:0.80, blue:0.46, alpha:1.00)
-            case .warning:  return UIColor(red:1.00, green:0.66, blue:0.16, alpha:1.00)
-        }
+   
+    internal func updateMarqueeLabelsDurations() {
+        titleLabel.speed = .duration(CGFloat(duration - 3))
     }
 
-    internal func updateMarqueeLabelsDurations() {
-        titleLabel?.speed = .duration(CGFloat(duration - 3))
+    
+    public override func updateConstraints() {
+        super.updateConstraints()
+        spacerView.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(-10)
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.height.equalTo(10)
+        }
+        contentView.snp.makeConstraints { (make) in
+            make.top.equalTo(spacerView.snp.bottom)
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
     }
+    
 }
+
+
 
