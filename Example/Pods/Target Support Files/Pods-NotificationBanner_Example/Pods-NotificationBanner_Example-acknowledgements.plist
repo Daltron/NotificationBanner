@@ -60,7 +60,7 @@ THE SOFTWARE.
 			<key>License</key>
 			<string>MIT</string>
 			<key>Title</key>
-			<string>NotificationBanner</string>
+			<string>NotificationBannerSwift</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>

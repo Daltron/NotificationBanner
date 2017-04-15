@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double NotificationBannerVersionNumber;
-FOUNDATION_EXPORT const unsigned char NotificationBannerVersionString[];
+FOUNDATION_EXPORT double NotificationBannerSwiftVersionNumber;
+FOUNDATION_EXPORT const unsigned char NotificationBannerSwiftVersionString[];
 

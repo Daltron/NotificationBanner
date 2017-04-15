@@ -21,40 +21,56 @@ import MarqueeLabel
 
 public class StatusBarNotificationBanner: BaseNotificationBanner {
     
-    override init(style: BannerStyle) {
-        super.init(style: style)
-        bannerHeight = 20.0
+    override init(config: BannerConfiguration) {
+        super.init(config: config)
+        self.config.bannerHeight = 20.0
+        updateMarqueeLabelsDurations()
+    }
+    
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    public convenience init(title: String, style: BannerStyle = .info) {
+        self.init(config: style.getConfiguration(withTitle: title))
+    }
+    
+    public convenience init(attributedTitle: NSAttributedString, style: BannerStyle = .info) {
+        self.init(config: style.getConfiguration(withAttributedTitle: attributedTitle))
+    }
+    
+    override func onInit(withConfig: BannerConfiguration) {
+        super.onInit(withConfig: config)
+        titleLabel.text = config.title
+        if let title = config.attributedTitle {
+            titleLabel.attributedText = title
+        }
+    }
+    
+    override func createTitleLabel() -> MarqueeLabel {
+        let label = MarqueeLabel()
+        label.animationDelay = 2
+        label.type = .leftRight
+        label.font = UIFont.systemFont(ofSize: 12.5, weight: UIFontWeightBold)
+        label.textAlignment = .center
+        label.textColor = .white
+        return label
+    }
+    
+    override func addViews() {
+        super.addViews()
+        addSubview(titleLabel)
+    }
+
+    override public func updateConstraints() {
+        super.updateConstraints()
         
-        titleLabel = MarqueeLabel()
-        titleLabel?.animationDelay = 2
-        titleLabel?.type = .leftRight
-        titleLabel!.font = UIFont.systemFont(ofSize: 12.5, weight: UIFontWeightBold)
-        titleLabel!.textAlignment = .center
-        titleLabel!.textColor = .white
-        addSubview(titleLabel!)
-        
-        titleLabel!.snp.makeConstraints { (make) in
+        titleLabel.snp.remakeConstraints { (make) in
             make.top.equalToSuperview()
             make.left.equalToSuperview().offset(5)
             make.right.equalToSuperview().offset(-5)
             make.bottom.equalToSuperview()
         }
         
-        updateMarqueeLabelsDurations()
     }
-    
-    public convenience init(title: String, style: BannerStyle = .info) {
-        self.init(style: style)
-        titleLabel!.text = title
-    }
-    
-    public convenience init(attributedTitle: NSAttributedString, style: BannerStyle = .info) {
-        self.init(style: style)
-        titleLabel!.attributedText = attributedTitle
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-
 }
