@@ -53,13 +53,8 @@ public class NotificationBanner: BaseNotificationBanner {
         fatalError("init(coder:) has not been implemented")
     }
     
-    internal override func updateMarqueeLabelsDurations() {
-        super.updateMarqueeLabelsDurations()
-        subtitleLabel?.speed = .duration(CGFloat(duration - 3))
-    }
-    
-    override func setUp(withConfig: BannerConfiguration) {
-        super.setUp(withConfig: config)
+    override func onInit(withConfig: BannerConfiguration) {
+        super.onInit(withConfig: config)
         if let leftView = config.leftView {
             self.leftView = leftView
         }
@@ -80,6 +75,11 @@ public class NotificationBanner: BaseNotificationBanner {
         if let customView = config.customView {
             self.customView = customView
         }
+    }
+    
+    internal override func updateMarqueeLabelsDurations() {
+        super.updateMarqueeLabelsDurations()
+        subtitleLabel?.speed = .duration(CGFloat(duration - 3))
     }
     
     override func addViews() {

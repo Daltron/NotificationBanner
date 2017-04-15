@@ -43,6 +43,11 @@ public struct BannerConfiguration {
         self.duration = duration
     }
     
+    init(builder: (inout BannerConfiguration) -> ()) {
+        self.init(color: UIColor.white, title: "")
+        builder(&self)
+    }
+    
 }
 
 public enum BannerStyle {
@@ -53,7 +58,6 @@ public enum BannerStyle {
     case warning
 }
 
-
 extension BannerStyle {
     
     func getConfiguration(withCustomView view: UIView) -> BannerConfiguration {
@@ -61,11 +65,20 @@ extension BannerStyle {
     }
     
     func getConfiguration(withAttributedTitle attributedTitle: NSAttributedString) -> BannerConfiguration {
-        return BannerConfiguration(color: self.color, title: "", attributedTitle: attributedTitle, subtitle: nil, attributedSubtitle: nil, leftView: nil, rightView: nil)
+        return BannerConfiguration(builder: { banner in
+            banner.color = self.color
+            banner.attributedTitle = attributedTitle
+        })
     }
-    
+
     func getConfiguration(withTitle title: String, subtitle: String? = nil, leftView: UIView? = nil, rightView: UIView? = nil) -> BannerConfiguration {
-        return BannerConfiguration(color: self.color, title: title, subtitle: subtitle, leftView: leftView, rightView: rightView)
+        return BannerConfiguration(builder: { banner in
+            banner.title = title
+            banner.color = self.color
+            banner.subtitle = subtitle
+            banner.leftView = leftView
+            banner.rightView = rightView
+        })
     }
     
     fileprivate var color: UIColor {

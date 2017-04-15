@@ -149,7 +149,13 @@ extension ExampleViewController : ExampleViewDelegate {
     
     func customStructNotification(at index: Int) {
         if index == 0 {
-            let config = BannerConfiguration(color: UIColor.green, title: "Custom Notification from a struct", attributedTitle: nil, subtitle: "Extremely Customizable", attributedSubtitle: nil, leftView: nil, rightView: nil, customView: nil, bannerHeight: 100, duration: 2)
+            let config = BannerConfiguration(builder: { banner in
+                banner.color = UIColor.green
+                banner.title = "Custom notification from a struct"
+                banner.subtitle = "Extremely Customizable"
+                banner.bannerHeight = 100
+                banner.duration = 2
+            })
             let banner = NotificationBanner(config: config)
             banner.show(queuePosition: selectedQueuePosition())
         }

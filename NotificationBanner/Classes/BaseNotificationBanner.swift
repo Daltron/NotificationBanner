@@ -80,10 +80,9 @@ public class BaseNotificationBanner: UIView {
     init(config: BannerConfiguration) {
         self.config = config
         super.init(frame: .zero)
-        //set up first (this will create the left/right view which needs to exist for add views)
-        setUp(withConfig: config)
+        onInit(withConfig: config)
         addViews()
-        setNeedsUpdateConstraints()
+        afterAddViews()
         NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
     
@@ -92,19 +91,28 @@ public class BaseNotificationBanner: UIView {
         super.init(coder: aDecoder)
     }
     
+    func onInit(withConfig config: BannerConfiguration) {
+        backgroundColor = config.color
+        duration = config.duration
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
     
+    /// Add views to the notification
     func addViews() {
         addSubview(spacerView)
         addSubview(contentView)
     }
-    func setUp(withConfig config: BannerConfiguration) {
-        backgroundColor = config.color
-        duration = config.duration
+    
+    func afterAddViews() {
+        setNeedsUpdateConstraints()
     }
    
+    /// Creates a title label and applies styles for notification. Override in sublasses to style based on notification type
+    ///
+    /// - Returns: A styled MarqueeLabel
     func createTitleLabel() -> MarqueeLabel {
         return MarqueeLabel()
     }

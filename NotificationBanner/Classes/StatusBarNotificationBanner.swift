@@ -39,6 +39,14 @@ public class StatusBarNotificationBanner: BaseNotificationBanner {
         self.init(config: style.getConfiguration(withAttributedTitle: attributedTitle))
     }
     
+    override func onInit(withConfig: BannerConfiguration) {
+        super.onInit(withConfig: config)
+        titleLabel.text = config.title
+        if let title = config.attributedTitle {
+            titleLabel.attributedText = title
+        }
+    }
+    
     override func createTitleLabel() -> MarqueeLabel {
         let label = MarqueeLabel()
         label.animationDelay = 2
@@ -47,14 +55,6 @@ public class StatusBarNotificationBanner: BaseNotificationBanner {
         label.textAlignment = .center
         label.textColor = .white
         return label
-    }
-    
-    override func setUp(withConfig: BannerConfiguration) {
-        super.setUp(withConfig: config)
-        titleLabel.text = config.title
-        if let title = config.attributedTitle {
-            titleLabel.attributedText = title
-        }
     }
     
     override func addViews() {
