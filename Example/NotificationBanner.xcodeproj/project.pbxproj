@@ -90,12 +90,12 @@
 		5C0BFCB51E7DFCCD00FE49EB /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				5C3423391EB504BD004B804C /* BannerColors.swift */,
+				5C57E5B31E8840AE00AFD3A7 /* BannerStyle.swift */,
 				5CBD223C1E834F180041DC8F /* BaseNotificationBanner.swift */,
-				5CBD223D1E834F180041DC8F /* StatusBarNotificationBanner.swift */,
 				5C0BFCB61E7DFCD400FE49EB /* NotificationBanner.swift */,
 				5C0BFCBC1E7E2CCF00FE49EB /* NotificationBannerQueue.swift */,
-				5C57E5B31E8840AE00AFD3A7 /* BannerStyle.swift */,
-				5C3423391EB504BD004B804C /* BannerColors.swift */,
+				5CBD223D1E834F180041DC8F /* StatusBarNotificationBanner.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
