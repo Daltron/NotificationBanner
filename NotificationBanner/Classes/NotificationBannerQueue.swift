@@ -37,6 +37,12 @@ class NotificationBannerQueue: NSObject {
 
     private var banners: [BaseNotificationBanner] = []
     
+    /**
+        Adds a banner to the queue
+        -parameter banner: The notification banner to add to the queue
+        -parameter queuePosition: The position to show the notification banner. If the position is .front, the
+        banner will be displayed immediately
+    */
     func addBanner(_ banner: BaseNotificationBanner, queuePosition: QueuePosition) {
         
         if queuePosition == .back {
@@ -58,6 +64,10 @@ class NotificationBannerQueue: NSObject {
         
     }
     
+    /**
+        Shows the next notificaiton banner on the queue if one exists
+        -parameter onEmpty: The closure to execute if the queue is empty
+    */
     func showNext(onEmpty: (() -> Void)) {
     
         banners.remove(at: 0)

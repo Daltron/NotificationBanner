@@ -19,6 +19,7 @@ NotificationBanner is an extremely customizable and lightweight library that mak
 - iPhone & iPad Support ✅
 - Orientation change support ✅
 - Custom `UIView` support ✅
+- Custom colors support ✅
 - Scrolling label support for banners with long titles/subtitles ✅
 - Built in banner queue ✅
 
@@ -70,7 +71,41 @@ public enum BannerStyle {
 }
 ```
 
+You can override the predefined colors that NotificationBanner uses for any style by conforming to the `BannerColorsProtocol`:
+
+```swift
+public protocol BannerColorsProtocol {
+    func color(for style: BannerStyle) -> UIColor
+}
+```
+
+Its as easy as creating a custom banner colors class:
+
+```swift
+class CustomBannerColors: BannerColorsProtocol {
+
+    internal override func color(for style: BannerStyle) -> UIColor {
+        switch style {
+            case .danger:   // Your custom .danger color
+            case .info:     // Your custom .info color
+            case .none:     // Your custom .none color
+            case .success:  // Your custom .success color
+            case .warning:  // Your custom .warning color
+        }
+    }
+       
+}
+```
+
+And then passing in that class to any notification banner you create:
+
+```swift
+let banner = NotificationBanner(title: title, style: .success, colors: CustomBannerColors())
+banner.show()
+```
+
 By default, the `.info` style will be applied to the banner if no style is provided in the init method. You can set the background color of a banner at any time by simply setting the `backgroundColor`.
+
 
 ### Banners with Side Views
 
@@ -109,10 +144,16 @@ banner.show()
 
 ### Handling User Interaction
 
-By default, when a banner is tapped by a user, it will be dismissed. If you want to detect when the user taps a banner, simply:
+By default, when a banner is tapped or swiped up by a user, it will be dismissed. If you want to detect when the user taps or swipes up on a banner, simply:
 
 ```swift
 banner.onTap = {
+	// Do something regarding the banner
+}
+```
+
+```swift
+banner.onSwipeUp = {
 	// Do something regarding the banner
 }
 ```

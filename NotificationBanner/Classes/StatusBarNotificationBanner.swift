@@ -21,8 +21,8 @@ import MarqueeLabel
 
 public class StatusBarNotificationBanner: BaseNotificationBanner {
     
-    override init(style: BannerStyle) {
-        super.init(style: style)
+    override init(style: BannerStyle, colors: BannerColorsProtocol? = nil) {
+        super.init(style: style, colors: colors)
         bannerHeight = 20.0
         
         titleLabel = MarqueeLabel()
@@ -43,13 +43,13 @@ public class StatusBarNotificationBanner: BaseNotificationBanner {
         updateMarqueeLabelsDurations()
     }
     
-    public convenience init(title: String, style: BannerStyle = .info) {
-        self.init(style: style)
+    public convenience init(title: String, style: BannerStyle = .info, colors: BannerColorsProtocol? = nil) {
+        self.init(style: style, colors: colors)
         titleLabel!.text = title
     }
     
-    public convenience init(attributedTitle: NSAttributedString, style: BannerStyle = .info) {
-        self.init(style: style)
+    public convenience init(attributedTitle: NSAttributedString, style: BannerStyle = .info, colors: BannerColorsProtocol? = nil) {
+        self.init(style: style, colors: colors)
         titleLabel!.attributedText = attributedTitle
     }
     

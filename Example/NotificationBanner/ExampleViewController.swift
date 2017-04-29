@@ -41,8 +41,13 @@ extension ExampleViewController : ExampleViewDelegate {
             let banner = NotificationBanner(title: "Basic Success Notification",
                                             subtitle: "Extremely Customizable!",
                                             style: .success)
+
             banner.onTap = {
                 self.showAlert(title: "Basic Success Notification Tapped")
+            }
+            
+            banner.onSwipeUp = {
+                self.showAlert(title: "Basic Success Notification Swiped Up")
             }
             
             banner.show(queuePosition: selectedQueuePosition())
@@ -63,6 +68,13 @@ extension ExampleViewController : ExampleViewDelegate {
             let banner = NotificationBanner(title: "Basic Warning Notification",
                                             subtitle: "Extremely Customizable!",
                                             style: .warning)
+            banner.show(queuePosition: selectedQueuePosition())
+        case 4:
+            // Basic Warning Notification with Custom Color
+            let banner = NotificationBanner(title: "Basic Warning Notification",
+                                            subtitle: "Custom Warning Color",
+                                            style: .warning,
+                                            colors: CustomBannerColors())
             banner.show(queuePosition: selectedQueuePosition())
         default:
             return
@@ -148,7 +160,7 @@ extension ExampleViewController : ExampleViewDelegate {
     func numberOfCells(for section: Int) -> Int {
         switch section {
         case 0:
-            return 4
+            return 5
         case 1:
             return 3
         case 2:
@@ -176,6 +188,11 @@ extension ExampleViewController : ExampleViewDelegate {
     }
     
     func blockColor(at indexPath: IndexPath) -> UIColor {
+        
+        if indexPath == IndexPath(row: numberOfCells(for: indexPath.section) - 1, section: 0) {
+            return CustomBannerColors().color(for: .warning)
+        }
+        
         switch indexPath.row {
         case 0:
             return UIColor(red:0.22, green:0.80, blue:0.46, alpha:1.00)
@@ -201,6 +218,8 @@ extension ExampleViewController : ExampleViewDelegate {
                     return ("Basic Info Notification", nil)
                 case 3:
                     return ("Basic Warning Notification", nil)
+                case 4:
+                    return ("Basic Warning Notification", "Custom Warning Color")
             default:
                 return ("", nil)
             }

@@ -21,41 +21,47 @@ import MarqueeLabel
 
 public class BaseNotificationBanner: UIView {
     
-    // The height of the banner when it is presented
+    /// The height of the banner when it is presented
     public var bannerHeight: CGFloat = 64.0
     
-    // The topmost label of the notification if a custom view is not desired
+    /// The topmost label of the notification if a custom view is not desired
     public internal(set) var titleLabel: MarqueeLabel?
     
-    // The time before the notificaiton is automatically dismissed
+    /// The time before the notificaiton is automatically dismissed
     public var duration: TimeInterval = 5.0 {
         didSet {
             updateMarqueeLabelsDurations()
         }
     }
     
-    // If true, notification will dismissed when tapped
+    /// If true, notification will dismissed when tapped
     public var dismissOnTap: Bool = true
     
-    // Closure that will be executed if the notification banner is tapped
+    /// If true, notification will dismissed when swiped up
+    public var dismissOnSwipeUp: Bool = true
+    
+    /// Closure that will be executed if the notification banner is tapped
     public var onTap: (() -> Void)?
+    
+    /// Closure that will be executed if the notification banner is swiped up
+    public var onSwipeUp: (() -> Void)?
 
-    // The view that the notification layout is presented on. The constraints/frame of this should not be changed
+    /// The view that the notification layout is presented on. The constraints/frame of this should not be changed
     internal var contentView: UIView!
     
-    // The default padding between edges and views
+    /// The default padding between edges and views
     internal var padding: CGFloat = 15.0
     
-    // Used by the banner queue to determine wether a notification banner was placed in front of it in the queue
+    /// Used by the banner queue to determine wether a notification banner was placed in front of it in the queue
     var isSuspended: Bool = false
     
-    // Responsible for positioning and auto managing notification banners
+    /// Responsible for positioning and auto managing notification banners
     private let bannerQueue: NotificationBannerQueue = NotificationBannerQueue.sharedInstance
     
-    // The main window of the application which banner views are placed on
+    /// The main window of the application which banner views are placed on
     private let APP_WINDOW: UIWindow = UIApplication.shared.delegate!.window!!
     
-    // A view that helps the spring animation look nice when the banner appears
+    /// A view that helps the spring animation look nice when the banner appears
     private var spacerView: UIView!
     
     public override var backgroundColor: UIColor? {
@@ -67,7 +73,7 @@ public class BaseNotificationBanner: UIView {
         }
     }
     
-    init(style: BannerStyle) {
+    init(style: BannerStyle, colors: BannerColorsProtocol? = nil) {
         super.init(frame: .zero)
         
         spacerView = UIView()
@@ -90,7 +96,15 @@ public class BaseNotificationBanner: UIView {
             make.bottom.equalToSuperview()
         }
         
-        backgroundColor = color(for: style)
+        if let colors = colors {
+            backgroundColor = colors.color(for: style)
+        } else {
+            backgroundColor = BannerColors().color(for: style)
+        }
+        
+        let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeUpGestureRecognizer))
+        swipeUpGesture.direction = .up
+        addGestureRecognizer(swipeUpGesture)
         
         NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
@@ -103,6 +117,9 @@ public class BaseNotificationBanner: UIView {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
     
+    /**
+        Dismisses the NotificationBanner and shows the next one if there is one to show on the queue
+    */
     public func dismiss() {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(dismiss), object: nil)
         UIView.animate(withDuration: 0.5, animations: {
@@ -115,10 +132,21 @@ public class BaseNotificationBanner: UIView {
         }
     }
     
+    /**
+        Places a NotificationBanner on the queue and shows it if its the first one in the queue
+        - parameter queuePosition: The position to show the notification banner. If the position is .front, the
+        banner will be displayed immediately
+    */
     public func show(queuePosition: QueuePosition = .back) {
         show(placeOnQueue: true, queuePosition: queuePosition)
     }
     
+    /**
+        Places a NotificationBanner on the queue and shows it if its the first one in the queue
+        - parameter placeOnQueue: If false, banner will not be placed on the queue and will be showed/resumed immediately
+        - parameter queuePosition: The position to show the notification banner. If the position is .front, the
+        banner will be displayed immediately
+    */
     func show(placeOnQueue: Bool, queuePosition: QueuePosition = .back) {
         if placeOnQueue {
             bannerQueue.addBanner(self, queuePosition: queuePosition)
@@ -140,20 +168,32 @@ public class BaseNotificationBanner: UIView {
         }
     }
     
+    /**
+        Suspends a notification banner so it will not be dismissed. This happens because a new notification banner was placed in front of it on the queue.
+    */
     func suspend() {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(dismiss), object: nil)
         isSuspended = true
     }
     
+    /**
+        Resumes a notification banner immediately.
+    */
     func resume() {
         self.perform(#selector(dismiss), with: nil, afterDelay: self.duration)
         isSuspended = false
     }
     
+    /**
+        Changes the frame of the notificaiton banner when the orientation of the device changes
+    */
     private dynamic func onOrientationChanged() {
         self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: APP_WINDOW.frame.width, height: self.frame.height)
     }
     
+    /**
+        Called when a notification banner is tapped
+    */
     private dynamic func onTapGestureRecognizer() {
         if dismissOnTap {
             dismiss()
@@ -162,16 +202,20 @@ public class BaseNotificationBanner: UIView {
         onTap?()
     }
     
-    private func color(for type: BannerStyle) -> UIColor {
-        switch type {
-            case .danger:   return UIColor(red:0.90, green:0.31, blue:0.26, alpha:1.00)
-            case .info:     return UIColor(red:0.23, green:0.60, blue:0.85, alpha:1.00)
-            case .none:     return UIColor.clear
-            case .success:  return UIColor(red:0.22, green:0.80, blue:0.46, alpha:1.00)
-            case .warning:  return UIColor(red:1.00, green:0.66, blue:0.16, alpha:1.00)
+    /**
+        Called when a notification banner is swiped up
+    */
+    private dynamic func onSwipeUpGestureRecognizer() {
+        if dismissOnSwipeUp {
+            dismiss()
         }
+        
+        onSwipeUp?()
     }
 
+    /**
+        Updates the scrolling marquee label duration
+    */
     internal func updateMarqueeLabelsDurations() {
         titleLabel?.speed = .duration(CGFloat(duration - 3))
     }

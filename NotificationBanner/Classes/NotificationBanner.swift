@@ -22,17 +22,17 @@ import MarqueeLabel
 
 public class NotificationBanner: BaseNotificationBanner {
     
-    // The bottom most label of the notification if a subtitle is provided
+    /// The bottom most label of the notification if a subtitle is provided
     public private(set) var subtitleLabel: MarqueeLabel?
     
-    // The view that is presented on the left side of the notification
+    /// The view that is presented on the left side of the notification
     private var leftView: UIView?
     
-    // The view that is presented on the right side of the notification
+    /// The view that is presented on the right side of the notification
     private var rightView: UIView?
     
-    public init(title: String, subtitle: String? = nil, leftView: UIView? = nil, rightView: UIView? = nil, style: BannerStyle = .info) {
-        super.init(style: style)
+    public init(title: String, subtitle: String? = nil, leftView: UIView? = nil, rightView: UIView? = nil, style: BannerStyle = .info, colors: BannerColorsProtocol? = nil) {
+        super.init(style: style, colors: colors)
         
         if let leftView = leftView {
             contentView.addSubview(leftView)
