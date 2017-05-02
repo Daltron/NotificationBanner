@@ -18,7 +18,7 @@
 
 import UIKit
 import SnapKit
-import MarqueeLabel
+import MarqueeLabelSwift
 
 public class NotificationBanner: BaseNotificationBanner {
     

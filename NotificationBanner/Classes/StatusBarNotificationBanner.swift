@@ -17,7 +17,7 @@
  */
 
 import UIKit
-import MarqueeLabel
+import MarqueeLabelSwift
 
 public class StatusBarNotificationBanner: BaseNotificationBanner {
     
