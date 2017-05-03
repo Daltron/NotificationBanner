@@ -29,7 +29,7 @@ class ExampleViewController: UIViewController {
         let selectedIndex = exampleView.segmentedControl.selectedSegmentIndex
         return selectedIndex == 0 ? .front : .back
     }
-
+    
 }
 
 extension ExampleViewController : ExampleViewDelegate {
@@ -41,13 +41,12 @@ extension ExampleViewController : ExampleViewDelegate {
             let banner = NotificationBanner(title: "Basic Success Notification",
                                             subtitle: "Extremely Customizable!",
                                             style: .success)
-
             banner.onTap = {
-                self.showAlert(title: "Basic Success Notification Tapped")
+                self.showAlert(title: "Banner Success Notification Tapped", message: "")
             }
             
             banner.onSwipeUp = {
-                self.showAlert(title: "Basic Success Notification Swiped Up")
+                self.showAlert(title: "Basic Success Notification Swiped Up", message: "")
             }
             
             banner.show(queuePosition: selectedQueuePosition())
@@ -56,18 +55,30 @@ extension ExampleViewController : ExampleViewDelegate {
             let banner = NotificationBanner(title: "Basic Danger Notification",
                                             subtitle: "Extremely Customizable!",
                                             style: .danger)
+            banner.onTap = {
+                self.showAlert(title: "Basic Danger Notification Tapped", message: "")
+            }
+            
             banner.show(queuePosition: selectedQueuePosition())
         case 2:
             //Basic Info Notification
             let banner = NotificationBanner(title: "Basic Info Notification",
                                             subtitle: "Extremely Customizable!",
                                             style: .info)
+            banner.onTap = {
+                self.showAlert(title: "Basic Info Notification Tapped", message: "")
+            }
+            
             banner.show(queuePosition: selectedQueuePosition())
         case 3:
             // Basic Warning Notification
             let banner = NotificationBanner(title: "Basic Warning Notification",
                                             subtitle: "Extremely Customizable!",
                                             style: .warning)
+            banner.onTap = {
+                self.showAlert(title: "Banner Warning Notification Tapped", message: "")
+            }
+            
             banner.show(queuePosition: selectedQueuePosition())
         case 4:
             // Basic Warning Notification with Custom Color
@@ -75,6 +86,10 @@ extension ExampleViewController : ExampleViewDelegate {
                                             subtitle: "Custom Warning Color",
                                             style: .warning,
                                             colors: CustomBannerColors())
+            banner.onTap = {
+                self.showAlert(title: "Banner Notification Tapped", message: "")
+            }
+            
             banner.show(queuePosition: selectedQueuePosition())
         default:
             return
@@ -210,16 +225,16 @@ extension ExampleViewController : ExampleViewDelegate {
     func notificationTitles(at indexPath: IndexPath) -> (String, String?) {
         if indexPath.section == 0 {
             switch indexPath.row {
-                case 0:
-                    return ("Basic Success Notification", nil)
-                case 1:
-                    return ("Basic Danger Notification", nil)
-                case 2:
-                    return ("Basic Info Notification", nil)
-                case 3:
-                    return ("Basic Warning Notification", nil)
-                case 4:
-                    return ("Basic Warning Notification", "Custom Warning Color")
+            case 0:
+                return ("Basic Success Notification", nil)
+            case 1:
+                return ("Basic Danger Notification", nil)
+            case 2:
+                return ("Basic Info Notification", nil)
+            case 3:
+                return ("Basic Warning Notification", nil)
+            case 4:
+                return ("Basic Warning Notification", "Custom Warning Color")
             default:
                 return ("", nil)
             }
@@ -275,11 +290,31 @@ extension ExampleViewController : ExampleViewDelegate {
         return nil
     }
     
-    func showAlert(title: String) {
-        let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+    func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(action)
         present(alertController, animated: true, completion: nil)
+    }
+    
+    func showAlertWithCallback(title: String, message: String, buttonText: String = "OK", callback: @escaping () -> Void  ) -> UIAlertController {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel, handler: nil)
+        let okAction = UIAlertAction(title: buttonText, style: .default) { (action) in
+            callback()
+        }
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        return alert
+    }
+    
+    func showAlertWithCallbackOkAction(title: String, message: String, buttonText: String = "OK", callback:  @escaping () -> Void  ) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: buttonText, style: .default) { (action) in
+            callback()
+        }
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
     }
     
 }
