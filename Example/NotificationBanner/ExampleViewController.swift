@@ -42,7 +42,7 @@ extension ExampleViewController : ExampleViewDelegate {
                                             subtitle: "Extremely Customizable!",
                                             style: .success)
             banner.onTap = {
-                self.showAlert(title: "Banner Success Notification Tapped", message: "You tapped on Banner Notification")
+                self.showAlert(title: "Banner Success Notification Tapped", message: "")
             }
             
             banner.onSwipeUp = {
@@ -56,11 +56,7 @@ extension ExampleViewController : ExampleViewDelegate {
                                             subtitle: "Extremely Customizable!",
                                             style: .danger)
             banner.onTap = {
-                let alert = self.showAlertWithCallback(title: "Basic Danger Notification Tapped", message: "You tapped on Banner Notification", callback: {
-                    //Add callback here
-                    self.showAlert(title: "You tapped OK", message: "You tapped on Danger Notification")
-                })
-                self.present(alert, animated: true, completion: nil)
+                self.showAlert(title: "Basic Danger Notification Tapped", message: "")
             }
             
             banner.show(queuePosition: selectedQueuePosition())
@@ -70,11 +66,9 @@ extension ExampleViewController : ExampleViewDelegate {
                                             subtitle: "Extremely Customizable!",
                                             style: .info)
             banner.onTap = {
-                self.showAlertWithCallbackOkAction(title: "Basic Info Notifcation Tapped", message: "You tapped on Banner Notification", callback: {
-                    //Add callback ok action here
-                    self.showAlert(title: "You tapped OK", message: "You tapped on Info Notification")
-                })
+                self.showAlert(title: "Basic Info Notification Tapped", message: "")
             }
+            
             banner.show(queuePosition: selectedQueuePosition())
         case 3:
             // Basic Warning Notification
@@ -84,6 +78,7 @@ extension ExampleViewController : ExampleViewDelegate {
             banner.onTap = {
                 self.showAlert(title: "Banner Warning Notification Tapped", message: "")
             }
+            
             banner.show(queuePosition: selectedQueuePosition())
         case 4:
             // Basic Warning Notification with Custom Color
@@ -92,10 +87,9 @@ extension ExampleViewController : ExampleViewDelegate {
                                             style: .warning,
                                             colors: CustomBannerColors())
             banner.onTap = {
-                let alert = self.showAlertWithCallback(title: "Banner Notification Tapped", message: "", buttonText: "DONE", callback:{
-                })
-                self.present(alert, animated: true, completion: nil)
+                self.showAlert(title: "Banner Notification Tapped", message: "")
             }
+            
             banner.show(queuePosition: selectedQueuePosition())
         default:
             return
