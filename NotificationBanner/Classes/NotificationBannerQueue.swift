@@ -23,19 +23,18 @@ public enum QueuePosition {
     case front
 }
 
-class NotificationBannerQueue: NSObject {
+public class NotificationBannerQueue: NSObject {
     
-    private static var sInstance: NotificationBannerQueue?
-    static var sharedInstance: NotificationBannerQueue {
-        guard let sInstance = sInstance else {
-            self.sInstance = NotificationBannerQueue()
-            return self.sInstance!
-        }
-        
-        return sInstance
-    }
-
+    /// The default instance of the NotificationBannerQueue
+    public static let `default` = NotificationBannerQueue()
+    
+    /// The notification banners currently placed on the queue
     private var banners: [BaseNotificationBanner] = []
+    
+    /// The current number of notification banners on the queue
+    public var numberOfBanners: Int {
+        return banners.count
+    }
     
     /**
         Adds a banner to the queue
