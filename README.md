@@ -168,11 +168,17 @@ banner.show(queuePosition: .front)
 
 Adding a banner to the front of the queue will temporarily suspend the currently displayed banner (if there is one) and will resume it after the banner in front of it dismisses. 
 
+To get the number of banners currently on the queue, simply:
+
+```swift
+let numberOfBanners = NotificationBannerQueue.default.numberOfBanners
+```
+
  <b>This is all automatically managed!</b>
 
 ## Feature Requests
 
-I'd love to know anything that you think NotificationBanner is missing. Open an issue and add the `feature request` label to it and I'll do everything I can to accomodate that request if it is in the library's best interest. 😄 
+I'd love to know anything that you think NotificationBanner is missing. Open an issue and I'll add the `feature request` label to it and I'll do everything I can to accomodate that request if it is in the library's best interest. 😄 
 
 ## Author
 
