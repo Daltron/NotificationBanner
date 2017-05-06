@@ -45,6 +45,9 @@ public class BaseNotificationBanner: UIView {
     
     /// Closure that will be executed if the notification banner is swiped up
     public var onSwipeUp: (() -> Void)?
+    
+    /// Wether or not the notification banner is currently being displayed
+    public private(set) var isDisplaying: Bool = false
 
     /// The view that the notification layout is presented on. The constraints/frame of this should not be changed
     internal var contentView: UIView!
@@ -56,7 +59,7 @@ public class BaseNotificationBanner: UIView {
     var isSuspended: Bool = false
     
     /// Responsible for positioning and auto managing notification banners
-    private let bannerQueue: NotificationBannerQueue = NotificationBannerQueue.sharedInstance
+    private let bannerQueue: NotificationBannerQueue = NotificationBannerQueue.default
     
     /// The main window of the application which banner views are placed on
     private let APP_WINDOW: UIWindow = UIApplication.shared.delegate!.window!!
@@ -126,6 +129,7 @@ public class BaseNotificationBanner: UIView {
             self.frame = CGRect(x: 0, y: -self.frame.height, width: self.frame.width, height: self.frame.height)
         }) { (completed) in
             self.removeFromSuperview()
+            self.isDisplaying = false
             self.bannerQueue.showNext(onEmpty: {
                 self.APP_WINDOW.windowLevel = UIWindowLevelNormal
             })
@@ -157,6 +161,7 @@ public class BaseNotificationBanner: UIView {
             UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveLinear, animations: {
                 self.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
             }) { (completed) in
+                self.isDisplaying = true
                 let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.onTapGestureRecognizer))
                 self.addGestureRecognizer(tapGestureRecognizer)
                 
@@ -174,6 +179,7 @@ public class BaseNotificationBanner: UIView {
     func suspend() {
         NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(dismiss), object: nil)
         isSuspended = true
+        isDisplaying = false
     }
     
     /**
@@ -182,6 +188,7 @@ public class BaseNotificationBanner: UIView {
     func resume() {
         self.perform(#selector(dismiss), with: nil, afterDelay: self.duration)
         isSuspended = false
+        isDisplaying = true
     }
     
     /**
