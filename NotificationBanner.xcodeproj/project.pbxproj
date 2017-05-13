@@ -15,6 +15,8 @@
 		823255B41EB87313006F95C3 /* StatusBarNotificationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823255A41EB87313006F95C3 /* StatusBarNotificationBanner.swift */; };
 		823255B61EB87313006F95C3 /* NotificationBanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 823255A71EB87313006F95C3 /* NotificationBanner.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		823255B91EB8736D006F95C3 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 823255B81EB8736D006F95C3 /* Cartfile */; };
+		EA9A178A1EC75DE000CF2261 /* MarqueeLabelSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9A17891EC75DE000CF2261 /* MarqueeLabelSwift.framework */; };
+		EA9A178C1EC75DE400CF2261 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9A178B1EC75DE400CF2261 /* SnapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		823255A71EB87313006F95C3 /* NotificationBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationBanner.h; sourceTree = "<group>"; };
 		823255B81EB8736D006F95C3 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		823255BB1EB87CB7006F95C3 /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
+		EA9A17891EC75DE000CF2261 /* MarqueeLabelSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MarqueeLabelSwift.framework; path = Carthage/Build/iOS/MarqueeLabelSwift.framework; sourceTree = "<group>"; };
+		EA9A178B1EC75DE400CF2261 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA9A178A1EC75DE000CF2261 /* MarqueeLabelSwift.framework in Frameworks */,
+				EA9A178C1EC75DE400CF2261 /* SnapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -49,6 +55,7 @@
 				823255B71EB8735E006F95C3 /* Root Files */,
 				8232558D1EB872AB006F95C3 /* NotificationBanner */,
 				8232558C1EB872AB006F95C3 /* Products */,
+				EA9A17881EC75DE000CF2261 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,6 +106,15 @@
 				823255BB1EB87CB7006F95C3 /* Cartfile.resolved */,
 			);
 			name = "Root Files";
+			sourceTree = "<group>";
+		};
+		EA9A17881EC75DE000CF2261 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EA9A178B1EC75DE400CF2261 /* SnapKit.framework */,
+				EA9A17891EC75DE000CF2261 /* MarqueeLabelSwift.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
