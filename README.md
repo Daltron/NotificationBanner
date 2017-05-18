@@ -26,7 +26,7 @@ NotificationBanner is an extremely customizable and lightweight library that mak
 ## Requirements
 
  - iOS 9.0+
- - xCode 8.1+
+ - Xcode 8.1+
 
 ## Installation
 
