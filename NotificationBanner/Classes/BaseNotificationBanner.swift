@@ -17,7 +17,11 @@
  */
 
 import UIKit
-import MarqueeLabelSwift
+#if CARTHAGE_CONFIG
+    import MarqueeLabelSwift
+#else
+    import MarqueeLabel
+#endif
 
 public class BaseNotificationBanner: UIView {
     
