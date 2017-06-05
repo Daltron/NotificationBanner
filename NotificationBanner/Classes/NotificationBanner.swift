@@ -18,7 +18,11 @@
 
 import UIKit
 import SnapKit
-import MarqueeLabel
+#if CARTHAGE_CONFIG
+    import MarqueeLabelSwift
+#else
+    import MarqueeLabel
+#endif
 
 public class NotificationBanner: BaseNotificationBanner {
     

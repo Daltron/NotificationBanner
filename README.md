@@ -3,6 +3,7 @@
 [![Version](https://img.shields.io/cocoapods/v/NotificationBannerSwift.svg?style=flat)](http://cocoapods.org/pods/NotificationBannerSwift)
 [![Platform](https://img.shields.io/cocoapods/p/NotificationBannerSwift.svg?style=flat)](http://cocoapods.org/pods/NotificationBannerSwift)
 <a href="https://developer.apple.com/swift"><img src="https://img.shields.io/badge/swift-3.0-4BC51D.svg?style=flat" alt="Language: Swift" /></a>
+![Carthage](https://img.shields.io/badge/Carthage-✓-5f7cae.svg?style=flat)
 [![License](https://img.shields.io/cocoapods/l/NotificationBannerSwift.svg?style=flat)](http://cocoapods.org/pods/NotificationBannerSwift)
 
 ## Written in Swift 3
@@ -30,12 +31,24 @@ NotificationBanner is an extremely customizable and lightweight library that mak
 
 ## Installation
 
+### CocoaPods
+
 NotificationBanner is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
 pod 'NotificationBannerSwift'
 ```
+
+### Carthage
+
+To use NotificationBanner via Carthage simply add this line to your `Cartfile`:
+
+```swift
+github "Daltron/NotificationBanner" ~> 1.1
+```
+
+Then add `NotificationBanner.framework` and the dependencies `SnapKit.framework` and `MarqueeLabelSwift.framework` in your project.
 
 ## Usage
 
@@ -93,7 +106,7 @@ class CustomBannerColors: BannerColorsProtocol {
             case .warning:  // Your custom .warning color
         }
     }
-       
+
 }
 ```
 
@@ -121,7 +134,7 @@ banner.show()
 let rightView = UIImageView(image: #imageLiteral(resourceName: "danger"))
 let banner = NotificationBanner(title: title, subtitle: subtitle, rightView: rightView, style: .danger)
 banner.show()    
-        
+
 // Info Style Notification with Left and Right Views
 let leftView = UIImageView(image: #imageLiteral(resourceName: "info"))
 let rightView = UIImageView(image: #imageLiteral(resourceName: "right_chevron"))
@@ -166,7 +179,7 @@ By default, each notification banner is placed onto a `NotificationBannerQueue`.
 banner.show(queuePosition: .front)
 ```
 
-Adding a banner to the front of the queue will temporarily suspend the currently displayed banner (if there is one) and will resume it after the banner in front of it dismisses. 
+Adding a banner to the front of the queue will temporarily suspend the currently displayed banner (if there is one) and will resume it after the banner in front of it dismisses.
 
 To get the number of banners currently on the queue, simply:
 
