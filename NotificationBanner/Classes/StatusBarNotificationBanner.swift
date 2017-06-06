@@ -17,6 +17,7 @@
  */
 
 import UIKit
+
 #if CARTHAGE_CONFIG
     import MarqueeLabelSwift
 #else

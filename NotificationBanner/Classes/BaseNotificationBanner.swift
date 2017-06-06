@@ -17,6 +17,7 @@
  */
 
 import UIKit
+
 #if CARTHAGE_CONFIG
     import MarqueeLabelSwift
 #else
@@ -141,9 +142,15 @@ public class BaseNotificationBanner: UIView {
         Dismisses the NotificationBanner and shows the next one if there is one to show on the queue
     */
     public func dismiss() {
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(dismiss), object: nil)
+        NSObject.cancelPreviousPerformRequests(withTarget: self,
+                                               selector: #selector(dismiss),
+                                               object: nil)
         UIView.animate(withDuration: 0.5, animations: {
-            self.frame = CGRect(x: 0, y: -self.frame.height, width: self.frame.width, height: self.frame.height)
+            
+            self.frame = CGRect(x: 0,
+                                y: -self.frame.height,
+                                width: self.frame.width,
+                                height: self.frame.height)
         }) { (completed) in
             self.removeFromSuperview()
             self.isDisplaying = false
@@ -172,13 +179,24 @@ public class BaseNotificationBanner: UIView {
         if placeOnQueue {
             bannerQueue.addBanner(self, queuePosition: queuePosition)
         } else {
-            self.frame = CGRect(x: 0, y: -bannerHeight, width: appWindow.frame.width, height: bannerHeight)
+            self.frame = CGRect(x: 0,
+                                y: -bannerHeight,
+                                width: appWindow.frame.width,
+                                height: bannerHeight)
             appWindow.addSubview(self)
             appWindow.windowLevel = UIWindowLevelStatusBar + 1
-            UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveLinear, animations: {
+            
+            UIView.animate(withDuration: 0.5,
+                           delay: 0.0,
+                           usingSpringWithDamping: 0.7,
+                           initialSpringVelocity: 1,
+                           options: .curveLinear,
+                           animations: {
                 BannerHapticGenerator.generate(self.haptic)
                 self.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+                            
             }) { (completed) in
+                
                 self.isDisplaying = true
                 let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.onTapGestureRecognizer))
                 self.addGestureRecognizer(tapGestureRecognizer)
