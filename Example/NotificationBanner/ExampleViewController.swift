@@ -41,6 +41,7 @@ extension ExampleViewController : ExampleViewDelegate {
             let banner = NotificationBanner(title: "Basic Success Notification",
                                             subtitle: "Extremely Customizable!",
                                             style: .success)
+            banner.autoDismiss = false
             banner.onTap = {
                 self.showAlert(title: "Banner Success Notification Tapped", message: "")
             }
@@ -88,6 +89,24 @@ extension ExampleViewController : ExampleViewDelegate {
                                             colors: CustomBannerColors())
             banner.onTap = {
                 self.showAlert(title: "Banner Notification Tapped", message: "")
+            }
+            
+            banner.show(queuePosition: selectedQueuePosition())
+        case 5:
+            // Basic Warning Notification with Custom Color
+            let banner = NotificationBanner(title: "Basic Notification",
+                                            subtitle: "Must Be Dismissed Manually",
+                                            style: .none)
+            banner.backgroundColor = blockColor(at: IndexPath(row: 5, section: 0))
+            banner.autoDismiss = false
+                
+            banner.onTap = {
+                self.showAlert(title: "Banner Notification Tapped", message: "")
+                banner.dismiss()
+            }
+            
+            banner.onSwipeUp = {
+                banner.dismiss()
             }
             
             banner.show(queuePosition: selectedQueuePosition())
@@ -175,7 +194,7 @@ extension ExampleViewController : ExampleViewDelegate {
     func numberOfCells(for section: Int) -> Int {
         switch section {
         case 0:
-            return 5
+            return 6
         case 1:
             return 3
         case 2:
@@ -204,7 +223,7 @@ extension ExampleViewController : ExampleViewDelegate {
     
     func blockColor(at indexPath: IndexPath) -> UIColor {
         
-        if indexPath == IndexPath(row: numberOfCells(for: indexPath.section) - 1, section: 0) {
+        if indexPath == IndexPath(row: numberOfCells(for: indexPath.section) - 2, section: 0) {
             return CustomBannerColors().color(for: .warning)
         }
         
@@ -235,6 +254,8 @@ extension ExampleViewController : ExampleViewDelegate {
                 return ("Basic Warning Notification", nil)
             case 4:
                 return ("Basic Warning Notification", "Custom Warning Color")
+            case 5:
+                return ("Basic Notification", "Must Be Dismissed Manually")
             default:
                 return ("", nil)
             }

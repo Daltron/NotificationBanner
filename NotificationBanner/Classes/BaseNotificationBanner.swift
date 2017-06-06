@@ -38,6 +38,16 @@ public class BaseNotificationBanner: UIView {
         }
     }
     
+    /// If false, the banner will not be dismissed until the developer programatically dissmisses it
+    public var autoDismiss: Bool = true {
+        didSet {
+            if !autoDismiss {
+                dismissOnTap = false
+                dismissOnSwipeUp = false
+            }
+        }
+    }
+    
     /// If true, notification will dismissed when tapped
     public var dismissOnTap: Bool = true
     
@@ -169,8 +179,10 @@ public class BaseNotificationBanner: UIView {
                 let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.onTapGestureRecognizer))
                 self.addGestureRecognizer(tapGestureRecognizer)
                 
-                // We don't want to add the selector if another banner was queued in front of it before it finished animating
-                if !self.isSuspended {
+                /* We don't want to add the selector if another banner was queued in front of it
+                   before it finished animating or if it is meant to be shown infinitely
+                */
+                if !self.isSuspended && self.autoDismiss {
                     self.perform(#selector(self.dismiss), with: nil, afterDelay: self.duration)
                 }
             }
