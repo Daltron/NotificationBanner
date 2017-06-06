@@ -41,7 +41,6 @@ extension ExampleViewController : ExampleViewDelegate {
             let banner = NotificationBanner(title: "Basic Success Notification",
                                             subtitle: "Extremely Customizable!",
                                             style: .success)
-            banner.autoDismiss = false
             banner.onTap = {
                 self.showAlert(title: "Banner Success Notification Tapped", message: "")
             }

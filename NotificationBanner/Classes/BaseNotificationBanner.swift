@@ -48,6 +48,9 @@ public class BaseNotificationBanner: UIView {
         }
     }
     
+    /// The type of haptic to generate when a banner is displayed
+    public var haptic: BannerHaptic = .heavy
+    
     /// If true, notification will dismissed when tapped
     public var dismissOnTap: Bool = true
     
@@ -76,7 +79,7 @@ public class BaseNotificationBanner: UIView {
     private let bannerQueue: NotificationBannerQueue = NotificationBannerQueue.default
     
     /// The main window of the application which banner views are placed on
-    private let APP_WINDOW: UIWindow = UIApplication.shared.delegate!.window!!
+    private let appWindow: UIWindow = UIApplication.shared.delegate!.window!!
     
     /// A view that helps the spring animation look nice when the banner appears
     private var spacerView: UIView!
@@ -145,7 +148,7 @@ public class BaseNotificationBanner: UIView {
             self.removeFromSuperview()
             self.isDisplaying = false
             self.bannerQueue.showNext(onEmpty: {
-                self.APP_WINDOW.windowLevel = UIWindowLevelNormal
+                self.appWindow.windowLevel = UIWindowLevelNormal
             })
         }
     }
@@ -169,10 +172,11 @@ public class BaseNotificationBanner: UIView {
         if placeOnQueue {
             bannerQueue.addBanner(self, queuePosition: queuePosition)
         } else {
-            self.frame = CGRect(x: 0, y: -bannerHeight, width: APP_WINDOW.frame.width, height: bannerHeight)
-            APP_WINDOW.addSubview(self)
-            APP_WINDOW.windowLevel = UIWindowLevelStatusBar + 1
+            self.frame = CGRect(x: 0, y: -bannerHeight, width: appWindow.frame.width, height: bannerHeight)
+            appWindow.addSubview(self)
+            appWindow.windowLevel = UIWindowLevelStatusBar + 1
             UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveLinear, animations: {
+                BannerHapticGenerator.generate(self.haptic)
                 self.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
             }) { (completed) in
                 self.isDisplaying = true
@@ -211,7 +215,7 @@ public class BaseNotificationBanner: UIView {
         Changes the frame of the notificaiton banner when the orientation of the device changes
     */
     private dynamic func onOrientationChanged() {
-        self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: APP_WINDOW.frame.width, height: self.frame.height)
+        self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: appWindow.frame.width, height: self.frame.height)
     }
     
     /**
