@@ -39,7 +39,7 @@ public class BaseNotificationBanner: UIView {
         }
     }
     
-    /// If false, the banner will not be dismissed until the developer programatically dissmisses it
+    /// If false, the banner will not be dismissed until the developer programatically dismisses it
     public var autoDismiss: Bool = true {
         didSet {
             if !autoDismiss {
@@ -85,6 +85,9 @@ public class BaseNotificationBanner: UIView {
     /// A view that helps the spring animation look nice when the banner appears
     private var spacerView: UIView!
     
+    /// The view controller to display the banner on. This is most commonly used if you are wanting to display a banner underneath a navigation bar
+    private weak var parentViewController: UIViewController?
+    
     public override var backgroundColor: UIColor? {
         get {
             return contentView.backgroundColor
@@ -127,7 +130,10 @@ public class BaseNotificationBanner: UIView {
         swipeUpGesture.direction = .up
         addGestureRecognizer(swipeUpGesture)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(onOrientationChanged),
+                                               name: NSNotification.Name.UIDeviceOrientationDidChange,
+                                               object: nil)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -135,7 +141,9 @@ public class BaseNotificationBanner: UIView {
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        NotificationCenter.default.removeObserver(self,
+                                                  name: NSNotification.Name.UIDeviceOrientationDidChange,
+                                                  object: nil)
     }
     
     /**
@@ -165,7 +173,8 @@ public class BaseNotificationBanner: UIView {
         - parameter queuePosition: The position to show the notification banner. If the position is .front, the
         banner will be displayed immediately
     */
-    public func show(queuePosition: QueuePosition = .back) {
+    public func show(queuePosition: QueuePosition = .back, on viewController: UIViewController? = nil) {
+        parentViewController = viewController
         show(placeOnQueue: true, queuePosition: queuePosition)
     }
     
@@ -176,6 +185,7 @@ public class BaseNotificationBanner: UIView {
         banner will be displayed immediately
     */
     func show(placeOnQueue: Bool, queuePosition: QueuePosition = .back) {
+        
         if placeOnQueue {
             bannerQueue.addBanner(self, queuePosition: queuePosition)
         } else {
@@ -183,8 +193,14 @@ public class BaseNotificationBanner: UIView {
                                 y: -bannerHeight,
                                 width: appWindow.frame.width,
                                 height: bannerHeight)
-            appWindow.addSubview(self)
-            appWindow.windowLevel = UIWindowLevelStatusBar + 1
+            
+            if let parentViewController = parentViewController {
+                parentViewController.view.addSubview(self)
+                appWindow.windowLevel = UIWindowLevelNormal
+            } else {
+                appWindow.addSubview(self)
+                appWindow.windowLevel = UIWindowLevelStatusBar + 1
+            }
             
             UIView.animate(withDuration: 0.5,
                            delay: 0.0,
