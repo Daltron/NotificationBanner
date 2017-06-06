@@ -26,9 +26,10 @@ public enum BannerHaptic {
 }
 
 open class BannerHapticGenerator: NSObject {
-    
+
     /**
         Generates a haptic based on the given haptic
+        -parameter haptic: The haptic strength to generate when a banner is shown
      */
     open class func generate(_ haptic: BannerHaptic) {
         

@@ -85,7 +85,7 @@ public class BaseNotificationBanner: UIView {
     /// A view that helps the spring animation look nice when the banner appears
     private var spacerView: UIView!
     
-    /// The view controller to display the banner on. This is most commonly used if you are wanting to display a banner underneath a navigation bar
+    /// The view controller to display the banner on. This is useful if you are wanting to display a banner underneath a navigation bar
     private weak var parentViewController: UIViewController?
     
     public override var backgroundColor: UIColor? {
@@ -162,8 +162,10 @@ public class BaseNotificationBanner: UIView {
         }) { (completed) in
             self.removeFromSuperview()
             self.isDisplaying = false
-            self.bannerQueue.showNext(onEmpty: {
-                self.appWindow.windowLevel = UIWindowLevelNormal
+            self.bannerQueue.showNext(callback: { (isEmpty) in
+                if isEmpty || self.statusBarShouldBeShown() {
+                    self.appWindow.windowLevel = UIWindowLevelNormal
+                }
             })
         }
     }
@@ -196,7 +198,9 @@ public class BaseNotificationBanner: UIView {
             
             if let parentViewController = parentViewController {
                 parentViewController.view.addSubview(self)
-                appWindow.windowLevel = UIWindowLevelNormal
+                if statusBarShouldBeShown() {
+                    appWindow.windowLevel = UIWindowLevelNormal
+                }
             } else {
                 appWindow.addSubview(self)
                 appWindow.windowLevel = UIWindowLevelStatusBar + 1
@@ -240,9 +244,11 @@ public class BaseNotificationBanner: UIView {
         Resumes a notification banner immediately.
     */
     func resume() {
-        self.perform(#selector(dismiss), with: nil, afterDelay: self.duration)
-        isSuspended = false
-        isDisplaying = true
+        if autoDismiss {
+            self.perform(#selector(dismiss), with: nil, afterDelay: self.duration)
+            isSuspended = false
+            isDisplaying = true
+        }
     }
     
     /**
@@ -273,6 +279,22 @@ public class BaseNotificationBanner: UIView {
         
         onSwipeUp?()
     }
+    
+    
+    /**
+        Determines wether or not the status bar should be shown when displaying a banner underneath
+        the navigation bar
+     */
+    private func statusBarShouldBeShown() -> Bool {
+        
+        for banner in bannerQueue.banners {
+            if banner.parentViewController == nil {
+                return false
+            }
+        }
+        
+        return true
+    }
 
     /**
         Updates the scrolling marquee label duration
@@ -280,5 +302,6 @@ public class BaseNotificationBanner: UIView {
     internal func updateMarqueeLabelsDurations() {
         titleLabel?.speed = .duration(CGFloat(duration - 3))
     }
+    
 }
 
