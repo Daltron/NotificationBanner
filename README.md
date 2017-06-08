@@ -184,7 +184,7 @@ banner.onSwipeUp = {
 }
 ```
 
-## Haptic Feedback support
+## Haptic Feedback Support
 By default, when a banner is displayed, a haptic feedback will be generated on devices that support it. The types of haptic feedback are as follows:
 
 ```swift
