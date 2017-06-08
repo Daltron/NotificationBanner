@@ -184,6 +184,24 @@ banner.onSwipeUp = {
 }
 ```
 
+## Haptic Feedback support
+By default, when a banner is displayed, a haptic feedback will be generated on devices that support it. The types of haptic feedback are as follows:
+
+```swift
+public enum BannerHaptic {
+    case light
+    case medium
+    case heavy
+    case none
+}
+```
+
+To change the type of haptic feedback to generate when a banner is shown, simply:
+
+```swift
+banner.haptic = .heavy
+```
+
 ## Banner Queue
 
 By default, each notification banner is placed onto a `NotificationBannerQueue`. This allows an infinite amount of banners to be de displayed without one hiding the other. By default, each notification banner is placed on the back of the queue. If you would rather place the banner in the front and show it immediately no matter how many banners are in the queue, simply state it in the `show()` method:

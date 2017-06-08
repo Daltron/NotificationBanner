@@ -1,4 +1,5 @@
 use_frameworks!
+platform :ios, '9.0'
 
 target 'NotificationBanner_Example' do
   pod 'NotificationBannerSwift', :path => '../'
@@ -7,6 +8,6 @@ target 'NotificationBanner_Example' do
   target 'NotificationBanner_Tests' do
     inherit! :search_paths
 
-    
+
   end
 end
