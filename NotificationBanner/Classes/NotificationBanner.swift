@@ -70,7 +70,7 @@ public class NotificationBanner: BaseNotificationBanner {
         contentView.addSubview(labelsView)
         
         titleLabel = MarqueeLabel()
-        titleLabel!.type = .leftRight
+        titleLabel!.type = .left
         titleLabel!.font = UIFont.systemFont(ofSize: 17.5, weight: UIFontWeightBold)
         titleLabel!.textColor = .white
         titleLabel!.text = title

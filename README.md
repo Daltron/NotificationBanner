@@ -22,6 +22,7 @@ NotificationBanner is an extremely customizable and lightweight library that mak
 - Custom `UIView` support ✅
 - Custom colors support ✅
 - Scrolling label support for banners with long titles/subtitles ✅
+- Haptic feeback support ✅
 - Built in banner queue ✅
 
 ## Requirements
@@ -45,7 +46,7 @@ pod 'NotificationBannerSwift'
 To use NotificationBanner via Carthage simply add this line to your `Cartfile`:
 
 ```swift
-github "Daltron/NotificationBanner" ~> 1.1
+github "Daltron/NotificationBanner" ~> 1.3
 ```
 
 Then add `NotificationBanner.framework` and the dependencies `SnapKit.framework` and `MarqueeLabelSwift.framework` in your project.
@@ -66,10 +67,22 @@ let banner = StatusBarNotificationBanner(title: title, style: .success)
 banner.show()
 ```
 
+By default, each banner will be displayed on the main application window. If you are wanting to show a banner below a navigation bar, simply show on the view controller that is within the navigation system:
+
+```swift
+banner.show(on: viewController)
+```
+
 By default, each banner will automatically dismiss after 5 seconds. To dismiss programatically, simply:
 
 ```swift
 banner.dismiss()
+```
+
+To show a banner infinitely until it is manually dismissed, simply:
+
+```swift
+banner.autoDimiss = false
 ```
 
 NotificationBanner has five prebuilt styles that you can choose from:

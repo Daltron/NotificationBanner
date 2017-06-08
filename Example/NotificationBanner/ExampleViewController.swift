@@ -38,7 +38,7 @@ extension ExampleViewController: ExampleViewDelegate {
         switch index {
         case 0:
             // Basic Success Notification
-            let banner = NotificationBanner(title: "Basic Success",
+            let banner = NotificationBanner(title: "Basic Success Notification",
                                             subtitle: "Extremely Customizable!",
                                             style: .success)
             banner.onTap = {
