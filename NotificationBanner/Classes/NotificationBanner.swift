@@ -35,7 +35,13 @@ public class NotificationBanner: BaseNotificationBanner {
     /// The view that is presented on the right side of the notification
     private var rightView: UIView?
     
-    public init(title: String, subtitle: String? = nil, leftView: UIView? = nil, rightView: UIView? = nil, style: BannerStyle = .info, colors: BannerColorsProtocol? = nil) {
+    public init(title: String,
+                subtitle: String? = nil,
+                leftView: UIView? = nil,
+                rightView: UIView? = nil,
+                style: BannerStyle = .info,
+                colors: BannerColorsProtocol? = nil) {
+        
         super.init(style: style, colors: colors)
         
         if let leftView = leftView {
@@ -64,7 +70,7 @@ public class NotificationBanner: BaseNotificationBanner {
         contentView.addSubview(labelsView)
         
         titleLabel = MarqueeLabel()
-        titleLabel!.type = .leftRight
+        titleLabel!.type = .left
         titleLabel!.font = UIFont.systemFont(ofSize: 17.5, weight: UIFontWeightBold)
         titleLabel!.textColor = .white
         titleLabel!.text = title
@@ -123,7 +129,12 @@ public class NotificationBanner: BaseNotificationBanner {
         
     }
     
-    public convenience init(attributedTitle: NSAttributedString, attributedSubtitle: NSAttributedString? = nil, leftView: UIView? = nil, rightView: UIView? = nil, style: BannerStyle = .info) {
+    public convenience init(attributedTitle: NSAttributedString,
+                            attributedSubtitle: NSAttributedString? = nil,
+                            leftView: UIView? = nil,
+                            rightView: UIView? = nil,
+                            style: BannerStyle = .info) {
+        
         let subtitle = (attributedSubtitle != nil) ? "" : nil
         self.init(title: "", subtitle: subtitle, leftView: leftView, rightView: rightView, style: style)
         titleLabel!.attributedText = attributedTitle

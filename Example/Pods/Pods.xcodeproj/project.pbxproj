@@ -24,6 +24,7 @@
 		588D42188A1FDF702507723DF9C0AF7E /* SnapKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF81A7D5443343AEDCC69A7A51579B5 /* SnapKit-dummy.m */; };
 		597A3FBF83A3A89C2376D2E118E33F8A /* ConstraintViewDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F40E90583672716E11C96B4D59EAB7 /* ConstraintViewDSL.swift */; };
 		5C3423381EB504AF004B804C /* BannerColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3423371EB504AF004B804C /* BannerColors.swift */; };
+		5CC4DC831EE73F7900D182DF /* BannerHapticGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC4DC821EE73F7900D182DF /* BannerHapticGenerator.swift */; };
 		61F2F140AA1DF31A543990397761712F /* ConstraintPriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F54D88DB3964BED0DABDC0FF0C71762 /* ConstraintPriority.swift */; };
 		6AF43AE1475A3F1BEAA5C279A1645B4F /* LayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538DBFE871FFAB374546E78B0DF67BFD /* LayoutConstraint.swift */; };
 		6F72246828E3BCF8DCAE9B1646F2634B /* SnapKit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 224190590829A41116ED2355F2094F2C /* SnapKit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -140,6 +141,7 @@
 		5C3423371EB504AF004B804C /* BannerColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerColors.swift; sourceTree = "<group>"; };
 		5C8957A49AE5FF6D266E416D520BE810 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5CAE1D0C7EEB74D361A27243E5FBF975 /* ConstraintPriorityTarget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintPriorityTarget.swift; path = Source/ConstraintPriorityTarget.swift; sourceTree = "<group>"; };
+		5CC4DC821EE73F7900D182DF /* BannerHapticGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerHapticGenerator.swift; sourceTree = "<group>"; };
 		5E2C3ABFA7FE645F26B6A2385D5478A9 /* ConstraintMakerEditable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMakerEditable.swift; path = Source/ConstraintMakerEditable.swift; sourceTree = "<group>"; };
 		6589BB7BC5821AE7D7BE0867D7C5CA78 /* ConstraintMakerFinalizable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMakerFinalizable.swift; path = Source/ConstraintMakerFinalizable.swift; sourceTree = "<group>"; };
 		6A99ACCFBD0F29AB77457291B8DD9556 /* Pods_NotificationBanner_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationBanner_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -467,6 +469,7 @@
 				A5F410F5E2F1C98225A495E2F0068908 /* NotificationBanner.swift */,
 				1F2D16EDB093FA594AE1E01777A8BEEB /* NotificationBannerQueue.swift */,
 				8691B24F316D0E3BC59FB9BD1C011A4A /* StatusBarNotificationBanner.swift */,
+				5CC4DC821EE73F7900D182DF /* BannerHapticGenerator.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -692,6 +695,7 @@
 				5C3423381EB504AF004B804C /* BannerColors.swift in Sources */,
 				015DD95CA1840A265FFD5597AE0AC686 /* BaseNotificationBanner.swift in Sources */,
 				F3E964576C60ABF524E796A808D3C8D7 /* NotificationBanner-dummy.m in Sources */,
+				5CC4DC831EE73F7900D182DF /* BannerHapticGenerator.swift in Sources */,
 				8AFAEE787CB6DF0D4A65C088FED27E1A /* NotificationBanner.swift in Sources */,
 				CE253122C1779628D2D9EABAB7835F22 /* NotificationBannerQueue.swift in Sources */,
 				2B26E8B9BCE5CFD1D45701B7B862A461 /* StatusBarNotificationBanner.swift in Sources */,

@@ -32,9 +32,9 @@ class ExampleViewController: UIViewController {
     
 }
 
-extension ExampleViewController : ExampleViewDelegate {
+extension ExampleViewController: ExampleViewDelegate {
     
-    func basicNotificationCellSelected(at index: Int) {
+    internal func basicNotificationCellSelected(at index: Int) {
         switch index {
         case 0:
             // Basic Success Notification
@@ -82,12 +82,30 @@ extension ExampleViewController : ExampleViewDelegate {
             banner.show(queuePosition: selectedQueuePosition())
         case 4:
             // Basic Warning Notification with Custom Color
-            let banner = NotificationBanner(title: "Basic Warning Notification",
-                                            subtitle: "Custom Warning Color",
+            let banner = NotificationBanner(title: "Custom Warning Notification",
+                                            subtitle: "Displayed Under the Navigation Bar",
                                             style: .warning,
                                             colors: CustomBannerColors())
             banner.onTap = {
                 self.showAlert(title: "Banner Notification Tapped", message: "")
+            }
+            
+            banner.show(queuePosition: selectedQueuePosition(), on: self)
+        case 5:
+            // Basic Warning Notification with Custom Color
+            let banner = NotificationBanner(title: "Basic Notification",
+                                            subtitle: "Must Be Dismissed Manually",
+                                            style: .none)
+            banner.backgroundColor = blockColor(at: IndexPath(row: 5, section: 0))
+            banner.autoDismiss = false
+                
+            banner.onTap = {
+                self.showAlert(title: "Banner Notification Tapped", message: "")
+                banner.dismiss()
+            }
+            
+            banner.onSwipeUp = {
+                banner.dismiss()
             }
             
             banner.show(queuePosition: selectedQueuePosition())
@@ -96,7 +114,7 @@ extension ExampleViewController : ExampleViewDelegate {
         }
     }
     
-    func basicNotificationCellWithSideViewsSelected(at index: Int) {
+    internal func basicNotificationCellWithSideViewsSelected(at index: Int) {
         switch index {
         case 0:
             // Success Notification with Left View
@@ -119,7 +137,7 @@ extension ExampleViewController : ExampleViewDelegate {
         }
     }
     
-    func basicCustomNotificationCellSelected(at index: Int) {
+    internal func basicCustomNotificationCellSelected(at index: Int) {
         switch index {
         case 0:
             // Tarheels Completely Custom Notification
@@ -130,7 +148,7 @@ extension ExampleViewController : ExampleViewDelegate {
         }
     }
     
-    func basicStatusBarNotificationCellSelected(at index: Int) {
+    internal func basicStatusBarNotificationCellSelected(at index: Int) {
         switch index {
         case 0:
             // Status Bar Success Notification
@@ -172,10 +190,10 @@ extension ExampleViewController : ExampleViewDelegate {
         }
     }
     
-    func numberOfCells(for section: Int) -> Int {
+    internal func numberOfCells(for section: Int) -> Int {
         switch section {
         case 0:
-            return 5
+            return 6
         case 1:
             return 3
         case 2:
@@ -187,7 +205,7 @@ extension ExampleViewController : ExampleViewDelegate {
         }
     }
     
-    func notificationBannerTitle(for section: Int) -> String {
+    internal func notificationBannerTitle(for section: Int) -> String {
         switch section {
         case 0:
             return "Basic Notification Banners"
@@ -202,9 +220,9 @@ extension ExampleViewController : ExampleViewDelegate {
         }
     }
     
-    func blockColor(at indexPath: IndexPath) -> UIColor {
+    internal func blockColor(at indexPath: IndexPath) -> UIColor {
         
-        if indexPath == IndexPath(row: numberOfCells(for: indexPath.section) - 1, section: 0) {
+        if indexPath == IndexPath(row: numberOfCells(for: indexPath.section) - 2, section: 0) {
             return CustomBannerColors().color(for: .warning)
         }
         
@@ -222,7 +240,7 @@ extension ExampleViewController : ExampleViewDelegate {
         }
     }
     
-    func notificationTitles(at indexPath: IndexPath) -> (String, String?) {
+   internal func notificationTitles(at indexPath: IndexPath) -> (String, String?) {
         if indexPath.section == 0 {
             switch indexPath.row {
             case 0:
@@ -234,7 +252,9 @@ extension ExampleViewController : ExampleViewDelegate {
             case 3:
                 return ("Basic Warning Notification", nil)
             case 4:
-                return ("Basic Warning Notification", "Custom Warning Color")
+                return ("Custom Warning Notification", "Displayed Under the Navigation Bar")
+            case 5:
+                return ("Basic Notification", "Must Be Dismissed Manually")
             default:
                 return ("", nil)
             }
@@ -277,7 +297,7 @@ extension ExampleViewController : ExampleViewDelegate {
         return ("", nil)
     }
     
-    func notificationImage(at indexPath: IndexPath) -> UIImage? {
+    internal func notificationImage(at indexPath: IndexPath) -> UIImage? {
         if indexPath.section == 2 {
             switch indexPath.row {
             case 0:
@@ -290,14 +310,18 @@ extension ExampleViewController : ExampleViewDelegate {
         return nil
     }
     
-    func showAlert(title: String, message: String) {
+    internal func showAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(action)
         present(alertController, animated: true, completion: nil)
     }
     
-    func showAlertWithCallback(title: String, message: String, buttonText: String = "OK", callback: @escaping () -> Void  ) -> UIAlertController {
+    internal func showAlertWithCallback(title: String,
+                                        message: String,
+                                        buttonText: String = "OK",
+                                        callback: @escaping () -> Void  ) -> UIAlertController {
+        
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel, handler: nil)
         let okAction = UIAlertAction(title: buttonText, style: .default) { (action) in
@@ -308,7 +332,7 @@ extension ExampleViewController : ExampleViewDelegate {
         return alert
     }
     
-    func showAlertWithCallbackOkAction(title: String, message: String, buttonText: String = "OK", callback:  @escaping () -> Void  ) {
+    internal func showAlertWithCallbackOkAction(title: String, message: String, buttonText: String = "OK", callback:  @escaping () -> Void  ) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: buttonText, style: .default) { (action) in
             callback()

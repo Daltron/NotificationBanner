@@ -17,6 +17,7 @@
  */
 
 import UIKit
+
 #if CARTHAGE_CONFIG
     import MarqueeLabelSwift
 #else
@@ -37,6 +38,19 @@ public class BaseNotificationBanner: UIView {
             updateMarqueeLabelsDurations()
         }
     }
+    
+    /// If false, the banner will not be dismissed until the developer programatically dismisses it
+    public var autoDismiss: Bool = true {
+        didSet {
+            if !autoDismiss {
+                dismissOnTap = false
+                dismissOnSwipeUp = false
+            }
+        }
+    }
+    
+    /// The type of haptic to generate when a banner is displayed
+    public var haptic: BannerHaptic = .heavy
     
     /// If true, notification will dismissed when tapped
     public var dismissOnTap: Bool = true
@@ -66,10 +80,13 @@ public class BaseNotificationBanner: UIView {
     private let bannerQueue: NotificationBannerQueue = NotificationBannerQueue.default
     
     /// The main window of the application which banner views are placed on
-    private let APP_WINDOW: UIWindow = UIApplication.shared.delegate!.window!!
+    private let appWindow: UIWindow = UIApplication.shared.delegate!.window!!
     
     /// A view that helps the spring animation look nice when the banner appears
     private var spacerView: UIView!
+    
+    /// The view controller to display the banner on. This is useful if you are wanting to display a banner underneath a navigation bar
+    private weak var parentViewController: UIViewController?
     
     public override var backgroundColor: UIColor? {
         get {
@@ -113,7 +130,10 @@ public class BaseNotificationBanner: UIView {
         swipeUpGesture.direction = .up
         addGestureRecognizer(swipeUpGesture)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(onOrientationChanged), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(onOrientationChanged),
+                                               name: NSNotification.Name.UIDeviceOrientationDidChange,
+                                               object: nil)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -121,21 +141,31 @@ public class BaseNotificationBanner: UIView {
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        NotificationCenter.default.removeObserver(self,
+                                                  name: NSNotification.Name.UIDeviceOrientationDidChange,
+                                                  object: nil)
     }
     
     /**
         Dismisses the NotificationBanner and shows the next one if there is one to show on the queue
     */
     public func dismiss() {
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(dismiss), object: nil)
+        NSObject.cancelPreviousPerformRequests(withTarget: self,
+                                               selector: #selector(dismiss),
+                                               object: nil)
         UIView.animate(withDuration: 0.5, animations: {
-            self.frame = CGRect(x: 0, y: -self.frame.height, width: self.frame.width, height: self.frame.height)
+            
+            self.frame = CGRect(x: 0,
+                                y: -self.frame.height,
+                                width: self.frame.width,
+                                height: self.frame.height)
         }) { (completed) in
             self.removeFromSuperview()
             self.isDisplaying = false
-            self.bannerQueue.showNext(onEmpty: {
-                self.APP_WINDOW.windowLevel = UIWindowLevelNormal
+            self.bannerQueue.showNext(callback: { (isEmpty) in
+                if isEmpty || self.statusBarShouldBeShown() {
+                    self.appWindow.windowLevel = UIWindowLevelNormal
+                }
             })
         }
     }
@@ -145,7 +175,8 @@ public class BaseNotificationBanner: UIView {
         - parameter queuePosition: The position to show the notification banner. If the position is .front, the
         banner will be displayed immediately
     */
-    public func show(queuePosition: QueuePosition = .back) {
+    public func show(queuePosition: QueuePosition = .back, on viewController: UIViewController? = nil) {
+        parentViewController = viewController
         show(placeOnQueue: true, queuePosition: queuePosition)
     }
     
@@ -156,21 +187,44 @@ public class BaseNotificationBanner: UIView {
         banner will be displayed immediately
     */
     func show(placeOnQueue: Bool, queuePosition: QueuePosition = .back) {
+        
         if placeOnQueue {
             bannerQueue.addBanner(self, queuePosition: queuePosition)
         } else {
-            self.frame = CGRect(x: 0, y: -bannerHeight, width: APP_WINDOW.frame.width, height: bannerHeight)
-            APP_WINDOW.addSubview(self)
-            APP_WINDOW.windowLevel = UIWindowLevelStatusBar + 1
-            UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveLinear, animations: {
+            self.frame = CGRect(x: 0,
+                                y: -bannerHeight,
+                                width: appWindow.frame.width,
+                                height: bannerHeight)
+            
+            if let parentViewController = parentViewController {
+                parentViewController.view.addSubview(self)
+                if statusBarShouldBeShown() {
+                    appWindow.windowLevel = UIWindowLevelNormal
+                }
+            } else {
+                appWindow.addSubview(self)
+                appWindow.windowLevel = UIWindowLevelStatusBar + 1
+            }
+            
+            UIView.animate(withDuration: 0.5,
+                           delay: 0.0,
+                           usingSpringWithDamping: 0.7,
+                           initialSpringVelocity: 1,
+                           options: .curveLinear,
+                           animations: {
+                BannerHapticGenerator.generate(self.haptic)
                 self.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+                            
             }) { (completed) in
+                
                 self.isDisplaying = true
                 let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.onTapGestureRecognizer))
                 self.addGestureRecognizer(tapGestureRecognizer)
                 
-                // We don't want to add the selector if another banner was queued in front of it before it finished animating
-                if !self.isSuspended {
+                /* We don't want to add the selector if another banner was queued in front of it
+                   before it finished animating or if it is meant to be shown infinitely
+                */
+                if !self.isSuspended && self.autoDismiss {
                     self.perform(#selector(self.dismiss), with: nil, afterDelay: self.duration)
                 }
             }
@@ -190,16 +244,18 @@ public class BaseNotificationBanner: UIView {
         Resumes a notification banner immediately.
     */
     func resume() {
-        self.perform(#selector(dismiss), with: nil, afterDelay: self.duration)
-        isSuspended = false
-        isDisplaying = true
+        if autoDismiss {
+            self.perform(#selector(dismiss), with: nil, afterDelay: self.duration)
+            isSuspended = false
+            isDisplaying = true
+        }
     }
     
     /**
         Changes the frame of the notificaiton banner when the orientation of the device changes
     */
     private dynamic func onOrientationChanged() {
-        self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: APP_WINDOW.frame.width, height: self.frame.height)
+        self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: appWindow.frame.width, height: self.frame.height)
     }
     
     /**
@@ -223,6 +279,22 @@ public class BaseNotificationBanner: UIView {
         
         onSwipeUp?()
     }
+    
+    
+    /**
+        Determines wether or not the status bar should be shown when displaying a banner underneath
+        the navigation bar
+     */
+    private func statusBarShouldBeShown() -> Bool {
+        
+        for banner in bannerQueue.banners {
+            if banner.parentViewController == nil {
+                return false
+            }
+        }
+        
+        return true
+    }
 
     /**
         Updates the scrolling marquee label duration
@@ -230,5 +302,6 @@ public class BaseNotificationBanner: UIView {
     internal func updateMarqueeLabelsDurations() {
         titleLabel?.speed = .duration(CGFloat(duration - 3))
     }
+    
 }
 

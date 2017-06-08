@@ -18,6 +18,7 @@
 		5CBD22411E8353B30041DC8F /* ExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBD22401E8353B30041DC8F /* ExampleView.swift */; };
 		5CBD22431E83556E0041DC8F /* BasicNotificationBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBD22421E83556E0041DC8F /* BasicNotificationBannerCell.swift */; };
 		5CBD22471E836DE50041DC8F /* NorthCarolinaBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBD22461E836DE50041DC8F /* NorthCarolinaBannerView.swift */; };
+		5CC4DC871EE741E900D182DF /* BannerHapticGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC4DC861EE741E900D182DF /* BannerHapticGenerator.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ExampleViewController.swift */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
@@ -49,6 +50,7 @@
 		5CBD22401E8353B30041DC8F /* ExampleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleView.swift; sourceTree = "<group>"; };
 		5CBD22421E83556E0041DC8F /* BasicNotificationBannerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicNotificationBannerCell.swift; sourceTree = "<group>"; };
 		5CBD22461E836DE50041DC8F /* NorthCarolinaBannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NorthCarolinaBannerView.swift; sourceTree = "<group>"; };
+		5CC4DC861EE741E900D182DF /* BannerHapticGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BannerHapticGenerator.swift; path = ../../NotificationBanner/Classes/BannerHapticGenerator.swift; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* NotificationBanner_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotificationBanner_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 		5C0BFCB51E7DFCCD00FE49EB /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				5CC4DC861EE741E900D182DF /* BannerHapticGenerator.swift */,
 				5C3423391EB504BD004B804C /* BannerColors.swift */,
 				5C57E5B31E8840AE00AFD3A7 /* BannerStyle.swift */,
 				5CBD223C1E834F180041DC8F /* BaseNotificationBanner.swift */,
@@ -404,6 +407,7 @@
 				5C0BFCB71E7DFCD400FE49EB /* NotificationBanner.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ExampleViewController.swift in Sources */,
 				5C0BFCBD1E7E2CCF00FE49EB /* NotificationBannerQueue.swift in Sources */,
+				5CC4DC871EE741E900D182DF /* BannerHapticGenerator.swift in Sources */,
 				5C34233C1EB50580004B804C /* CustomBannerColors.swift in Sources */,
 				5CBD22431E83556E0041DC8F /* BasicNotificationBannerCell.swift in Sources */,
 				5CBD223E1E834F180041DC8F /* BaseNotificationBanner.swift in Sources */,
