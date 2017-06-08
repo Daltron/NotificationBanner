@@ -15,14 +15,12 @@ open class MarqueeLabel: UILabel, CAAnimationDelegate {
     /**
      An enum that defines the types of `MarqueeLabel` scrolling
      
-     - Left: Scrolls left and does not scroll back to the original position
      - LeftRight: Scrolls left first, then back right to the original position.
      - RightLeft: Scrolls right first, then back left to the original position.
      - Continuous: Continuously scrolls left (with a pause at the original position if animationDelay is set).
      - ContinuousReverse: Continuously scrolls right (with a pause at the original position if animationDelay is set).
      */
     public enum MarqueeType {
-        case left
         case leftRight
         case rightLeft
         case continuous
@@ -513,9 +511,7 @@ open class MarqueeLabel: UILabel, CAAnimationDelegate {
     override open func layoutSubviews() {
         super.layoutSubviews()
         
-        if !awayFromHome {
-            updateAndScroll(true)
-        }
+        updateAndScroll(true)
     }
 
     override open func willMove(toWindow newWindow: UIWindow?) {
@@ -616,8 +612,8 @@ open class MarqueeLabel: UILabel, CAAnimationDelegate {
             // Enforce text alignment for this type
             sublabel.textAlignment = NSTextAlignment.right
             
-        case .left, .leftRight:
-            homeLabelFrame = CGRect(x: leadingBuffer, y: 0.0, width: expectedLabelSize.width, height: expectedLabelSize.height).integral
+        case .leftRight:
+            homeLabelFrame = CGRect(x: leadingBuffer, y: 0.0, width: expectedLabelSize.width, height: bounds.size.height).integral
             awayOffset = bounds.size.width - (expectedLabelSize.width + leadingBuffer + trailingBuffer)
             
             // Set frame and text
@@ -691,7 +687,7 @@ open class MarqueeLabel: UILabel, CAAnimationDelegate {
         }
         
         // Check if the label string fits
-        let labelTooLarge = (sublabelSize().width + leadingBuffer) > self.bounds.size.width + CGFloat(FLT_EPSILON)
+        let labelTooLarge = (sublabelSize().width + leadingBuffer) > self.bounds.size.width + CGFloat.ulpOfOne
         let animationHasDuration = speed.value > 0.0
         return (!labelize && labelTooLarge && animationHasDuration)
     }
@@ -724,7 +720,7 @@ open class MarqueeLabel: UILabel, CAAnimationDelegate {
     
     private func beginScroll(_ delay: Bool) {
         switch self.type {
-        case .left, .leftRight, .rightLeft:
+        case .leftRight, .rightLeft:
             scrollAway(animationDuration, delay: animationDelay)
         default:
             scrollContinuous(animationDuration, delay: animationDelay)
@@ -845,16 +841,13 @@ open class MarqueeLabel: UILabel, CAAnimationDelegate {
         let awayOrigin = offsetCGPoint(homeLabelFrame.origin, offset: awayOffset)
         let scroller = Scroller(generator: { [unowned self] (interval: CGFloat, delay: CGFloat) -> [(layer: CALayer, anim: CAKeyframeAnimation)] in
             // Create animation for position
-            var values: [NSValue] = [
+            let values: [NSValue] = [
                 NSValue(cgPoint: homeOrigin), // Start at home
                 NSValue(cgPoint: homeOrigin), // Stay at home for delay
                 NSValue(cgPoint: awayOrigin), // Move to away
-                NSValue(cgPoint: awayOrigin)  // Stay at away for delay
+                NSValue(cgPoint: awayOrigin), // Stay at away for delay
+                NSValue(cgPoint: homeOrigin)  // Move back to home
             ]
-            
-            if self.type != .left {
-                values.append(NSValue(cgPoint: homeOrigin)) // Move back to home
-            }
             
             let layer = self.sublabel.layer
             let anim = self.keyFrameAnimationForProperty("position", values: values, interval: interval, delay: delay)
@@ -994,7 +987,7 @@ open class MarqueeLabel: UILabel, CAAnimationDelegate {
         
         // Define keyTimes
         switch (type) {
-        case .left, .leftRight, .rightLeft:
+        case .leftRight, .rightLeft:
             // Calculate total animation duration
             let totalDuration = 2.0 * (delay + interval)
             keyTimes =
@@ -1075,7 +1068,7 @@ open class MarqueeLabel: UILabel, CAAnimationDelegate {
             ]
             break
             
-        case .left, .leftRight:
+        case .leftRight:
             values = [
                 currentValues ?? [opaque, opaque, opaque, transp],           // 1)
                 [opaque, opaque, opaque, transp],           // 2)
@@ -1106,10 +1099,10 @@ open class MarqueeLabel: UILabel, CAAnimationDelegate {
         
         // Calculate times based on marquee type
         let totalDuration: CGFloat
-        var keyTimes: [CGFloat]
+        let keyTimes: [CGFloat]
         
         switch (type) {
-        case .left, .leftRight, .rightLeft:
+        case .leftRight, .rightLeft:
             //NSAssert(values.count == 5, @"Incorrect number of values passed for MLLeftRight-type animation")
             totalDuration = 2.0 * (delay + interval)
             // Set up keyTimes
@@ -1172,7 +1165,7 @@ open class MarqueeLabel: UILabel, CAAnimationDelegate {
     
     private func transactionDurationType(_ labelType: MarqueeType, interval: CGFloat, delay: CGFloat) -> TimeInterval {
         switch (labelType) {
-        case .left, .leftRight, .rightLeft:
+        case .leftRight, .rightLeft:
             return TimeInterval(2.0 * (delay + interval))
         default:
             return TimeInterval(delay + interval)

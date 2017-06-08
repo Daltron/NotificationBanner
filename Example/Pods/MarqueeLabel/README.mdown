@@ -51,11 +51,12 @@ There are several options for the Marquee type, and the default is `Continuous` 
 
 There are also several optional features to help with your integration of the scrolling nature of MarqueeLabel:
 - An optional edge fade at the left and right edges of the view, in order to fade the label text into the background rather than simply being clipped off
-- Leading and trailing buffers to offset the label text inside it's frame, giving you better control over alignment
+- Leading and trailing buffers to offset the label text inside its frame, giving you better control over alignment
 - "Labelization" to make your MarqueeLabel _exactly_ like a UILabel.
 - Scroll animation "holding" and pausing
 
 See the included demo project for several use case examples!
+
 
 ### Code
 These lines of code create a MarqueeLabel that will scroll across its content in 8.0 seconds, and adds 10.0 point long fade at the left and right boundaries.
@@ -76,7 +77,7 @@ Replace:
 
 With:
 
-	var lengthyLabel = MarqueeLabel.initWithFrame(frame:aFrame duration:8.0 andFadeLength:10.0)
+	var lengthyLabel = MarqueeLabel.init(frame: aFrame, duration: 8.0, fadeLength: 10.0)
 
 ### Storyboards
 If you're using Storyboards/Interface Builder you can create a MarqueeLabel instance by adding a normal UILabel view to your Storyboard, and then manually changing the view's class to `MarqueeLabel` in the "Custom Class" field of the Identity Inspector tab on the Utilities panel (the right-side panel).
@@ -90,7 +91,25 @@ Check out the [MarqueeLabel documentation](http://cocoadocs.org/docsets/MarqueeL
 - Bulk-manipulation class methods to conveniently restart, pause, and unpause all labels in a view controller
 - Scrolling direction: left->right, right->left, and continuous looping (both left and right)
 
-### Special Notes<a id="specialnotes"></a>
+## Extras
+
+Also check out [the Extras folder](/Extras), a collection of subclasses, extensions, and modifications for MarqueeLabel to implement various functionality that has been requested or suggested, but not merged into the MarqueeLabel code. 
+
+
+## Special Notes<a id="specialnotes"></a>
+
+#### IBDesignables
+
+MarqueeLabel includes support for IBInspectable and IBDesignable, to allow configuration of the label inside Interface Builder/Storyboards. However, if you see these warnings when building:
+
+    IB Designables: Failed to update auto layout status: Failed to load designables from path (null)
+    IB Designables: Failed to render instance of MarqueeLabel: Failed to load designables from path (null)
+
+...then you are likely using MarqueeLabel as a static library, which does not support IBInspectable/IBDesignable. Some workarounds include:
+
+- Install MarqueeLabel as a dynamic framework using CocoaPods with use_frameworks! in your Podfile
+- Install MarqueeLabel with Carthage
+- Install MarqueeLabel by manually importing the source files into your project (may be only option if you're targeting iOS 7.0)
 
 #### Automatic Scrolling
 

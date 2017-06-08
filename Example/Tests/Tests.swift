@@ -1,6 +1,6 @@
 import UIKit
 import XCTest
-import NotificationBanner
+import NotificationBannerSwift
 
 class Tests: XCTestCase {
     

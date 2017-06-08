@@ -1,25 +1,25 @@
 PODS:
-  - MarqueeLabel/Swift (3.0.1)
-  - NotificationBanner (0.1.0):
+  - MarqueeLabel/Swift (3.0.5)
+  - NotificationBannerSwift (1.3.0):
     - MarqueeLabel/Swift
-    - SnapKit (~> 3.2.0)
+    - SnapKit (~> 3.2)
   - Reveal-iOS-SDK (1.6.2)
   - SnapKit (3.2.0)
 
 DEPENDENCIES:
-  - NotificationBanner (from `../`)
+  - NotificationBannerSwift (from `../`)
   - Reveal-iOS-SDK
 
 EXTERNAL SOURCES:
-  NotificationBanner:
-    :path: ../
+  NotificationBannerSwift:
+    :path: "../"
 
 SPEC CHECKSUMS:
-  MarqueeLabel: 80ba85d2b76a9f5fa6c13de337db80bcd94feb1d
-  NotificationBanner: f73e7242305672a46b34507f46fbb0304dcbac27
+  MarqueeLabel: 8a25b2cf02cf52165022f01369e63536c58fcc00
+  NotificationBannerSwift: 62cd98e3a81d836d0f49a2dc30116365b7d5dfd8
   Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33
   SnapKit: 1ca44df72cfa543218d177cb8aab029d10d86ea7
 
-PODFILE CHECKSUM: 42a02e3629db0371077a0003999674846a23a88c
+PODFILE CHECKSUM: fe2569bdbe99a8f402f4cc8b4c1b663034adc1c3
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.2.1

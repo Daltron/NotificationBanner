@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import NotificationBanner
+import NotificationBannerSwift
 
 class ExampleViewController: UIViewController {
     
