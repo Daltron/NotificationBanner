@@ -134,10 +134,11 @@ public class NotificationBanner: BaseNotificationBanner {
                             attributedSubtitle: NSAttributedString? = nil,
                             leftView: UIView? = nil,
                             rightView: UIView? = nil,
-                            style: BannerStyle = .info) {
+                            style: BannerStyle = .info,
+                            colors: BannerColorsProtocol? = nil) {
         
         let subtitle = (attributedSubtitle != nil) ? "" : nil
-        self.init(title: "", subtitle: subtitle, leftView: leftView, rightView: rightView, style: style)
+        self.init(title: "", subtitle: subtitle, leftView: leftView, rightView: rightView, style: style, colors: colors)
         titleLabel!.attributedText = attributedTitle
         subtitleLabel?.attributedText = attributedSubtitle
     }
