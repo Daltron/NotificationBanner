@@ -68,8 +68,10 @@ public class NotificationBannerQueue: NSObject {
         -parameter callback: The closure to execute after a banner is shown or when the queue is empty
     */
     func showNext(callback: ((_ isEmpty: Bool) -> Void)) {
-    
-        banners.remove(at: 0)
+
+        if !banners.isEmpty {
+          banners.removeFirst()
+        }
         guard let banner = banners.first else {
             callback(true)
             return

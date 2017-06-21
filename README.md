@@ -41,12 +41,14 @@ it, simply add the following line to your Podfile:
 pod 'NotificationBannerSwift'
 ```
 
+Then add `import NotificationBannerSwift` at the top of each file you use NotificationBanner in your project.
+
 ### Carthage
 
 To use NotificationBanner via Carthage simply add this line to your `Cartfile`:
 
 ```swift
-github "Daltron/NotificationBanner" ~> 1.3
+github "Daltron/NotificationBanner" ~> 1.3.1
 ```
 
 Then add `NotificationBanner.framework` and the dependencies `SnapKit.framework` and `MarqueeLabelSwift.framework` in your project.

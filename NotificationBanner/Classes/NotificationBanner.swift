@@ -71,7 +71,7 @@ public class NotificationBanner: BaseNotificationBanner {
         contentView.addSubview(labelsView)
         
         titleLabel = MarqueeLabel()
-        titleLabel!.type = .leftRight
+        titleLabel!.type = .left
         titleLabel!.font = UIFont.systemFont(ofSize: 17.5, weight: UIFontWeightBold)
         titleLabel!.textColor = .white
         titleLabel!.text = title
@@ -90,7 +90,7 @@ public class NotificationBanner: BaseNotificationBanner {
         
         if let subtitle = subtitle {
             subtitleLabel = MarqueeLabel()
-            subtitleLabel!.type = .leftRight
+            subtitleLabel!.type = .left
             subtitleLabel!.font = UIFont.systemFont(ofSize: 15.0)
             subtitleLabel!.numberOfLines = 1
             subtitleLabel!.textColor = .white
@@ -134,10 +134,11 @@ public class NotificationBanner: BaseNotificationBanner {
                             attributedSubtitle: NSAttributedString? = nil,
                             leftView: UIView? = nil,
                             rightView: UIView? = nil,
-                            style: BannerStyle = .info) {
+                            style: BannerStyle = .info,
+                            colors: BannerColorsProtocol? = nil) {
         
         let subtitle = (attributedSubtitle != nil) ? "" : nil
-        self.init(title: "", subtitle: subtitle, leftView: leftView, rightView: rightView, style: style)
+        self.init(title: "", subtitle: subtitle, leftView: leftView, rightView: rightView, style: style, colors: colors)
         titleLabel!.attributedText = attributedTitle
         subtitleLabel?.attributedText = attributedSubtitle
     }
