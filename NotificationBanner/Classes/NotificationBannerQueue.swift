@@ -72,6 +72,7 @@ public class NotificationBannerQueue: NSObject {
         if !banners.isEmpty {
           banners.removeFirst()
         }
+        
         guard let banner = banners.first else {
             callback(true)
             return
