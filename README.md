@@ -1,9 +1,9 @@
 ![Notification Banner](NotificationBanner/Assets/header.png)
 
 [![Version](https://img.shields.io/cocoapods/v/NotificationBannerSwift.svg?style=flat)](http://cocoapods.org/pods/NotificationBannerSwift)
+<a href="https://github.com/Carthage/Carthage/"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat"></a>
 [![Platform](https://img.shields.io/cocoapods/p/NotificationBannerSwift.svg?style=flat)](http://cocoapods.org/pods/NotificationBannerSwift)
 <a href="https://developer.apple.com/swift"><img src="https://img.shields.io/badge/swift-3.0-4BC51D.svg?style=flat" alt="Language: Swift" /></a>
-![Carthage](https://img.shields.io/badge/Carthage-✓-5f7cae.svg?style=flat)
 [![License](https://img.shields.io/cocoapods/l/NotificationBannerSwift.svg?style=flat)](http://cocoapods.org/pods/NotificationBannerSwift)
 
 ## Written in Swift 3
@@ -22,6 +22,7 @@ NotificationBanner is an extremely customizable and lightweight library that mak
 - Custom `UIView` support ✅
 - Custom colors support ✅
 - Scrolling label support for banners with long titles/subtitles ✅
+- Presenting from top or bottom support ✅
 - Haptic feeback support ✅
 - Built in banner queue ✅
 
@@ -48,7 +49,7 @@ Then add `import NotificationBannerSwift` at the top of each file you use Notifi
 To use NotificationBanner via Carthage simply add this line to your `Cartfile`:
 
 ```swift
-github "Daltron/NotificationBanner" ~> 1.3.1
+github "Daltron/NotificationBanner" ~> 1.5
 ```
 
 Then add `NotificationBanner.framework` and the dependencies `SnapKit.framework` and `MarqueeLabelSwift.framework` in your project.
@@ -74,6 +75,14 @@ By default, each banner will be displayed on the main application window. If you
 ```swift
 banner.show(on: viewController)
 ```
+
+By default, each banner will present from the top. If you are wanting to display from the bottom, simply:
+
+```swift
+banner.show(bannerPosition: .bottom)
+```
+
+Each of the show properties defined above can be mixed and matched to work flawlessly with eachother.
 
 By default, each banner will automatically dismiss after 5 seconds. To dismiss programatically, simply:
 
@@ -184,6 +193,22 @@ banner.onTap = {
 banner.onSwipeUp = {
 	// Do something regarding the banner
 }
+```
+
+### Banner Events
+
+You can choose to opt into a notification banner's events by registering as its delegate:
+
+```swift
+banner.delegate = self
+```
+Then just make sure to implement the following methods:
+
+```swift
+internal func notificationBannerWillAppear(_ banner: BaseNotificationBanner)
+internal func notificationBannerDidAppear(_ banner: BaseNotificationBanner)
+internal func notificationBannerWillDisappear(_ banner: BaseNotificationBanner)
+internal func notificationBannerDidDisappear(_ banner: BaseNotificationBanner)
 ```
 
 ## Haptic Feedback Support

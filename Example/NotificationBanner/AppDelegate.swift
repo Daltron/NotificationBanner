@@ -16,10 +16,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         let navigationController = UINavigationController(rootViewController: ExampleViewController())
+        let tabBarController = UITabBarController()
+        tabBarController.viewControllers = [navigationController]
+        
+        let tab = tabBarController.tabBar.items![0]
+        tab.image = #imageLiteral(resourceName: "tab_bar_icon").withRenderingMode(.alwaysOriginal)
+        tab.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
+        tab.title = nil
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = .white
-        window?.rootViewController = navigationController
+        window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
         
         return true

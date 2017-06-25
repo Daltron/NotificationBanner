@@ -16,6 +16,7 @@
 		5C025F7B1EE9E09E00ADB444 /* NotificationBannerQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C025F741EE9E09E00ADB444 /* NotificationBannerQueue.swift */; };
 		5C025F7C1EE9E09E00ADB444 /* StatusBarNotificationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C025F751EE9E09E00ADB444 /* StatusBarNotificationBanner.swift */; };
 		5C34233C1EB50580004B804C /* CustomBannerColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C34233B1EB50580004B804C /* CustomBannerColors.swift */; };
+		5C8542E41EFDCA3A00AFBC90 /* BannerPositionFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8542E31EFDCA3A00AFBC90 /* BannerPositionFrame.swift */; };
 		5CBD22411E8353B30041DC8F /* ExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBD22401E8353B30041DC8F /* ExampleView.swift */; };
 		5CBD22431E83556E0041DC8F /* BasicNotificationBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBD22421E83556E0041DC8F /* BasicNotificationBannerCell.swift */; };
 		5CBD22471E836DE50041DC8F /* NorthCarolinaBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBD22461E836DE50041DC8F /* NorthCarolinaBannerView.swift */; };
@@ -48,6 +49,7 @@
 		5C025F741EE9E09E00ADB444 /* NotificationBannerQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationBannerQueue.swift; path = ../../NotificationBanner/Classes/NotificationBannerQueue.swift; sourceTree = "<group>"; };
 		5C025F751EE9E09E00ADB444 /* StatusBarNotificationBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StatusBarNotificationBanner.swift; path = ../../NotificationBanner/Classes/StatusBarNotificationBanner.swift; sourceTree = "<group>"; };
 		5C34233B1EB50580004B804C /* CustomBannerColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomBannerColors.swift; sourceTree = "<group>"; };
+		5C8542E31EFDCA3A00AFBC90 /* BannerPositionFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BannerPositionFrame.swift; path = ../../NotificationBanner/Classes/BannerPositionFrame.swift; sourceTree = "<group>"; };
 		5CBD22401E8353B30041DC8F /* ExampleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleView.swift; sourceTree = "<group>"; };
 		5CBD22421E83556E0041DC8F /* BasicNotificationBannerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicNotificationBannerCell.swift; sourceTree = "<group>"; };
 		5CBD22461E836DE50041DC8F /* NorthCarolinaBannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NorthCarolinaBannerView.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 			children = (
 				5C025F6F1EE9E09E00ADB444 /* BannerColors.swift */,
 				5C025F701EE9E09E00ADB444 /* BannerHapticGenerator.swift */,
+				5C8542E31EFDCA3A00AFBC90 /* BannerPositionFrame.swift */,
 				5C025F711EE9E09E00ADB444 /* BannerStyle.swift */,
 				5C025F721EE9E09E00ADB444 /* BaseNotificationBanner.swift */,
 				5C025F731EE9E09E00ADB444 /* NotificationBanner.swift */,
@@ -413,6 +416,7 @@
 				5C025F771EE9E09E00ADB444 /* BannerHapticGenerator.swift in Sources */,
 				5CBD22431E83556E0041DC8F /* BasicNotificationBannerCell.swift in Sources */,
 				5CBD22411E8353B30041DC8F /* ExampleView.swift in Sources */,
+				5C8542E41EFDCA3A00AFBC90 /* BannerPositionFrame.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

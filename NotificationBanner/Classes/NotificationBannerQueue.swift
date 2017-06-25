@@ -48,11 +48,11 @@ public class NotificationBannerQueue: NSObject {
             banners.append(banner)
             
             if banners.index(of: banner) == 0 {
-                banner.show(placeOnQueue: false)
+                banner.show(placeOnQueue: false, bannerPosition: banner.bannerPosition)
             }
             
         } else {
-            banner.show(placeOnQueue: false)
+            banner.show(placeOnQueue: false, bannerPosition: banner.bannerPosition)
             
             if let firstBanner = banners.first {
                 firstBanner.suspend()
