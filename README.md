@@ -251,6 +251,12 @@ let numberOfBanners = NotificationBannerQueue.default.numberOfBanners
 
 I'd love to know anything that you think NotificationBanner is missing. Open an issue and I'll add the `feature request` label to it and I'll do everything I can to accomodate that request if it is in the library's best interest. 😄 
 
+## Apps that Use NotificationBanner
+[![Q - Talk About Music](AppIcons/q_talk_about_music.jpg)](https://itunes.apple.com/us/app/q-talk-about-music/id1071551321?mt=8) 
+[![VH Dispatch](AppIcons/vh_dispatch.png)](https://itunes.apple.com/us/app/vh-dispatch/id1249569084?mt=8)
+ 
+#### Feel free to add yours!
+
 ## Author
 
 Dalton Hinterscher, daltonhint4@gmail.com
