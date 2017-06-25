@@ -25,11 +25,36 @@ class ExampleViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func selectedQueuePosition() -> QueuePosition {
-        let selectedIndex = exampleView.segmentedControl.selectedSegmentIndex
+    internal func selectedQueuePosition() -> QueuePosition {
+        let selectedIndex = exampleView.queuePositionSegmentedControl.selectedSegmentIndex
         return selectedIndex == 0 ? .front : .back
     }
     
+    internal func selectedBannerPosition() -> BannerPosition {
+        let selectedIndex = exampleView.bannerPositionSegmentedControl.selectedSegmentIndex
+        return selectedIndex == 0 ? .top : .bottom
+    }
+
+    var date: Date!
+}
+
+extension ExampleViewController: NotificationBannerDelegate {
+    
+    internal func notificationBannerWillAppear(_ banner: BaseNotificationBanner) {
+        print("[NotificationBannerDelegate] Banner will appear")
+    }
+    
+    internal func notificationBannerDidAppear(_ banner: BaseNotificationBanner) {
+        print("[NotificationBannerDelegate] Banner did appear")
+    }
+    
+    internal func notificationBannerWillDisappear(_ banner: BaseNotificationBanner) {
+        print("[NotificationBannerDelegate] Banner will disappear")
+    }
+    
+    internal func notificationBannerDidDisappear(_ banner: BaseNotificationBanner) {
+        print("[NotificationBannerDelegate] Banner did disappear")
+    }
 }
 
 extension ExampleViewController: ExampleViewDelegate {
@@ -41,6 +66,8 @@ extension ExampleViewController: ExampleViewDelegate {
             let banner = NotificationBanner(title: "Basic Success Notification",
                                             subtitle: "Extremely Customizable!",
                                             style: .success)
+            banner.delegate = self
+            
             banner.onTap = {
                 self.showAlert(title: "Banner Success Notification Tapped", message: "")
             }
@@ -49,53 +76,62 @@ extension ExampleViewController: ExampleViewDelegate {
                 self.showAlert(title: "Basic Success Notification Swiped Up", message: "")
             }
             
-            banner.show(queuePosition: selectedQueuePosition())
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
         case 1:
             // Basic Danger Notification
             let banner = NotificationBanner(title: "Basic Danger Notification",
                                             subtitle: "Extremely Customizable!",
                                             style: .danger)
+            banner.delegate = self
+            
             banner.onTap = {
                 self.showAlert(title: "Basic Danger Notification Tapped", message: "")
             }
             
-            banner.show(queuePosition: selectedQueuePosition())
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
         case 2:
             //Basic Info Notification
             let banner = NotificationBanner(title: "Basic Info Notification",
                                             subtitle: "Extremely Customizable!",
                                             style: .info)
+            banner.delegate = self
+            
             banner.onTap = {
                 self.showAlert(title: "Basic Info Notification Tapped", message: "")
             }
             
-            banner.show(queuePosition: selectedQueuePosition())
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
         case 3:
             // Basic Warning Notification
             let banner = NotificationBanner(title: "Basic Warning Notification",
                                             subtitle: "Extremely Customizable!",
                                             style: .warning)
+            banner.delegate = self
+            
             banner.onTap = {
                 self.showAlert(title: "Banner Warning Notification Tapped", message: "")
             }
             
-            banner.show(queuePosition: selectedQueuePosition())
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
         case 4:
             // Basic Warning Notification with Custom Color
             let banner = NotificationBanner(title: "Custom Warning Notification",
-                                            subtitle: "Displayed Under the Navigation Bar",
+                                            subtitle: "Displayed Under/Over the Navigation/Tab Bar",
                                             style: .warning,
                                             colors: CustomBannerColors())
+            banner.delegate = self
+            
             banner.onTap = {
                 self.showAlert(title: "Banner Notification Tapped", message: "")
             }
             
-            banner.show(queuePosition: selectedQueuePosition(), on: self)
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition(), on: self)
         case 5:
             // Basic Warning Notification with Custom Color
             let banner = NotificationBanner(title: "Basic Notification",
                                             subtitle: "Must Be Dismissed Manually",
                                             style: .none)
+            banner.delegate = self
             banner.backgroundColor = blockColor(at: IndexPath(row: 5, section: 0))
             banner.autoDismiss = false
                 
@@ -108,7 +144,7 @@ extension ExampleViewController: ExampleViewDelegate {
                 banner.dismiss()
             }
             
-            banner.show(queuePosition: selectedQueuePosition())
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
         default:
             return
         }
@@ -120,18 +156,21 @@ extension ExampleViewController: ExampleViewDelegate {
             // Success Notification with Left View
             let leftView = UIImageView(image: #imageLiteral(resourceName: "success"))
             let banner = NotificationBanner(title: "Success Notification", subtitle: "This notification has a left view!", leftView: leftView, style: .success)
-            banner.show(queuePosition: selectedQueuePosition())
+            banner.delegate = self
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
         case 1:
             // Danger Notification with Right View
             let rightView = UIImageView(image: #imageLiteral(resourceName: "danger"))
             let banner = NotificationBanner(title: "Danger Notification", subtitle: "This notification has a right view!", rightView: rightView, style: .danger)
-            banner.show(queuePosition: selectedQueuePosition())
+            banner.delegate = self
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
         case 2:
             // Info Notification with Left and Right Views
             let leftView = UIImageView(image: #imageLiteral(resourceName: "info"))
             let rightView = UIImageView(image: #imageLiteral(resourceName: "right_chevron"))
             let banner = NotificationBanner(title: "Info Notification", subtitle: "This notification has two side views!", leftView: leftView, rightView: rightView, style: .info)
-            banner.show(queuePosition: selectedQueuePosition())
+            banner.delegate = self
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
         default:
             return
         }
@@ -142,7 +181,8 @@ extension ExampleViewController: ExampleViewDelegate {
         case 0:
             // Tarheels Completely Custom Notification
             let banner = NotificationBanner(customView: NorthCarolinaBannerView())
-            banner.show(queuePosition: selectedQueuePosition())
+            banner.delegate = self
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
         default:
             return
         }
@@ -153,20 +193,34 @@ extension ExampleViewController: ExampleViewDelegate {
         case 0:
             // Status Bar Success Notification
             let banner = StatusBarNotificationBanner(title: "Success Status Bar Notification", style: .success)
-            banner.show(queuePosition: selectedQueuePosition())
+            banner.delegate = self
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: .bottom)
         case 1:
             // Status Bar Danger Notification
             let banner = StatusBarNotificationBanner(title: "Danger Status Bar Notification", style: .danger)
-            banner.show(queuePosition: selectedQueuePosition())
+            banner.delegate = self
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
         case 2:
             // Status Bar Info Notification
             let banner = StatusBarNotificationBanner(title: "Info Status Bar Notification", style: .info)
-            banner.show(queuePosition: selectedQueuePosition())
+            banner.delegate = self
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
         case 3:
             // Status Bar Warning Notification
             let banner = StatusBarNotificationBanner(title: "Warning Status Bar Notification", style: .warning)
-            banner.show(queuePosition: selectedQueuePosition())
+            banner.delegate = self
+            banner.show(queuePosition: selectedQueuePosition(),
+                        bannerPosition: selectedBannerPosition())
         case 4:
+            // Status Bar Custom Warning Notification
+            let banner = StatusBarNotificationBanner(title: "Warning Status Bar Notification Warning Status Bar Notification Displayed Under/Over the Navigation/Tab Bar",
+                                                     style: .warning,
+                                                     colors: CustomBannerColors())
+            banner.delegate = self
+            banner.show(queuePosition: selectedQueuePosition(),
+                        bannerPosition: selectedBannerPosition(),
+                        on: self)
+        case 5:
             // Status Bar Attributed Title Notification
             let title = "Custom Status Bar Notification"
             let attributedTitle = NSMutableAttributedString(string: title)
@@ -183,8 +237,9 @@ extension ExampleViewController: ExampleViewDelegate {
                                          value: UIColor.orange,
                                          range: (title as NSString).range(of: "Notification"))
             let banner = StatusBarNotificationBanner(attributedTitle: attributedTitle)
-            banner.backgroundColor = UIColor(red:0.54, green:0.40, blue:0.54, alpha:1.00)
-            banner.show(queuePosition: selectedQueuePosition())
+            banner.backgroundColor = UIColor(red: 0.54, green: 0.40, blue: 0.54, alpha: 1.00)
+            banner.delegate = self
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
         default:
             return
         }
@@ -199,7 +254,7 @@ extension ExampleViewController: ExampleViewDelegate {
         case 2:
             return 1
         case 3:
-            return 5
+            return 6
         default:
             return 0
         }
@@ -222,21 +277,22 @@ extension ExampleViewController: ExampleViewDelegate {
     
     internal func blockColor(at indexPath: IndexPath) -> UIColor {
         
-        if indexPath == IndexPath(row: numberOfCells(for: indexPath.section) - 2, section: 0) {
+        if indexPath == IndexPath(row: numberOfCells(for: indexPath.section) - 2, section: 0)
+            || indexPath == IndexPath(row: numberOfCells(for: indexPath.section) - 2, section: 3){
             return CustomBannerColors().color(for: .warning)
         }
         
         switch indexPath.row {
         case 0:
-            return UIColor(red:0.22, green:0.80, blue:0.46, alpha:1.00)
+            return UIColor(red: 0.22, green: 0.80, blue: 0.46, alpha: 1.00)
         case 1:
-            return UIColor(red:0.90, green:0.31, blue:0.26, alpha:1.00)
+            return UIColor(red: 0.90, green: 0.31, blue: 0.26, alpha: 1.00)
         case 2:
-            return UIColor(red:0.23, green:0.60, blue:0.85, alpha:1.00)
+            return UIColor(red: 0.23, green: 0.60, blue: 0.85, alpha: 1.00)
         case 3:
-            return UIColor(red:1.00, green:0.66, blue:0.16, alpha:1.00)
+            return UIColor(red: 1.00, green: 0.66, blue: 0.16, alpha: 1.00)
         default:
-            return UIColor(red:0.54, green:0.40, blue:0.54, alpha:1.00)
+            return UIColor(red: 0.54, green: 0.40, blue: 0.54, alpha: 1.00)
         }
     }
     
@@ -252,7 +308,7 @@ extension ExampleViewController: ExampleViewDelegate {
             case 3:
                 return ("Basic Warning Notification", nil)
             case 4:
-                return ("Custom Warning Notification", "Displayed Under the Navigation Bar")
+                return ("Custom Warning Notification", "Displayed Under/Over the Navigation/Tab Bar")
             case 5:
                 return ("Basic Notification", "Must Be Dismissed Manually")
             default:
@@ -288,6 +344,8 @@ extension ExampleViewController: ExampleViewDelegate {
             case 3:
                 return ("Warning Notification", nil)
             case 4:
+                return ("Custom Warning Notification", "Displayed Under/Over the Navigation/Tab Bar")
+            case 5:
                 return ("Custom Notification", nil)
             default:
                 return ("", nil)

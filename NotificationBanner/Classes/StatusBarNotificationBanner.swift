@@ -48,12 +48,16 @@ public class StatusBarNotificationBanner: BaseNotificationBanner {
         updateMarqueeLabelsDurations()
     }
     
-    public convenience init(title: String, style: BannerStyle = .info, colors: BannerColorsProtocol? = nil) {
+    public convenience init(title: String,
+                            style: BannerStyle = .info,
+                            colors: BannerColorsProtocol? = nil) {
         self.init(style: style, colors: colors)
         titleLabel!.text = title
     }
     
-    public convenience init(attributedTitle: NSAttributedString, style: BannerStyle = .info, colors: BannerColorsProtocol? = nil) {
+    public convenience init(attributedTitle: NSAttributedString,
+                            style: BannerStyle = .info,
+                            colors: BannerColorsProtocol? = nil) {
         self.init(style: style, colors: colors)
         titleLabel!.attributedText = attributedTitle
     }

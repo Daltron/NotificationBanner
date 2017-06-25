@@ -23,20 +23,36 @@ protocol ExampleViewDelegate : class {
 class ExampleView: UIView {
     
     weak var delegate: ExampleViewDelegate?
-    var segmentedControl: UISegmentedControl!
+    var queuePositionSegmentedControl: UISegmentedControl!
+    var bannerPositionSegmentedControl: UISegmentedControl!
 
     init(delegate: ExampleViewDelegate) {
         super.init(frame: .zero)
         self.delegate = delegate
         
-        let segmentLabel = UILabel()
-        segmentLabel.font = UIFont.systemFont(ofSize: 12.5)
-        segmentLabel.text = "Queue Position:"
-        addSubview(segmentLabel)
+        let queuePositionContentView = UIView()
+        addSubview(queuePositionContentView)
         
-        segmentedControl = UISegmentedControl(items: ["Front", "Back"])
-        segmentedControl.selectedSegmentIndex = 1
-        addSubview(segmentedControl)
+        let queuePositionSegmentLabel = UILabel()
+        queuePositionSegmentLabel.font = UIFont.systemFont(ofSize: 12.5)
+        queuePositionSegmentLabel.text = "Queue Position:"
+        queuePositionContentView.addSubview(queuePositionSegmentLabel)
+        
+        queuePositionSegmentedControl = UISegmentedControl(items: ["Front", "Back"])
+        queuePositionSegmentedControl.selectedSegmentIndex = 1
+        queuePositionContentView.addSubview(queuePositionSegmentedControl)
+        
+        let bannerPositionContentView = UIView()
+        addSubview(bannerPositionContentView)
+        
+        let bannerPositionSegmentLabel = UILabel()
+        bannerPositionSegmentLabel.font = UIFont.systemFont(ofSize: 12.5)
+        bannerPositionSegmentLabel.text = "Banner Position:"
+        bannerPositionContentView.addSubview(bannerPositionSegmentLabel)
+        
+        bannerPositionSegmentedControl = UISegmentedControl(items: ["Top", "Bottom"])
+        bannerPositionSegmentedControl.selectedSegmentIndex = 0
+        bannerPositionContentView.addSubview(bannerPositionSegmentedControl)
         
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.rowHeight = 75.0
@@ -44,20 +60,46 @@ class ExampleView: UIView {
         tableView.delegate = self
         addSubview(tableView)
         
-        segmentLabel.snp.makeConstraints { (make) in
+        queuePositionContentView.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(5)
+            make.left.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.5)
+            make.bottom.equalTo(queuePositionSegmentedControl)
+        }
+        
+        queuePositionSegmentLabel.snp.makeConstraints { (make) in
+            make.top.equalToSuperview()
             make.centerX.equalToSuperview()
         }
         
-        segmentedControl.snp.makeConstraints { (make) in
-            make.top.equalTo(segmentLabel.snp.bottom).offset(3.5)
+        queuePositionSegmentedControl.snp.makeConstraints { (make) in
+            make.top.equalTo(queuePositionSegmentLabel.snp.bottom).offset(3.5)
             make.width.equalTo(150)
             make.height.equalTo(25)
             make.centerX.equalToSuperview()
         }
         
+        bannerPositionContentView.snp.makeConstraints { (make) in
+            make.top.equalTo(queuePositionContentView)
+            make.left.equalTo(self.snp.centerX)
+            make.width.equalTo(queuePositionContentView)
+            make.height.equalTo(queuePositionContentView)
+        }
+        
+        bannerPositionSegmentLabel.snp.makeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.centerX.equalToSuperview()
+        }
+        
+        bannerPositionSegmentedControl.snp.makeConstraints { (make) in
+            make.top.equalTo(queuePositionSegmentedControl)
+            make.width.equalTo(queuePositionSegmentedControl)
+            make.height.equalTo(queuePositionSegmentedControl)
+            make.centerX.equalToSuperview()
+        }
+        
         tableView.snp.makeConstraints { (make) in
-            make.top.equalTo(segmentedControl.snp.bottom).offset(10)
+            make.top.equalTo(queuePositionContentView.snp.bottom).offset(10)
             make.left.equalToSuperview()
             make.right.equalToSuperview()
             make.bottom.equalToSuperview()
