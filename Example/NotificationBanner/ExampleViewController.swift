@@ -15,7 +15,7 @@ class ExampleViewController: UIViewController {
     
     init() {
         super.init(nibName: nil, bundle: nil)
-        edgesForExtendedLayout = UIRectEdge()
+        //edgesForExtendedLayout = UIRectEdge()
         exampleView = ExampleView(delegate: self)
         view = exampleView
         title = "Notification Banner"

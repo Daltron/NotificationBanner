@@ -196,15 +196,19 @@ public class BaseNotificationBanner: UIView {
                                 width: appWindow.frame.width,
                                 height: bannerHeight)
             
+            var displayY = CGFloat(0)
+            
             if let parentViewController = parentViewController {
                 parentViewController.view.addSubview(self)
                 if statusBarShouldBeShown() {
                     appWindow.windowLevel = UIWindowLevelNormal
                 }
+                displayY = (parentViewController.topLayoutGuide.length)
             } else {
                 appWindow.addSubview(self)
                 appWindow.windowLevel = UIWindowLevelStatusBar + 1
             }
+            
             
             UIView.animate(withDuration: 0.5,
                            delay: 0.0,
@@ -213,7 +217,7 @@ public class BaseNotificationBanner: UIView {
                            options: .curveLinear,
                            animations: {
                 BannerHapticGenerator.generate(self.haptic)
-                self.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+                self.frame = CGRect(x: 0, y: displayY, width: self.frame.width, height: self.frame.height)
                             
             }) { (completed) in
                 
