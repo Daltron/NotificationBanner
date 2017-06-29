@@ -190,9 +190,9 @@ public class BaseNotificationBanner: UIView {
         UIView.animate(withDuration: 0.5, animations: {
             self.frame = self.bannerPositionFrame.startFrame
         }) { (completed) in
-            self.delegate?.notificationBannerDidDisappear(self)
             self.removeFromSuperview()
             self.isDisplaying = false
+            self.delegate?.notificationBannerDidDisappear(self)
             self.bannerQueue.showNext(callback: { (isEmpty) in
                 if isEmpty || self.statusBarShouldBeShown() {
                     self.appWindow.windowLevel = UIWindowLevelNormal
