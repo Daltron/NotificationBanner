@@ -98,11 +98,22 @@ public class BaseNotificationBanner: UIView {
     /// The view controller to display the banner on. This is useful if you are wanting to display a banner underneath a navigation bar
     private weak var parentViewController: UIViewController?
     
-    /// The position the notification banner should slide in from
-    private(set) var bannerPosition: BannerPosition!
+    /// The position the notification banner should slide in from (default is .top)
+    /// - note: This is a read only property - either use the `show()` method, or create/assign the `bannerPositionFrame`
+    public var bannerPosition: BannerPosition! {
+        // Note - bannerPosition is now fully held inside bannerPositionFrame, so we just delgate to that.
+        return self.bannerPositionFrame?.bannerPosition ?? .top
+    }
     
     /// Object that stores the start and end frames for the notification banner based on the provided banner position
-    private var bannerPositionFrame: BannerPositionFrame!
+    /// - note: Constraints for internal views will be created on `didSet`
+    var bannerPositionFrame: BannerPositionFrame? {
+        didSet {
+            if let bannerPositionFrame = bannerPositionFrame {
+                createBannerConstraints(for: bannerPositionFrame.bannerPosition)
+            }
+        }
+    }
     
     public override var backgroundColor: UIColor? {
         get {
@@ -120,6 +131,7 @@ public class BaseNotificationBanner: UIView {
         addSubview(spacerView)
         
         contentView = UIView()
+        contentView.clipsToBounds = true
         addSubview(contentView)
         
         if let colors = colors {
@@ -151,7 +163,6 @@ public class BaseNotificationBanner: UIView {
     /**
         Creates the proper banner constraints based on the desired banner position
      */
-    
     private func createBannerConstraints(for bannerPosition: BannerPosition) {
         
         spacerView.snp.remakeConstraints { (make) in
@@ -176,19 +187,37 @@ public class BaseNotificationBanner: UIView {
             make.left.equalToSuperview()
             make.right.equalToSuperview()
         }
-
+    }
+    
+    /**
+        Creates and stores the BannerPositionFrame variable *only* if it is `nil`, otherwise simply returns existing variable.
+        - note: Also stores the `bannerPosition` varible *only* when creating/storing.
+     */
+    private func createBannerPositionFrameIfNecessary(bannerPosition: BannerPosition) -> BannerPositionFrame! {
+        if let bannerPositionFrame = bannerPositionFrame {
+            return bannerPositionFrame
+        }
+        // note the didSet on the variable assignment will call createBannerConstraints for us.
+        bannerPositionFrame = BannerPositionFrame(bannerPosition: bannerPosition,
+                                                  bannerWidth: appWindow.frame.width,
+                                                  bannerHeight: bannerHeight,
+                                                  maxY: maximumYPosition())
+        return bannerPositionFrame!
     }
     
     /**
         Dismisses the NotificationBanner and shows the next one if there is one to show on the queue
     */
     public func dismiss() {
+        guard let bannerPositionFrame = bannerPositionFrame
+            else { return }
+        
         NSObject.cancelPreviousPerformRequests(withTarget: self,
                                                selector: #selector(dismiss),
                                                object: nil)
         delegate?.notificationBannerWillDisappear(self)
         UIView.animate(withDuration: 0.5, animations: {
-            self.frame = self.bannerPositionFrame.startFrame
+            self.frame = bannerPositionFrame.startFrame
         }) { (completed) in
             self.removeFromSuperview()
             self.isDisplaying = false
@@ -205,9 +234,9 @@ public class BaseNotificationBanner: UIView {
         Places a NotificationBanner on the queue and shows it if its the first one in the queue
         - parameter queuePosition: The position to show the notification banner. If the position is .front, the
         banner will be displayed immediately
+        - parameter bannerPosition: If `bannerPositionFrame` is `nil`, the position the notification banner should slide in from, ignored otherwise
         - parameter viewController: The view controller to display the notifification banner on. If nil, it will
         be placed on the main app window
-        - parameter bannerPosition: The position the notification banner should slide in from
     */
     public func show(queuePosition: QueuePosition = .back,
                      bannerPosition: BannerPosition = .top,
@@ -227,14 +256,7 @@ public class BaseNotificationBanner: UIView {
               queuePosition: QueuePosition = .back,
               bannerPosition: BannerPosition = .top) {
         
-        if bannerPositionFrame == nil {
-            self.bannerPosition = bannerPosition
-            createBannerConstraints(for: bannerPosition)
-            bannerPositionFrame = BannerPositionFrame(bannerPosition: bannerPosition,
-                                                      bannerWidth: appWindow.frame.width,
-                                                      bannerHeight: bannerHeight,
-                                                      maxY: maximumYPosition())
-        }
+        let bannerPositionFrame: BannerPositionFrame! = createBannerPositionFrameIfNecessary(bannerPosition: bannerPosition)
         
         if placeOnQueue {
             bannerQueue.addBanner(self, queuePosition: queuePosition)
@@ -262,7 +284,7 @@ public class BaseNotificationBanner: UIView {
                            options: .curveLinear,
                            animations: {
                             BannerHapticGenerator.generate(self.haptic)
-                            self.frame = self.bannerPositionFrame.endFrame
+                            self.frame = bannerPositionFrame.endFrame
             }) { (completed) in
                 self.delegate?.notificationBannerDidAppear(self)
                 self.isDisplaying = true
