@@ -23,6 +23,7 @@ protocol ExampleViewDelegate : class {
 class ExampleView: UIView {
     
     weak var delegate: ExampleViewDelegate?
+    var queuePositionContentView: UIView!
     var queuePositionSegmentedControl: UISegmentedControl!
     var bannerPositionSegmentedControl: UISegmentedControl!
 
@@ -30,7 +31,7 @@ class ExampleView: UIView {
         super.init(frame: .zero)
         self.delegate = delegate
         
-        let queuePositionContentView = UIView()
+        queuePositionContentView = UIView()
         addSubview(queuePositionContentView)
         
         let queuePositionSegmentLabel = UILabel()

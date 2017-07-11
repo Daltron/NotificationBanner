@@ -11,7 +11,7 @@ import NotificationBannerSwift
 
 class ExampleViewController: UIViewController {
     
-    private var exampleView: ExampleView!
+    fileprivate var exampleView: ExampleView!
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -122,7 +122,7 @@ extension ExampleViewController: ExampleViewDelegate {
             banner.delegate = self
             
             banner.onTap = {
-                self.showAlert(title: "Banner Notification Tapped", message: "")
+                self.showAlert(title: "Custom Warning Under/Over Notification Tapped", message: "")
             }
             
             banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition(), on: self)
@@ -145,6 +145,33 @@ extension ExampleViewController: ExampleViewDelegate {
             }
             
             banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
+        case 6:
+            // Warning with an offset
+            let banner = NotificationBanner(title: "Custom Warning Notification",
+                                            subtitle: "Displayed With a custom offset",
+                                            style: .warning)
+            banner.delegate = self
+            banner.backgroundColor = blockColor(at: IndexPath(row: 6, section: 0))
+            banner.onTap = {
+                self.showAlert(title: "Banner Notification Tapped", message: "")
+            }
+            
+            // Custom grow/shrink at offsets
+            let width = UIApplication.shared.delegate!.window!!.frame.width
+            // If from the top, let's animate downward (grow) from the bottom of the position controls view.
+            // If from the bottom, grow upwards similar to the Under/Over.
+            let startY = selectedBannerPosition() == .top
+                ? exampleView.queuePositionContentView.frame.maxY + UIApplication.shared.statusBarFrame.height
+                : view.frame.height;
+            let endY = selectedBannerPosition() == .top ? startY : startY - banner.bannerHeight
+            let startFrame = CGRect.init(x: 0, y: startY, width: width, height: 0)
+            let endFrame = CGRect.init(x: 0, y: endY, width: width, height: banner.bannerHeight)
+            
+            banner.bannerPositionFrame = BannerPositionFrame.init(bannerPosition: selectedBannerPosition(),
+                                                                  startFrame: startFrame,
+                                                                  endFrame: endFrame)
+            
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition(), on: self)
         default:
             return
         }
@@ -248,7 +275,7 @@ extension ExampleViewController: ExampleViewDelegate {
     internal func numberOfCells(for section: Int) -> Int {
         switch section {
         case 0:
-            return 6
+            return 7
         case 1:
             return 3
         case 2:
@@ -291,6 +318,8 @@ extension ExampleViewController: ExampleViewDelegate {
             return UIColor(red: 0.23, green: 0.60, blue: 0.85, alpha: 1.00)
         case 3:
             return UIColor(red: 1.00, green: 0.66, blue: 0.16, alpha: 1.00)
+        case 6:
+            return UIColor(red: 0.21, green: 0.81, blue: 0.08, alpha: 1.00)
         default:
             return UIColor(red: 0.54, green: 0.40, blue: 0.54, alpha: 1.00)
         }
@@ -311,6 +340,8 @@ extension ExampleViewController: ExampleViewDelegate {
                 return ("Custom Warning Notification", "Displayed Under/Over the Navigation/Tab Bar")
             case 5:
                 return ("Basic Notification", "Must Be Dismissed Manually")
+            case 6:
+                return ("Offset Notification", "Displayed with an offset into a view")
             default:
                 return ("", nil)
             }

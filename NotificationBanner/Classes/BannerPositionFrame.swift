@@ -23,18 +23,45 @@ public enum BannerPosition {
     case top
 }
 
-class BannerPositionFrame: NSObject {
+public enum BannerFrameDirection {
+    case startFrame
+    case endFrame
+}
+
+public class BannerPositionFrame: NSObject {
     
+    /// The position the notification banner should slide in from (default is .top)
+    private(set) var bannerPosition: BannerPosition! = .top
     private(set) var startFrame: CGRect!
     private(set) var endFrame: CGRect!
 
-    init(bannerPosition: BannerPosition,
-         bannerWidth: CGFloat,
-         bannerHeight: CGFloat,
-         maxY: CGFloat) {
+    
+    public init(bannerPosition: BannerPosition,
+                startFrame: CGRect!,
+                endFrame: CGRect!) {
         super.init()
+        self.bannerPosition = bannerPosition
+        self.startFrame = startFrame
+        self.endFrame = endFrame
+    }
+    
+    public init(bannerPosition: BannerPosition,
+                bannerWidth: CGFloat,
+                bannerHeight: CGFloat,
+                maxY: CGFloat) {
+        super.init()
+        self.bannerPosition = bannerPosition
         self.startFrame = startFrame(for: bannerPosition, bannerWidth: bannerWidth, bannerHeight: bannerHeight, maxY: maxY)
         self.endFrame = endFrame(for: bannerPosition, bannerWidth: bannerWidth, bannerHeight: bannerHeight, maxY: maxY)
+    }
+    
+    /// - note: May call view.layoutIfNeeded() if the heights of the start/end frames are not the same
+    internal func updateFrame(for view: UIView, to: BannerFrameDirection) {
+        let frame: CGRect! = (to == .startFrame ? startFrame : endFrame)
+        view.frame = frame
+        if startFrame.height != endFrame.height {
+            view.layoutIfNeeded()
+        }
     }
     
     /**
@@ -73,9 +100,9 @@ class BannerPositionFrame: NSObject {
      if the bannerPosition is .bottom
      */
     private func endFrame(for bannerPosition: BannerPosition,
-                            bannerWidth: CGFloat,
-                            bannerHeight: CGFloat,
-                            maxY: CGFloat) -> CGRect {
+                          bannerWidth: CGFloat,
+                          bannerHeight: CGFloat,
+                          maxY: CGFloat) -> CGRect {
         switch bannerPosition {
         case .bottom:
             return CGRect(x: 0,
