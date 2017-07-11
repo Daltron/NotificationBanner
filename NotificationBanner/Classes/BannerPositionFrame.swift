@@ -23,6 +23,11 @@ public enum BannerPosition {
     case top
 }
 
+public enum BannerFrameDirection {
+    case startFrame
+    case endFrame
+}
+
 public class BannerPositionFrame: NSObject {
     
     /// The position the notification banner should slide in from (default is .top)
@@ -48,6 +53,15 @@ public class BannerPositionFrame: NSObject {
         self.bannerPosition = bannerPosition
         self.startFrame = startFrame(for: bannerPosition, bannerWidth: bannerWidth, bannerHeight: bannerHeight, maxY: maxY)
         self.endFrame = endFrame(for: bannerPosition, bannerWidth: bannerWidth, bannerHeight: bannerHeight, maxY: maxY)
+    }
+    
+    /// - note: May call view.layoutIfNeeded() if the heights of the start/end frames are not the same
+    internal func updateFrame(for view: UIView, to: BannerFrameDirection) {
+        let frame: CGRect! = (to == .startFrame ? startFrame : endFrame)
+        view.frame = frame
+        if startFrame.height != endFrame.height {
+            view.layoutIfNeeded()
+        }
     }
     
     /**

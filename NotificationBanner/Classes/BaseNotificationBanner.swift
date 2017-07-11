@@ -223,7 +223,7 @@ public class BaseNotificationBanner: UIView {
                                                object: nil)
         delegate?.notificationBannerWillDisappear(self)
         UIView.animate(withDuration: dismissAnimationDuration, animations: {
-            self.frame = bannerPositionFrame.startFrame
+            bannerPositionFrame.updateFrame(for: self, to: .startFrame)
         }) { (completed) in
             self.removeFromSuperview()
             self.isDisplaying = false
@@ -267,8 +267,8 @@ public class BaseNotificationBanner: UIView {
         if placeOnQueue {
             bannerQueue.addBanner(self, queuePosition: queuePosition)
         } else {
-            self.frame = bannerPositionFrame.startFrame
-            
+            bannerPositionFrame.updateFrame(for: self, to: .startFrame)
+
             if let parentViewController = parentViewController {
                 parentViewController.view.addSubview(self)
                 if statusBarShouldBeShown() {
@@ -290,7 +290,7 @@ public class BaseNotificationBanner: UIView {
                            options: .curveLinear,
                            animations: {
                             BannerHapticGenerator.generate(self.haptic)
-                            self.frame = bannerPositionFrame.endFrame
+                            bannerPositionFrame.updateFrame(for: self, to: .endFrame)
             }) { (completed) in
                 self.delegate?.notificationBannerDidAppear(self)
                 self.isDisplaying = true
