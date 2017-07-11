@@ -107,7 +107,7 @@ public class BaseNotificationBanner: UIView {
     
     /// Object that stores the start and end frames for the notification banner based on the provided banner position
     /// - note: Constraints for internal views will be created on `didSet`
-    var bannerPositionFrame: BannerPositionFrame? {
+    public var bannerPositionFrame: BannerPositionFrame? {
         didSet {
             if let bannerPositionFrame = bannerPositionFrame {
                 createBannerConstraints(for: bannerPositionFrame.bannerPosition)
