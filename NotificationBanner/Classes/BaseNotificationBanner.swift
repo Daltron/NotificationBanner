@@ -42,12 +42,18 @@ public class BaseNotificationBanner: UIView {
     /// The topmost label of the notification if a custom view is not desired
     public internal(set) var titleLabel: MarqueeLabel?
     
-    /// The time before the notificaiton is automatically dismissed
+    /// The time before the notification is automatically dismissed
     public var duration: TimeInterval = 5.0 {
         didSet {
             updateMarqueeLabelsDurations()
         }
     }
+    
+    /// The amount of time to animate showing the banner onto the view
+    public var showAnimationDuration = 0.5
+
+    /// The amount of time to animate hiding the banner away
+    public var dismissAnimationDuration = 0.5
     
     /// If false, the banner will not be dismissed until the developer programatically dismisses it
     public var autoDismiss: Bool = true {
@@ -216,7 +222,7 @@ public class BaseNotificationBanner: UIView {
                                                selector: #selector(dismiss),
                                                object: nil)
         delegate?.notificationBannerWillDisappear(self)
-        UIView.animate(withDuration: 0.5, animations: {
+        UIView.animate(withDuration: dismissAnimationDuration, animations: {
             self.frame = bannerPositionFrame.startFrame
         }) { (completed) in
             self.removeFromSuperview()
@@ -277,7 +283,7 @@ public class BaseNotificationBanner: UIView {
                 }
             }
             delegate?.notificationBannerWillAppear(self)
-            UIView.animate(withDuration: 0.5,
+            UIView.animate(withDuration: showAnimationDuration,
                            delay: 0.0,
                            usingSpringWithDamping: 0.7,
                            initialSpringVelocity: 1,
