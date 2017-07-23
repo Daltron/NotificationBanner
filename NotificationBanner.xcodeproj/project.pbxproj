@@ -332,7 +332,7 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/NotificationBanner/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-DCARTHAGE_CONFIG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dh.NotificationBanner;
@@ -356,7 +356,7 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/NotificationBanner/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-DCARTHAGE_CONFIG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dh.NotificationBanner;
