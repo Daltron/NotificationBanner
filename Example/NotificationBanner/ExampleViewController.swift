@@ -63,7 +63,7 @@ extension ExampleViewController: ExampleViewDelegate {
         switch index {
         case 0:
             // Basic Success Notification
-            let banner = NotificationBanner(title: "Basic Success Notification",
+            let banner = NotificationBanner(title: "Basic Success Notification with a really really really really long title",
                                             subtitle: "Extremely Customizable!",
                                             style: .success)
             banner.delegate = self

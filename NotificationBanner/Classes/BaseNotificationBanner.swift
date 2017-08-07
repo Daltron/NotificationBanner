@@ -104,6 +104,11 @@ public class BaseNotificationBanner: UIView {
     /// Object that stores the start and end frames for the notification banner based on the provided banner position
     private var bannerPositionFrame: BannerPositionFrame!
     
+    /// The user info that gets passed to each notification
+    private var notificationUserInfo: [String: BaseNotificationBanner] {
+        return [NotificationBanner.BannerObjectKey: self]
+    }
+    
     public override var backgroundColor: UIColor? {
         get {
             return contentView.backgroundColor
@@ -186,13 +191,19 @@ public class BaseNotificationBanner: UIView {
         NSObject.cancelPreviousPerformRequests(withTarget: self,
                                                selector: #selector(dismiss),
                                                object: nil)
+        
+        NotificationCenter.default.post(name: NotificationBanner.BannerWillDisappear, object: self, userInfo: notificationUserInfo)
         delegate?.notificationBannerWillDisappear(self)
+        
         UIView.animate(withDuration: 0.5, animations: {
             self.frame = self.bannerPositionFrame.startFrame
         }) { (completed) in
             self.removeFromSuperview()
             self.isDisplaying = false
+            
+            NotificationCenter.default.post(name: NotificationBanner.BannerDidDisappear, object: self, userInfo: self.notificationUserInfo)
             self.delegate?.notificationBannerDidDisappear(self)
+            
             self.bannerQueue.showNext(callback: { (isEmpty) in
                 if isEmpty || self.statusBarShouldBeShown() {
                     self.appWindow.windowLevel = UIWindowLevelNormal
@@ -254,7 +265,10 @@ public class BaseNotificationBanner: UIView {
                     appWindow.windowLevel = UIWindowLevelStatusBar + 1
                 }
             }
+            
+            NotificationCenter.default.post(name: NotificationBanner.BannerWillAppear, object: self, userInfo: notificationUserInfo)
             delegate?.notificationBannerWillAppear(self)
+            
             UIView.animate(withDuration: 0.5,
                            delay: 0.0,
                            usingSpringWithDamping: 0.7,
@@ -264,7 +278,10 @@ public class BaseNotificationBanner: UIView {
                             BannerHapticGenerator.generate(self.haptic)
                             self.frame = self.bannerPositionFrame.endFrame
             }) { (completed) in
+                
+                NotificationCenter.default.post(name: NotificationBanner.BannerDidAppear, object: self, userInfo: self.notificationUserInfo)
                 self.delegate?.notificationBannerDidAppear(self)
+                
                 self.isDisplaying = true
                 let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.onTapGestureRecognizer))
                 self.addGestureRecognizer(tapGestureRecognizer)
@@ -362,6 +379,5 @@ public class BaseNotificationBanner: UIView {
     internal func updateMarqueeLabelsDurations() {
         titleLabel?.speed = .duration(CGFloat(duration - 3))
     }
-    
 }
 
