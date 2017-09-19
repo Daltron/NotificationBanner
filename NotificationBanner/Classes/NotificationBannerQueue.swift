@@ -85,4 +85,11 @@ public class NotificationBannerQueue: NSObject {
         
         callback(false)
     }
+    
+    /**
+        Removes all notification banners from the queue
+    */
+    public func removeAll() {
+        banners.removeAll()
+    }
 }
