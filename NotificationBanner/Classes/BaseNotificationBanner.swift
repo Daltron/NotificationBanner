@@ -17,6 +17,7 @@
  */
 
 import UIKit
+import SnapKit
 
 #if CARTHAGE_CONFIG
     import MarqueeLabelSwift
@@ -38,7 +39,9 @@ public class BaseNotificationBanner: UIView {
     
     /// The height of the banner when it is presented
     public var bannerHeight: CGFloat {
-        return NotificationBannerUtilities.isiPhoneX() && UIApplication.shared.statusBarOrientation.isPortrait ? 88.0 : 64.0
+        return NotificationBannerUtilities.isiPhoneX()
+            && UIApplication.shared.statusBarOrientation.isPortrait
+            && parentViewController == nil ? 88.0 : 64.0
     }
     
     /// The topmost label of the notification if a custom view is not desired
@@ -82,8 +85,14 @@ public class BaseNotificationBanner: UIView {
     /// The view that the notification layout is presented on. The constraints/frame of this should not be changed
     internal var contentView: UIView!
     
+    /// A view that helps the spring animation look nice when the banner appears
+    internal var spacerView: UIView!
+    
     /// The default padding between edges and views
     internal var padding: CGFloat = 15.0
+    
+    /// The view controller to display the banner on. This is useful if you are wanting to display a banner underneath a navigation bar
+    internal weak var parentViewController: UIViewController?
     
     /// Used by the banner queue to determine wether a notification banner was placed in front of it in the queue
     var isSuspended: Bool = false
@@ -93,12 +102,6 @@ public class BaseNotificationBanner: UIView {
     
     /// The main window of the application which banner views are placed on
     private let appWindow: UIWindow = UIApplication.shared.delegate!.window!!
-    
-    /// A view that helps the spring animation look nice when the banner appears
-    private var spacerView: UIView!
-    
-    /// The view controller to display the banner on. This is useful if you are wanting to display a banner underneath a navigation bar
-    private weak var parentViewController: UIViewController?
     
     /// The position the notification banner should slide in from
     private(set) var bannerPosition: BannerPosition!
@@ -169,11 +172,7 @@ public class BaseNotificationBanner: UIView {
             }
             make.left.equalToSuperview()
             make.right.equalToSuperview()
-            if NotificationBannerUtilities.isiPhoneX() && UIApplication.shared.statusBarOrientation.isPortrait {
-                make.height.equalTo(40.0)
-            } else {
-                make.height.equalTo(10)
-            }
+            updateSpacerViewHeight(make: make)
         }
 
         contentView.snp.remakeConstraints { (make) in
@@ -184,10 +183,28 @@ public class BaseNotificationBanner: UIView {
                 make.top.equalToSuperview()
                 make.bottom.equalTo(spacerView.snp.top)
             }
+            
             make.left.equalToSuperview()
             make.right.equalToSuperview()
         }
 
+    }
+    
+    /**
+         Updates the spacer view height. Specifically used for orientation changes.
+     */
+    
+    private func updateSpacerViewHeight(make: ConstraintMaker? = nil) {
+        let finalHeight = NotificationBannerUtilities.isiPhoneX()
+            && UIApplication.shared.statusBarOrientation.isPortrait
+            && parentViewController == nil ? 40.0 : 10.0
+        if let make = make {
+            make.height.equalTo(finalHeight)
+        } else {
+            spacerView.snp.updateConstraints({ (make) in
+                make.height.equalTo(finalHeight)
+            })
+        }
     }
     
     /**
@@ -326,7 +343,12 @@ public class BaseNotificationBanner: UIView {
         Changes the frame of the notificaiton banner when the orientation of the device changes
     */
     private dynamic func onOrientationChanged() {
-        self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: appWindow.frame.width, height: self.frame.height)
+        updateSpacerViewHeight()
+        self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: appWindow.frame.width, height: bannerHeight)
+        bannerPositionFrame = BannerPositionFrame(bannerPosition: bannerPosition,
+                                                  bannerWidth: appWindow.frame.width,
+                                                  bannerHeight: bannerHeight,
+                                                  maxY: maximumYPosition())
     }
     
     /**
