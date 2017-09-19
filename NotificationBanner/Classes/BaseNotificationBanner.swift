@@ -37,7 +37,9 @@ public class BaseNotificationBanner: UIView {
     public weak var delegate: NotificationBannerDelegate?
     
     /// The height of the banner when it is presented
-    public var bannerHeight: CGFloat = 64.0
+    public var bannerHeight: CGFloat {
+        return NotificationBannerUtilities.isiPhoneX() && UIApplication.shared.statusBarOrientation.isPortrait ? 88.0 : 64.0
+    }
     
     /// The topmost label of the notification if a custom view is not desired
     public internal(set) var titleLabel: MarqueeLabel?
@@ -167,9 +169,13 @@ public class BaseNotificationBanner: UIView {
             }
             make.left.equalToSuperview()
             make.right.equalToSuperview()
-            make.height.equalTo(10)
+            if NotificationBannerUtilities.isiPhoneX() && UIApplication.shared.statusBarOrientation.isPortrait {
+                make.height.equalTo(40.0)
+            } else {
+                make.height.equalTo(10)
+            }
         }
-        
+
         contentView.snp.remakeConstraints { (make) in
             if bannerPosition == .top {
                 make.top.equalTo(spacerView.snp.bottom)

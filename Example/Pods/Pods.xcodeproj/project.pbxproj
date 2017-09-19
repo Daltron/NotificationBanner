@@ -32,6 +32,7 @@
 		58FCCCD60FD3CD025621F306482A3716 /* ConstraintPriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F54D88DB3964BED0DABDC0FF0C71762 /* ConstraintPriority.swift */; };
 		5B5FBA1B7C6D189A94ED82AD9E7497E2 /* ConstraintMakerRelatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74307A9A4D3C167CBE33545F144CF910 /* ConstraintMakerRelatable.swift */; };
 		5C8542E21EFDC7A900AFBC90 /* BannerPositionFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8542E11EFDC7A900AFBC90 /* BannerPositionFrame.swift */; };
+		5C8890AA1F7156C40032D605 /* NotificationBannerUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8890A91F7156C40032D605 /* NotificationBannerUtilities.swift */; };
 		5ED3D1FC124F722CAC1EA2C874A61B36 /* ConstraintLayoutSupportDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF9ACB5B3C3EB72BD2F2A92468311F7 /* ConstraintLayoutSupportDSL.swift */; };
 		6200C08268607E289DC4C5DEA16CDE2E /* ConstraintMakerFinalizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6589BB7BC5821AE7D7BE0867D7C5CA78 /* ConstraintMakerFinalizable.swift */; };
 		6432E088AD44DF82C7301C67DA68604F /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DD8F62A3B49A08E39E37E7CFCFDCBB5 /* SnapKit.framework */; };
@@ -146,6 +147,7 @@
 		5A8676BE8B6A99CC56999A5C433E9A90 /* NotificationBannerSwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NotificationBannerSwift-prefix.pch"; sourceTree = "<group>"; };
 		5AF9ACB5B3C3EB72BD2F2A92468311F7 /* ConstraintLayoutSupportDSL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintLayoutSupportDSL.swift; path = Source/ConstraintLayoutSupportDSL.swift; sourceTree = "<group>"; };
 		5C8542E11EFDC7A900AFBC90 /* BannerPositionFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerPositionFrame.swift; sourceTree = "<group>"; };
+		5C8890A91F7156C40032D605 /* NotificationBannerUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBannerUtilities.swift; sourceTree = "<group>"; };
 		5CAE1D0C7EEB74D361A27243E5FBF975 /* ConstraintPriorityTarget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintPriorityTarget.swift; path = Source/ConstraintPriorityTarget.swift; sourceTree = "<group>"; };
 		5E2C3ABFA7FE645F26B6A2385D5478A9 /* ConstraintMakerEditable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMakerEditable.swift; path = Source/ConstraintMakerEditable.swift; sourceTree = "<group>"; };
 		6589BB7BC5821AE7D7BE0867D7C5CA78 /* ConstraintMakerFinalizable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMakerFinalizable.swift; path = Source/ConstraintMakerFinalizable.swift; sourceTree = "<group>"; };
@@ -495,6 +497,7 @@
 		F4B2158C6F9DAD93396462D186E73C02 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				5C8890A91F7156C40032D605 /* NotificationBannerUtilities.swift */,
 				16686B24CB9701A24136EC958C64B26F /* BannerColors.swift */,
 				4A6E3C24E6CBB5F9B958B4F05C70AA9D /* BannerHapticGenerator.swift */,
 				5C8542E11EFDC7A900AFBC90 /* BannerPositionFrame.swift */,
@@ -740,6 +743,7 @@
 				CDCB2C442E82F75704EE676F3B06FB64 /* BannerStyle.swift in Sources */,
 				222130236651069D4BDBF796F58FDC1F /* BaseNotificationBanner.swift in Sources */,
 				2D9F6EB6F01334640D601E7E30DFEC1B /* NotificationBanner.swift in Sources */,
+				5C8890AA1F7156C40032D605 /* NotificationBannerUtilities.swift in Sources */,
 				6E3C5E6A180D89D1EE760D6B51133CBE /* NotificationBannerQueue.swift in Sources */,
 				A7E116004781304958353E215C7E5678 /* NotificationBannerSwift-dummy.m in Sources */,
 				CA3449152C36005F5B5C06045364B3EF /* StatusBarNotificationBanner.swift in Sources */,

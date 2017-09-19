@@ -63,7 +63,7 @@ extension ExampleViewController: ExampleViewDelegate {
         switch index {
         case 0:
             // Basic Success Notification
-            let banner = NotificationBanner(title: "Basic Success Notification with a really really really really long title",
+            let banner = NotificationBanner(title: "Basic Success Notification",
                                             subtitle: "Extremely Customizable!",
                                             style: .success)
             banner.delegate = self
@@ -194,7 +194,7 @@ extension ExampleViewController: ExampleViewDelegate {
             // Status Bar Success Notification
             let banner = StatusBarNotificationBanner(title: "Success Status Bar Notification", style: .success)
             banner.delegate = self
-            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: .bottom)
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
         case 1:
             // Status Bar Danger Notification
             let banner = StatusBarNotificationBanner(title: "Danger Status Bar Notification", style: .danger)
