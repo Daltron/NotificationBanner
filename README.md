@@ -18,7 +18,7 @@ NotificationBanner is an extremely customizable and lightweight library that mak
 ## Features
 - Highly customizable ✅
 - `NSAttributedString` support ✅
-- iPhone & iPad Support ✅
+- iPhone, iPhoneX, & iPad Support ✅
 - Orientation change support ✅
 - Custom `UIView` support ✅
 - Custom colors support ✅
