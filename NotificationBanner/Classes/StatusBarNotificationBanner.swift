@@ -27,12 +27,16 @@ import UIKit
 public class StatusBarNotificationBanner: BaseNotificationBanner {
     
     public override var bannerHeight: CGFloat {
-        if NotificationBannerUtilities.isiPhoneX()
-            && UIApplication.shared.statusBarOrientation.isPortrait
-            && parentViewController == nil {
-            return super.bannerHeight
-        } else {
-            return 20.0
+        get {
+            if let customBannerHeight = customBannerHeight {
+                return customBannerHeight
+            } else if shouldAdjustForIphoneX() {
+                return super.bannerHeight
+            } else {
+                return 20.0
+            }
+        } set {
+            customBannerHeight = newValue
         }
     }
     

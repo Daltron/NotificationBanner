@@ -39,9 +39,15 @@ public class BaseNotificationBanner: UIView {
     
     /// The height of the banner when it is presented
     public var bannerHeight: CGFloat {
-        return NotificationBannerUtilities.isiPhoneX()
-            && UIApplication.shared.statusBarOrientation.isPortrait
-            && parentViewController == nil ? 88.0 : 64.0
+        get {
+            if let customBannerHeight = customBannerHeight {
+                return customBannerHeight
+            } else {
+                return shouldAdjustForIphoneX() ? 88.0 : 64.0
+            }
+        } set {
+            customBannerHeight = newValue
+        }
     }
     
     /// The topmost label of the notification if a custom view is not desired
@@ -93,6 +99,9 @@ public class BaseNotificationBanner: UIView {
     
     /// The view controller to display the banner on. This is useful if you are wanting to display a banner underneath a navigation bar
     internal weak var parentViewController: UIViewController?
+    
+    /// If this is not nil, then this height will be used instead of the auto calculated height
+    internal var customBannerHeight: CGFloat?
     
     /// Used by the banner queue to determine wether a notification banner was placed in front of it in the queue
     var isSuspended: Bool = false
@@ -401,6 +410,15 @@ public class BaseNotificationBanner: UIView {
         }
     }
 
+    /**
+         Determines wether or not we should adjust the banner for the iPhoneX
+     */
+    
+    internal func shouldAdjustForIphoneX() -> Bool {
+        return NotificationBannerUtilities.isiPhoneX()
+            && UIApplication.shared.statusBarOrientation.isPortrait
+            && parentViewController == nil
+    }
     /**
         Updates the scrolling marquee label duration
     */
