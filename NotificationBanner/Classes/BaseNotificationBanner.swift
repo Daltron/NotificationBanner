@@ -219,7 +219,7 @@ public class BaseNotificationBanner: UIView {
     /**
         Dismisses the NotificationBanner and shows the next one if there is one to show on the queue
     */
-    public func dismiss() {
+    @objc public func dismiss() {
         NSObject.cancelPreviousPerformRequests(withTarget: self,
                                                selector: #selector(dismiss),
                                                object: nil)
@@ -351,7 +351,7 @@ public class BaseNotificationBanner: UIView {
     /**
         Changes the frame of the notificaiton banner when the orientation of the device changes
     */
-    private dynamic func onOrientationChanged() {
+    @objc private dynamic func onOrientationChanged() {
         updateSpacerViewHeight()
         self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: appWindow.frame.width, height: bannerHeight)
         bannerPositionFrame = BannerPositionFrame(bannerPosition: bannerPosition,
@@ -363,7 +363,7 @@ public class BaseNotificationBanner: UIView {
     /**
         Called when a notification banner is tapped
     */
-    private dynamic func onTapGestureRecognizer() {
+    @objc private dynamic func onTapGestureRecognizer() {
         if dismissOnTap {
             dismiss()
         }
@@ -374,7 +374,7 @@ public class BaseNotificationBanner: UIView {
     /**
         Called when a notification banner is swiped up
     */
-    private dynamic func onSwipeUpGestureRecognizer() {
+    @objc private dynamic func onSwipeUpGestureRecognizer() {
         if dismissOnSwipeUp {
             dismiss()
         }
