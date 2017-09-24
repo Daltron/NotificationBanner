@@ -150,11 +150,6 @@ public class BaseNotificationBanner: UIView {
         let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeUpGestureRecognizer))
         swipeUpGesture.direction = .up
         addGestureRecognizer(swipeUpGesture)
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(onOrientationChanged),
-                                               name: NSNotification.Name.UIDeviceOrientationDidChange,
-                                               object: nil)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -278,6 +273,14 @@ public class BaseNotificationBanner: UIView {
                                                       bannerHeight: bannerHeight,
                                                       maxY: maximumYPosition())
         }
+        
+        NotificationCenter.default.removeObserver(self,
+                                                  name: NSNotification.Name.UIDeviceOrientationDidChange,
+                                                  object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(onOrientationChanged),
+                                               name: NSNotification.Name.UIDeviceOrientationDidChange,
+                                               object: nil)
         
         if placeOnQueue {
             bannerQueue.addBanner(self, queuePosition: queuePosition)
