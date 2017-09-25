@@ -39,8 +39,16 @@ NotificationBanner is an extremely customizable and lightweight library that mak
 NotificationBanner is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
+#### Swift 4
+
 ```ruby
 pod 'NotificationBannerSwift'
+```
+
+#### Swift 3.x
+
+```ruby
+pod 'NotificationBannerSwift', '~> 1.4.4'
 ```
 
 Then add `import NotificationBannerSwift` at the top of each file you use NotificationBanner in your project.
@@ -49,8 +57,14 @@ Then add `import NotificationBannerSwift` at the top of each file you use Notifi
 
 To use NotificationBanner via Carthage simply add this line to your `Cartfile`:
 
+#### Swift 4
 ```swift
 github "Daltron/NotificationBanner" "master"
+```
+
+#### Swift 3.x
+```swift
+github "Daltron/NotificationBanner" "1.4.4"
 ```
 
 Then add `NotificationBanner.framework` and the dependencies `SnapKit.framework` and `MarqueeLabelSwift.framework` in your project.
