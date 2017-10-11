@@ -161,7 +161,7 @@ By default, the `.info` style will be applied to the banner if no style is provi
 
 ### Banners with Side Views
 
-A notification banner can have a left acessory view, a right acessory view, or both:
+A notification banner can have a left accessory view, a right accessory view, or both:
 
 ```swift
 // Success Style Notification with Left View
