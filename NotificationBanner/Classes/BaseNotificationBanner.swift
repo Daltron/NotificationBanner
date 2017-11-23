@@ -78,10 +78,18 @@ public class BaseNotificationBanner: UIView {
     public var dismissOnTap: Bool = true
     
     /// If true, notification will dismissed when swiped up
-    public var dismissOnSwipeUp: Bool = true
+    public var dismissOnSwipeUp: Bool = true {
+        didSet {
+            dismissOnSwipeDown = !newValue
+        }
+    }
 
     /// If true, notification will dismissed when swiped down
-    public var dismissOnSwipeDown: Bool = true
+    public var dismissOnSwipeDown: Bool = false {
+        didSet {
+            dismissOnSwipeUp = !newValue
+        }
+    }
     
     /// Closure that will be executed if the notification banner is tapped
     public var onTap: (() -> Void)?
