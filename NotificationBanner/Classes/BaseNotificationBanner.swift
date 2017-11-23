@@ -80,14 +80,14 @@ public class BaseNotificationBanner: UIView {
     /// If true, notification will dismissed when swiped up
     public var dismissOnSwipeUp: Bool = true {
         didSet {
-            dismissOnSwipeDown = !newValue
+            dismissOnSwipeDown = !dismissOnSwipeUp
         }
     }
 
     /// If true, notification will dismissed when swiped down
     public var dismissOnSwipeDown: Bool = false {
         didSet {
-            dismissOnSwipeUp = !newValue
+            dismissOnSwipeUp = !dismissOnSwipeDown
         }
     }
     
