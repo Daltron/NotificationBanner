@@ -108,7 +108,7 @@ banner.dismiss()
 To show a banner infinitely until it is manually dismissed, simply:
 
 ```swift
-banner.autoDimiss = false
+banner.autoDismiss = false
 ```
 
 NotificationBanner has five prebuilt styles that you can choose from:
