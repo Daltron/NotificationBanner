@@ -16,6 +16,7 @@
 		823255B41EB87313006F95C3 /* StatusBarNotificationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823255A41EB87313006F95C3 /* StatusBarNotificationBanner.swift */; };
 		823255B61EB87313006F95C3 /* NotificationBanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 823255A71EB87313006F95C3 /* NotificationBanner.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		823255B91EB8736D006F95C3 /* Cartfile in Resources */ = {isa = PBXBuildFile; fileRef = 823255B81EB8736D006F95C3 /* Cartfile */; };
+		951D609D1F71BF82008E4BCC /* NotificationBannerUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951D609C1F71BF82008E4BCC /* NotificationBannerUtilities.swift */; };
 		A999043F1EEF64F0006DA132 /* BannerHapticGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A999043E1EEF64F0006DA132 /* BannerHapticGenerator.swift */; };
 		EA9A178A1EC75DE000CF2261 /* MarqueeLabelSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9A17891EC75DE000CF2261 /* MarqueeLabelSwift.framework */; };
 		EA9A178C1EC75DE400CF2261 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9A178B1EC75DE400CF2261 /* SnapKit.framework */; };
@@ -36,6 +37,7 @@
 		823255A71EB87313006F95C3 /* NotificationBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationBanner.h; sourceTree = "<group>"; };
 		823255B81EB8736D006F95C3 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		823255BB1EB87CB7006F95C3 /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
+		951D609C1F71BF82008E4BCC /* NotificationBannerUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBannerUtilities.swift; sourceTree = "<group>"; };
 		A999043E1EEF64F0006DA132 /* BannerHapticGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerHapticGenerator.swift; sourceTree = "<group>"; };
 		EA9A17891EC75DE000CF2261 /* MarqueeLabelSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MarqueeLabelSwift.framework; path = Carthage/Build/iOS/MarqueeLabelSwift.framework; sourceTree = "<group>"; };
 		EA9A178B1EC75DE400CF2261 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				823255A11EB87313006F95C3 /* BaseNotificationBanner.swift */,
 				823255A21EB87313006F95C3 /* NotificationBanner.swift */,
 				823255A31EB87313006F95C3 /* NotificationBannerQueue.swift */,
+				951D609C1F71BF82008E4BCC /* NotificationBannerUtilities.swift */,
 				823255A41EB87313006F95C3 /* StatusBarNotificationBanner.swift */,
 				F7E13CF51FB192ED0008EE4C /* NotificationBannerUtilities.swift */,
 			);
@@ -342,7 +345,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dh.NotificationBanner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -366,7 +369,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dh.NotificationBanner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

@@ -3,11 +3,11 @@
 [![Version](https://img.shields.io/cocoapods/v/NotificationBannerSwift.svg?style=flat)](http://cocoapods.org/pods/NotificationBannerSwift)
 <a href="https://github.com/Carthage/Carthage/"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat"></a>
 [![Platform](https://img.shields.io/cocoapods/p/NotificationBannerSwift.svg?style=flat)](http://cocoapods.org/pods/NotificationBannerSwift)
-<a href="https://developer.apple.com/swift"><img src="https://img.shields.io/badge/swift-3.0-4BC51D.svg?style=flat" alt="Language: Swift" /></a>
+<a href="https://developer.apple.com/swift"><img src="https://img.shields.io/badge/swift-4.0-4BC51D.svg?style=flat" alt="Language: Swift" /></a>
 [![Downloads](https://img.shields.io/cocoapods/dt/NotificationBannerSwift.svg)](http://cocoapods.org/pods/NotificationBannerSwift)
 [![Apps](https://img.shields.io/cocoapods/at/NotificationBannerSwift.svg)](http://cocoapods.org/pods/NotificationBannerSwift)
 [![License](https://img.shields.io/cocoapods/l/NotificationBannerSwift.svg?style=flat)](http://cocoapods.org/pods/NotificationBannerSwift)
-## Written in Swift 3
+## Written in Swift 4
 
 NotificationBanner is an extremely customizable and lightweight library that makes the task of displaying in app notification banners and drop down alerts an absolute breeze in iOS.
 
@@ -30,7 +30,7 @@ NotificationBanner is an extremely customizable and lightweight library that mak
 ## Requirements
 
  - iOS 9.0+
- - Xcode 8.1+
+ - Xcode 9.0+
 
 ## Installation
 
@@ -39,8 +39,16 @@ NotificationBanner is an extremely customizable and lightweight library that mak
 NotificationBanner is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
+#### Swift 4
+
 ```ruby
 pod 'NotificationBannerSwift'
+```
+
+#### Swift 3.x
+
+```ruby
+pod 'NotificationBannerSwift', '~> 1.4.4'
 ```
 
 Then add `import NotificationBannerSwift` at the top of each file you use NotificationBanner in your project.
@@ -49,8 +57,14 @@ Then add `import NotificationBannerSwift` at the top of each file you use Notifi
 
 To use NotificationBanner via Carthage simply add this line to your `Cartfile`:
 
+#### Swift 4
 ```swift
 github "Daltron/NotificationBanner" "master"
+```
+
+#### Swift 3.x
+```swift
+github "Daltron/NotificationBanner" "1.4.4"
 ```
 
 Then add `NotificationBanner.framework` and the dependencies `SnapKit.framework` and `MarqueeLabelSwift.framework` in your project.
@@ -147,7 +161,7 @@ By default, the `.info` style will be applied to the banner if no style is provi
 
 ### Banners with Side Views
 
-A notification banner can have a left acessory view, a right acessory view, or both:
+A notification banner can have a left accessory view, a right accessory view, or both:
 
 ```swift
 // Success Style Notification with Left View

@@ -46,7 +46,7 @@ public class StatusBarNotificationBanner: BaseNotificationBanner {
         titleLabel = MarqueeLabel()
         titleLabel?.animationDelay = 2
         titleLabel?.type = .leftRight
-        titleLabel!.font = UIFont.systemFont(ofSize: 12.5, weight: UIFontWeightBold)
+        titleLabel!.font = UIFont.systemFont(ofSize: 12.5, weight: UIFont.Weight.bold)
         titleLabel!.textAlignment = .center
         titleLabel!.textColor = .white
         contentView.addSubview(titleLabel!)
