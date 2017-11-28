@@ -20,6 +20,7 @@
 		A999043F1EEF64F0006DA132 /* BannerHapticGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A999043E1EEF64F0006DA132 /* BannerHapticGenerator.swift */; };
 		EA9A178A1EC75DE000CF2261 /* MarqueeLabelSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9A17891EC75DE000CF2261 /* MarqueeLabelSwift.framework */; };
 		EA9A178C1EC75DE400CF2261 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9A178B1EC75DE400CF2261 /* SnapKit.framework */; };
+		F7E13CF61FB192ED0008EE4C /* NotificationBannerUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E13CF51FB192ED0008EE4C /* NotificationBannerUtilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		A999043E1EEF64F0006DA132 /* BannerHapticGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerHapticGenerator.swift; sourceTree = "<group>"; };
 		EA9A17891EC75DE000CF2261 /* MarqueeLabelSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MarqueeLabelSwift.framework; path = Carthage/Build/iOS/MarqueeLabelSwift.framework; sourceTree = "<group>"; };
 		EA9A178B1EC75DE400CF2261 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
+		F7E13CF51FB192ED0008EE4C /* NotificationBannerUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationBannerUtilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				823255A31EB87313006F95C3 /* NotificationBannerQueue.swift */,
 				951D609C1F71BF82008E4BCC /* NotificationBannerUtilities.swift */,
 				823255A41EB87313006F95C3 /* StatusBarNotificationBanner.swift */,
+				F7E13CF51FB192ED0008EE4C /* NotificationBannerUtilities.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -210,7 +213,7 @@
 				823255B21EB87313006F95C3 /* NotificationBanner.swift in Sources */,
 				0D0D9ADF1F15D19D003B35A8 /* BannerPositionFrame.swift in Sources */,
 				823255AF1EB87313006F95C3 /* BannerColors.swift in Sources */,
-				951D609D1F71BF82008E4BCC /* NotificationBannerUtilities.swift in Sources */,
+				F7E13CF61FB192ED0008EE4C /* NotificationBannerUtilities.swift in Sources */,
 				823255B31EB87313006F95C3 /* NotificationBannerQueue.swift in Sources */,
 				A999043F1EEF64F0006DA132 /* BannerHapticGenerator.swift in Sources */,
 				823255B01EB87313006F95C3 /* BannerStyle.swift in Sources */,
