@@ -45,12 +45,6 @@ it, simply add the following line to your Podfile:
 pod 'NotificationBannerSwift'
 ```
 
-#### Swift 3.x
-
-```ruby
-pod 'NotificationBannerSwift', '~> 1.4.4'
-```
-
 Then add `import NotificationBannerSwift` at the top of each file you use NotificationBanner in your project.
 
 ### Carthage
@@ -60,11 +54,6 @@ To use NotificationBanner via Carthage simply add this line to your `Cartfile`:
 #### Swift 4
 ```swift
 github "Daltron/NotificationBanner" "master"
-```
-
-#### Swift 3.x
-```swift
-github "Daltron/NotificationBanner" "1.4.4"
 ```
 
 Then add `NotificationBanner.framework` and the dependencies `SnapKit.framework` and `MarqueeLabelSwift.framework` in your project.
