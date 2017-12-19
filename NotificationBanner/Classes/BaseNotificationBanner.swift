@@ -201,7 +201,7 @@ public class BaseNotificationBanner: UIView {
     private func updateSpacerViewHeight(make: ConstraintMaker? = nil) {
         let finalHeight = NotificationBannerUtilities.isiPhoneX()
             && UIApplication.shared.statusBarOrientation.isPortrait
-            && parentViewController == nil ? 40.0 : 10.0
+            && (parentViewController?.navigationController?.isNavigationBarHidden ?? true) ? 40.0 : 10.0
         if let make = make {
             make.height.equalTo(finalHeight)
         } else {
@@ -420,7 +420,7 @@ public class BaseNotificationBanner: UIView {
     internal func shouldAdjustForIphoneX() -> Bool {
         return NotificationBannerUtilities.isiPhoneX()
             && UIApplication.shared.statusBarOrientation.isPortrait
-            && parentViewController == nil
+            && (self.parentViewController?.navigationController?.isNavigationBarHidden ?? true)
     }
     /**
         Updates the scrolling marquee label duration

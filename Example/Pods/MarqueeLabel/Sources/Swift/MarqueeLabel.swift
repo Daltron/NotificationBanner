@@ -695,8 +695,7 @@ open class MarqueeLabel: UILabel, CAAnimationDelegate {
                     FadeStep(timeStep: -0.2, edgeFades: [.leading, .trailing]),                     // Maintain fade state until 0.2 sec before reaching away position
                     ScrollStep(timeStep: animationDuration, timingFunction: animationCurve,         // Away position, using animationCurve transition, with only leading edge faded in
                         position: .away, edgeFades: .leading),
-                    ScrollStep(timeStep: 60*60*24*365.0,                                            // "Delay" at away, for huge time to effectie stay at away permanently
-                               position: .away, edgeFades: .leading),
+                    ScrollStep(timeStep: animationDelay, position: .away, edgeFades: .leading),     // "Delay" at away, maintaining fade state
                 ]
             }
         }
@@ -876,6 +875,11 @@ open class MarqueeLabel: UILabel, CAAnimationDelegate {
         // Perform scroll animation
         scroller.anim.setValue(true, forKey: MarqueeKeys.CompletionClosure.rawValue)
         scroller.anim.delegate = self
+        if type == .left || type == .right {
+            // Make it stay at away permanently
+            scroller.anim.isRemovedOnCompletion = false
+            scroller.anim.fillMode = kCAFillModeForwards
+        }
         sublabel.layer.add(scroller.anim, forKey: "position")
         
         CATransaction.commit()
