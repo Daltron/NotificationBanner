@@ -85,6 +85,9 @@ public class BaseNotificationBanner: UIView {
     /// Closure that will be executed if the notification banner is swiped up
     public var onSwipeUp: (() -> Void)?
     
+    /// Responsible for positioning and auto managing notification banners
+    public var bannerQueue: NotificationBannerQueue = NotificationBannerQueue.default
+    
     /// Wether or not the notification banner is currently being displayed
     public private(set) var isDisplaying: Bool = false
 
@@ -105,9 +108,6 @@ public class BaseNotificationBanner: UIView {
     
     /// Used by the banner queue to determine wether a notification banner was placed in front of it in the queue
     var isSuspended: Bool = false
-    
-    /// Responsible for positioning and auto managing notification banners
-    private let bannerQueue: NotificationBannerQueue = NotificationBannerQueue.default
     
     /// The main window of the application which banner views are placed on
     private let appWindow: UIWindow = UIApplication.shared.delegate!.window!!
@@ -243,14 +243,18 @@ public class BaseNotificationBanner: UIView {
         Places a NotificationBanner on the queue and shows it if its the first one in the queue
         - parameter queuePosition: The position to show the notification banner. If the position is .front, the
         banner will be displayed immediately
+        - parameter bannerPosition: The position the notification banner should slide in from
+        - parameter queue: The queue to display the notification banner on. It is up to the developer
+        to manage multiple banner queues and prevent any conflicts that may occur.
         - parameter viewController: The view controller to display the notifification banner on. If nil, it will
         be placed on the main app window
-        - parameter bannerPosition: The position the notification banner should slide in from
     */
     public func show(queuePosition: QueuePosition = .back,
                      bannerPosition: BannerPosition = .top,
+                     queue: NotificationBannerQueue = NotificationBannerQueue.default,
                      on viewController: UIViewController? = nil) {
         parentViewController = viewController
+        bannerQueue = queue
         show(placeOnQueue: true, queuePosition: queuePosition, bannerPosition: bannerPosition)
     }
     
