@@ -356,11 +356,17 @@ public class BaseNotificationBanner: UIView {
     }
     
     /**
-        Changes the frame of the notificaiton banner when the orientation of the device changes
+        Changes the frame of the notification banner when the orientation of the device changes
     */
     @objc private dynamic func onOrientationChanged() {
         updateSpacerViewHeight()
-        self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: appWindow.frame.width, height: bannerHeight)
+        
+        let newY = (bannerPosition == .top) ? (frame.origin.y) : (appWindow.frame.height - bannerHeight)
+        frame = CGRect(x: frame.origin.x,
+                       y: newY,
+                       width: appWindow.frame.width,
+                       height: bannerHeight)
+    
         bannerPositionFrame = BannerPositionFrame(bannerPosition: bannerPosition,
                                                   bannerWidth: appWindow.frame.width,
                                                   bannerHeight: bannerHeight,
