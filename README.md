@@ -125,7 +125,7 @@ Its as easy as creating a custom banner colors class:
 ```swift
 class CustomBannerColors: BannerColorsProtocol {
 
-    internal override func color(for style: BannerStyle) -> UIColor {
+    internal func color(for style: BannerStyle) -> UIColor {
         switch style {
             case .danger:   // Your custom .danger color
             case .info:     // Your custom .info color
