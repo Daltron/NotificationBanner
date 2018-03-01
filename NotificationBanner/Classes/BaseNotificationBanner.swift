@@ -36,7 +36,7 @@ public class BaseNotificationBanner: UIView {
     
     /// The delegate of the notification banner
     public weak var delegate: NotificationBannerDelegate?
-    
+
     /// The height of the banner when it is presented
     public var bannerHeight: CGFloat {
         get {
@@ -215,6 +215,12 @@ public class BaseNotificationBanner: UIView {
         Dismisses the NotificationBanner and shows the next one if there is one to show on the queue
     */
     @objc public func dismiss() {
+        
+        // No need to dismiss the banner if not displaying
+        if !isDisplaying {
+            return
+        }
+        
         NSObject.cancelPreviousPerformRequests(withTarget: self,
                                                selector: #selector(dismiss),
                                                object: nil)
@@ -268,6 +274,11 @@ public class BaseNotificationBanner: UIView {
     func show(placeOnQueue: Bool,
               queuePosition: QueuePosition = .back,
               bannerPosition: BannerPosition = .top) {
+        
+        // No need to show the banner if already displayed
+        if isDisplaying {
+            return
+        }
         
         if bannerPositionFrame == nil {
             self.bannerPosition = bannerPosition
