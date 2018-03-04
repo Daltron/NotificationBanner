@@ -216,8 +216,7 @@ public class BaseNotificationBanner: UIView {
     */
     @objc public func dismiss() {
         
-        // No need to dismiss the banner if not displaying
-        if !isDisplaying {
+        guard isDisplaying else {
             return
         }
         
@@ -275,8 +274,7 @@ public class BaseNotificationBanner: UIView {
               queuePosition: QueuePosition = .back,
               bannerPosition: BannerPosition = .top) {
         
-        // No need to show the banner if already displayed
-        if isDisplaying {
+        guard !isDisplaying else {
             return
         }
         
