@@ -2,4 +2,4 @@
 github "cbpowell/MarqueeLabel" ~> 3.0
 
 # A Swift Autolayout DSL for iOS & OS X
-github "SnapKit/SnapKit" ~> 3.2
+github "SnapKit/SnapKit" ~> 4.0.0
