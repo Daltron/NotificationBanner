@@ -266,6 +266,7 @@ I'd love to know anything that you think NotificationBanner is missing. Open an 
 [![VH Dispatch](AppIcons/vh_dispatch.png)](https://itunes.apple.com/us/app/vh-dispatch/id1249569084?mt=8)
 [![Stikkr](AppIcons/stikkr.png)](https://itunes.apple.com/us/app/stikkr/id851375015?ls=1&mt=8)
 [![CardCast](AppIcons/cardcast.png)](https://itunes.apple.com/us/app/cardcast-business-cards/id1269278947?mt=8)
+[![Happy Scale](AppIcons/happy_scale.png)](https://itunes.apple.com/us/app/happy-scale/id532430574?mt=8)
  
 #### Feel free to add yours!
 
