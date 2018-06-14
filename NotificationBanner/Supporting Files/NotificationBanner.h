@@ -3,7 +3,7 @@
 //  NotificationBanner
 //
 //  Created by Cihat Gündüz on 02.05.17.
-//  Copyright © 2017 Dalton Hinterscher. All rights reserved.
+//  Copyright © 2017-2018 Dalton Hinterscher. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
