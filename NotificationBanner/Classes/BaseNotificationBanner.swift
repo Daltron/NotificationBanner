@@ -25,7 +25,7 @@ import SnapKit
     import MarqueeLabel
 #endif
 
-public protocol NotificationBannerDelegate: class {
+@objc public protocol NotificationBannerDelegate: class {
     func notificationBannerWillAppear(_ banner: BaseNotificationBanner)
     func notificationBannerDidAppear(_ banner: BaseNotificationBanner)
     func notificationBannerWillDisappear(_ banner: BaseNotificationBanner)
@@ -217,14 +217,14 @@ public class BaseNotificationBanner: UIView {
     /**
         Dismisses the NotificationBanner and shows the next one if there is one to show on the queue
     */
-    @objc public func dismiss() {
+    @objc public func dismiss(_ delegate: NotificationBannerDelegate?) {
         
         guard isDisplaying else {
             return
         }
         
         NSObject.cancelPreviousPerformRequests(withTarget: self,
-                                               selector: #selector(dismiss),
+                                               selector: #selector(dismiss(_:)),
                                                object: nil)
         
         NotificationCenter.default.post(name: NotificationBanner.BannerWillDisappear, object: self, userInfo: notificationUserInfo)
@@ -237,7 +237,7 @@ public class BaseNotificationBanner: UIView {
             self.isDisplaying = false
             
             NotificationCenter.default.post(name: NotificationBanner.BannerDidDisappear, object: self, userInfo: self.notificationUserInfo)
-            self.delegate?.notificationBannerDidDisappear(self)
+            delegate?.notificationBannerDidDisappear(self)
             
             self.bannerQueue.showNext(callback: { (isEmpty) in
                 if isEmpty || self.statusBarShouldBeShown() {
@@ -276,6 +276,7 @@ public class BaseNotificationBanner: UIView {
     func show(placeOnQueue: Bool,
               queuePosition: QueuePosition = .back,
               bannerPosition: BannerPosition = .top) {
+        let delegate = self.delegate
         
         guard !isDisplaying else {
             return
@@ -331,9 +332,9 @@ public class BaseNotificationBanner: UIView {
                             BannerHapticGenerator.generate(self.haptic)
                             self.frame = self.bannerPositionFrame.endFrame
             }) { (completed) in
-                
+            
                 NotificationCenter.default.post(name: NotificationBanner.BannerDidAppear, object: self, userInfo: self.notificationUserInfo)
-                self.delegate?.notificationBannerDidAppear(self)
+                delegate?.notificationBannerDidAppear(self)
                 
                 let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.onTapGestureRecognizer))
                 self.addGestureRecognizer(tapGestureRecognizer)
@@ -342,7 +343,7 @@ public class BaseNotificationBanner: UIView {
                    before it finished animating or if it is meant to be shown infinitely
                 */
                 if !self.isSuspended && self.autoDismiss {
-                    self.perform(#selector(self.dismiss), with: nil, afterDelay: self.duration)
+                    self.perform(#selector(self.dismiss(_:)), with: delegate, afterDelay: self.duration)
                 }
             }
         }
@@ -391,7 +392,7 @@ public class BaseNotificationBanner: UIView {
     */
     @objc private dynamic func onTapGestureRecognizer() {
         if dismissOnTap {
-            dismiss()
+            dismiss(self.delegate)
         }
         
         onTap?()
@@ -402,7 +403,7 @@ public class BaseNotificationBanner: UIView {
     */
     @objc private dynamic func onSwipeUpGestureRecognizer() {
         if dismissOnSwipeUp {
-            dismiss()
+            dismiss(self.delegate)
         }
         
         onSwipeUp?()
