@@ -18,11 +18,13 @@
 
 import UIKit
 
-public enum QueuePosition {
+@objc
+public enum QueuePosition: Int {
     case back
     case front
 }
 
+@objcMembers
 open class NotificationBannerQueue: NSObject {
     
     /// The default instance of the NotificationBannerQueue

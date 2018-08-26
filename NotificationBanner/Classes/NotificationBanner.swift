@@ -25,6 +25,7 @@ import SnapKit
     import MarqueeLabel
 #endif
 
+@objcMembers
 public class NotificationBanner: BaseNotificationBanner {
     
     /// Notification that will be posted when a notification banner will appear

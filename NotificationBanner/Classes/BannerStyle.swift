@@ -16,7 +16,10 @@
  
  */
 
-public enum BannerStyle {
+import Foundation
+
+@objc
+public enum BannerStyle: Int {
     case danger
     case info
     case none

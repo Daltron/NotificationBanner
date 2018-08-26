@@ -18,6 +18,7 @@
 
 import UIKit
 
+@objc
 public protocol BannerColorsProtocol {
     func color(for style: BannerStyle) -> UIColor
 }

@@ -24,6 +24,7 @@ import UIKit
     import MarqueeLabel
 #endif
 
+@objcMembers
 public class StatusBarNotificationBanner: BaseNotificationBanner {
 
     public override var bannerHeight: CGFloat {
