@@ -224,16 +224,16 @@ extension ExampleViewController: ExampleViewDelegate {
             // Status Bar Attributed Title Notification
             let title = "Custom Status Bar Notification"
             let attributedTitle = NSMutableAttributedString(string: title)
-            attributedTitle.addAttribute(NSAttributedStringKey.foregroundColor,
+            attributedTitle.addAttribute(NSAttributedString.Key.foregroundColor,
                                          value: UIColor.red,
                                          range: (title as NSString).range(of: "Custom"))
-            attributedTitle.addAttribute(NSAttributedStringKey.foregroundColor,
+            attributedTitle.addAttribute(NSAttributedString.Key.foregroundColor,
                                          value: UIColor.cyan,
                                          range: (title as NSString).range(of: "Status"))
-            attributedTitle.addAttribute(NSAttributedStringKey.foregroundColor,
+            attributedTitle.addAttribute(NSAttributedString.Key.foregroundColor,
                                          value: UIColor.green,
                                          range: (title as NSString).range(of: "Bar"))
-            attributedTitle.addAttribute(NSAttributedStringKey.foregroundColor,
+            attributedTitle.addAttribute(NSAttributedString.Key.foregroundColor,
                                          value: UIColor.orange,
                                          range: (title as NSString).range(of: "Notification"))
             let banner = StatusBarNotificationBanner(attributedTitle: attributedTitle)
