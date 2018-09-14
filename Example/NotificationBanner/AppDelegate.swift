@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         let navigationController = UINavigationController(rootViewController: ExampleViewController())
         let tabBarController = UITabBarController()
@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let tab = tabBarController.tabBar.items![0]
         tab.image = #imageLiteral(resourceName: "tab_bar_icon").withRenderingMode(.alwaysOriginal)
-        tab.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
+        tab.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         tab.title = nil
         
         window = UIWindow(frame: UIScreen.main.bounds)
