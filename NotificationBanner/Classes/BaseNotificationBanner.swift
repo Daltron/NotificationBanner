@@ -43,7 +43,7 @@ public class BaseNotificationBanner: UIView {
             if let customBannerHeight = customBannerHeight {
                 return customBannerHeight
             } else {
-                return shouldAdjustForIphoneX() ? 88.0 : 64.0
+                return shouldAdjustForNotchFeaturedIphone() ? 88.0 : 64.0
             }
         } set {
             customBannerHeight = newValue
@@ -202,7 +202,7 @@ public class BaseNotificationBanner: UIView {
      */
     
     private func updateSpacerViewHeight(make: ConstraintMaker? = nil) {
-        let finalHeight = NotificationBannerUtilities.isiPhoneX()
+        let finalHeight = NotificationBannerUtilities.isNotchFeaturedIPhone()
             && UIApplication.shared.statusBarOrientation.isPortrait
             && (parentViewController?.navigationController?.isNavigationBarHidden ?? true) ? 40.0 : 10.0
         if let make = make {
@@ -437,11 +437,11 @@ public class BaseNotificationBanner: UIView {
     }
 
     /**
-         Determines wether or not we should adjust the banner for the iPhoneX
+         Determines wether or not we should adjust the banner for notch featured iPhone
      */
     
-    internal func shouldAdjustForIphoneX() -> Bool {
-        return NotificationBannerUtilities.isiPhoneX()
+    internal func shouldAdjustForNotchFeaturedIphone() -> Bool {
+        return NotificationBannerUtilities.isNotchFeaturedIPhone()
             && UIApplication.shared.statusBarOrientation.isPortrait
             && (self.parentViewController?.navigationController?.isNavigationBarHidden ?? true)
     }

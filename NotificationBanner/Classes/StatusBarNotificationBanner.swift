@@ -30,7 +30,7 @@ public class StatusBarNotificationBanner: BaseNotificationBanner {
         get {
             if let customBannerHeight = customBannerHeight {
                 return customBannerHeight
-            } else if shouldAdjustForIphoneX() {
+            } else if shouldAdjustForNotchFeaturedIphone() {
                 return 50.0
             } else {
                 return 20.0
