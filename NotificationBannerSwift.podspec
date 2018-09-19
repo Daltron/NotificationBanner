@@ -17,7 +17,7 @@ NotificationBanner is an extremely customizable and lightweight library that mak
 
     s.source_files = 'NotificationBanner/Classes/**/*'
 
-    s.dependency 'SnapKit', '~> 4.0'
-    s.dependency 'MarqueeLabel/Swift'
+    s.dependency 'SnapKit', '~> 4.0.1'
+    s.dependency 'MarqueeLabel/Swift', '~> 3.2.0'
 
 end

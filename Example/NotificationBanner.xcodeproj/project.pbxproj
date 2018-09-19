@@ -40,7 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		23D0884ED7027DCB5F8507CC /* NotificationBannerSwift.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NotificationBannerSwift.podspec; path = ../NotificationBannerSwift.podspec; sourceTree = "<group>"; };
+		23D0884ED7027DCB5F8507CC /* NotificationBannerSwift.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NotificationBannerSwift.podspec; path = ../NotificationBannerSwift.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		3088C9C352176F7A8F6F90A2 /* Pods-NotificationBanner_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationBanner_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NotificationBanner_Example/Pods-NotificationBanner_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		5C025F6F1EE9E09E00ADB444 /* BannerColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BannerColors.swift; path = ../../NotificationBanner/Classes/BannerColors.swift; sourceTree = "<group>"; };
 		5C025F701EE9E09E00ADB444 /* BannerHapticGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BannerHapticGenerator.swift; path = ../../NotificationBanner/Classes/BannerHapticGenerator.swift; sourceTree = "<group>"; };
@@ -215,7 +215,6 @@
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
 				7629B8B978C0CFFF85A73B35 /* [CP] Embed Pods Frameworks */,
-				190BDE25EE5EBD960B624C5F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -234,8 +233,6 @@
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
-				94288237B9B8A4111FA6A968 /* [CP] Embed Pods Frameworks */,
-				519C0F4DFE5D705D74244CCB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -328,36 +325,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		190BDE25EE5EBD960B624C5F /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NotificationBanner_Example/Pods-NotificationBanner_Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		519C0F4DFE5D705D74244CCB /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NotificationBanner_Tests/Pods-NotificationBanner_Tests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		5DC226FC530E955EA881B890 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -396,21 +363,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NotificationBanner_Example/Pods-NotificationBanner_Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		94288237B9B8A4111FA6A968 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NotificationBanner_Tests/Pods-NotificationBanner_Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
