@@ -21,12 +21,15 @@ import UIKit
 class NotificationBannerUtilities: NSObject {
 
     class func isNotchFeaturedIPhone() -> Bool {
-        if UIDevice.current.userInterfaceIdiom != .phone {
+        if #available(iOS 11, *) {
+            if UIApplication.shared.windows.first!.safeAreaInsets.top > CGFloat(0) {
+                return true
+            } else {
+                return false
+            }
+        } else {
             return false
         }
-        
-        return UIScreen.main.nativeBounds.height == 1792 // iPhone XR
-            || UIScreen.main.nativeBounds.height == 2436 // iPhone X / XS
-            || UIScreen.main.nativeBounds.height == 2688 // iPhone XS Max
     }
+    
 }
