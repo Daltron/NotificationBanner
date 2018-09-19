@@ -20,10 +20,16 @@ import UIKit
 
 class NotificationBannerUtilities: NSObject {
 
-    class func isiPhoneX() -> Bool {
-        if UIDevice.current.userInterfaceIdiom != .phone {
+    class func isNotchFeaturedIPhone() -> Bool {
+        if #available(iOS 11, *) {
+            if UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0 > CGFloat(0) {
+                return true
+            } else {
+                return false
+            }
+        } else {
             return false
         }
-        return UIScreen.main.nativeBounds.height == 2436
     }
+    
 }

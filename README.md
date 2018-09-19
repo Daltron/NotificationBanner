@@ -39,6 +39,13 @@ NotificationBanner is an extremely customizable and lightweight library that mak
 NotificationBanner is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
+#### Swift 4.2
+
+```ruby
+pod 'NotificationBannerSwift', git: 'https://github.com/Daltron/NotificationBanner', branch: 'master'
+```
+(Waiting on SnapKit to update to Swift 4.2 before pushing a CocoaPods release that supports Swift 4.2)
+
 #### Swift 4
 
 ```ruby

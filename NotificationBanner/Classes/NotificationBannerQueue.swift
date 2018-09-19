@@ -64,6 +64,17 @@ open class NotificationBannerQueue: NSObject {
     }
     
     /**
+        Removes a banner from the queue
+        -parameter banner: A notification banner to remove from the queue.
+     */
+    func removeBanner(_ banner: BaseNotificationBanner) {
+        
+        if let index = banners.firstIndex(of: banner) {
+            banners.remove(at: index)
+        }
+    }
+    
+    /**
         Shows the next notificaiton banner on the queue if one exists
         -parameter callback: The closure to execute after a banner is shown or when the queue is empty
     */
