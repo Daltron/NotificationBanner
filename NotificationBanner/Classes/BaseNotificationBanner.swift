@@ -248,6 +248,18 @@ public class BaseNotificationBanner: UIView {
     }
     
     /**
+        Removes the NotificationBanner from the queue if not displaying
+     */
+    public func remove() {
+        
+        guard !isDisplaying else {
+            return
+        }
+        
+        bannerQueue.removeBanner(self)
+    }
+    
+    /**
         Places a NotificationBanner on the queue and shows it if its the first one in the queue
         - parameter queuePosition: The position to show the notification banner. If the position is .front, the
         banner will be displayed immediately
