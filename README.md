@@ -47,6 +47,15 @@ pod 'NotificationBannerSwift'
 
 Then add `import NotificationBannerSwift` at the top of each file you use NotificationBanner in your project.
 
+#### Swift 4.0
+
+```ruby
+pod 'NotificationBannerSwift', '1.6.3'
+pod 'MarqueeLabel', '3.1.6'
+```
+
+Then add `import NotificationBannerSwift` at the top of each file you use NotificationBanner in your project.
+
 ### Carthage
 
 To use NotificationBanner via Carthage simply add this line to your `Cartfile`:
