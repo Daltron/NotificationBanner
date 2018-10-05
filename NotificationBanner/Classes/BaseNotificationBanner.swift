@@ -364,9 +364,11 @@ public class BaseNotificationBanner: UIView {
         Suspends a notification banner so it will not be dismissed. This happens because a new notification banner was placed in front of it on the queue.
     */
     func suspend() {
-        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(dismiss), object: nil)
-        isSuspended = true
-        isDisplaying = false
+        if autoDismiss {
+            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(dismiss), object: nil)
+            isSuspended = true
+            isDisplaying = false
+        }
     }
     
     /**
