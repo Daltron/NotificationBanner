@@ -28,22 +28,34 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
                 return customBannerHeight
             } else {
                 // Calculate the height based on contents of labels
-                let boundingWidth = UIScreen.main.bounds.width - padding * 2
+                
+                // Determine available width for displaying the label
+                var boundingWidth = UIScreen.main.bounds.width - padding * 2
+                
+                // Substract safeAreaInsets from width, if available
+                // We have to use keyWindow to ask for safeAreaInsets as `self` only knows its' safeAreaInsets in layoutSubviews
+                if #available(iOS 11.0, *), let keyWindow = UIApplication.shared.keyWindow {
+                    let safeAreaOffset = keyWindow.safeAreaInsets.left + keyWindow.safeAreaInsets.right
+                    
+                    boundingWidth -= safeAreaOffset
+                }
                 
                 let titleHeight = titleLabel?.text?.height(
                     forConstrainedWidth: boundingWidth,
                     font: UIFont.systemFont(ofSize: 17.5, weight: UIFont.Weight.bold)
-                ) ?? 0.0
-
+                    ) ?? 0.0
+                
                 let subtitleHeight = subtitleLabel?.text?.height(
                     forConstrainedWidth: boundingWidth,
                     font: UIFont.systemFont(ofSize: 15.0)
-                ) ?? 0.0
+                    ) ?? 0.0
                 
                 let statusBarHeight: CGFloat = shouldAdjustForNotchFeaturedIphone() ? 44.0 : 20.0
                 let minHeight: CGFloat = shouldAdjustForNotchFeaturedIphone() ? 88.0 : 64.0
                 
-                return max(titleHeight + 2.5 + subtitleHeight + statusBarHeight, minHeight)
+                let actualBannerHeight = titleHeight + 2.5 + subtitleHeight + statusBarHeight
+                
+                return max(actualBannerHeight, minHeight)
             }
         } set {
             customBannerHeight = newValue
@@ -126,13 +138,22 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
             if let leftView = leftView {
                 make.left.equalTo(leftView.snp.right).offset(padding)
             } else {
-                make.left.equalToSuperview().offset(padding)
+                if #available(iOS 11.0, *) {
+                    make.left.equalTo(safeAreaLayoutGuide).offset(padding)
+                } else {
+                    make.left.equalToSuperview().offset(padding)
+                }
+                
             }
             
             if let rightView = rightView {
                 make.right.equalTo(rightView.snp.left).offset(-padding)
             } else {
-                make.right.equalToSuperview().offset(-padding)
+                if #available(iOS 11.0, *) {
+                    make.right.equalTo(safeAreaLayoutGuide).offset(-padding)
+                } else {
+                    make.right.equalToSuperview().offset(-padding)
+                }
             }
             
             make.centerY.equalToSuperview()
@@ -144,7 +165,7 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
             }
         }
     }
-
+    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
