@@ -145,6 +145,27 @@ extension ExampleViewController: ExampleViewDelegate {
             }
             
             banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
+        case 6:
+            // Growing Notification
+            let banner = GrowingNotificationBanner(
+                title: "Growing Notification",
+                subtitle: """
+                This is a growing notification.
+                Instead of scrolling when the content is too long to display it in one line, the banner view will grow in height in order to display all of the text.
+                """,
+                style: .success)
+            
+            banner.delegate = self
+            
+            banner.onTap = {
+                self.showAlert(title: "Banner Success Notification Tapped", message: "")
+            }
+            
+            banner.onSwipeUp = {
+                self.showAlert(title: "Basic Success Notification Swiped Up", message: "")
+            }
+
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
         default:
             return
         }
@@ -157,6 +178,7 @@ extension ExampleViewController: ExampleViewDelegate {
             let leftView = UIImageView(image: #imageLiteral(resourceName: "success"))
             let banner = NotificationBanner(title: "Success Notification", subtitle: "This notification has a left view!", leftView: leftView, style: .success)
             banner.delegate = self
+
             banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
         case 1:
             // Danger Notification with Right View
@@ -248,7 +270,7 @@ extension ExampleViewController: ExampleViewDelegate {
     internal func numberOfCells(for section: Int) -> Int {
         switch section {
         case 0:
-            return 6
+            return 7
         case 1:
             return 3
         case 2:
@@ -291,6 +313,8 @@ extension ExampleViewController: ExampleViewDelegate {
             return UIColor(red: 0.23, green: 0.60, blue: 0.85, alpha: 1.00)
         case 3:
             return UIColor(red: 1.00, green: 0.66, blue: 0.16, alpha: 1.00)
+        case 6:
+            return UIColor(red: 0.81, green: 0.55, blue: 0.44, alpha: 1.00)
         default:
             return UIColor(red: 0.54, green: 0.40, blue: 0.54, alpha: 1.00)
         }
@@ -311,6 +335,8 @@ extension ExampleViewController: ExampleViewDelegate {
                 return ("Custom Warning Notification", "Displayed Under/Over the Navigation/Tab Bar")
             case 5:
                 return ("Basic Notification", "Must Be Dismissed Manually")
+            case 6:
+                return ("Growing Notification", "Notification height based on length of labels")
             default:
                 return ("", nil)
             }
