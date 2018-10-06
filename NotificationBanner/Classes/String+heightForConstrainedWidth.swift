@@ -7,7 +7,7 @@
 //
 // https://stackoverflow.com/questions/30450434/figure-out-size-of-uilabel-based-on-string-in-swift
 
-import Foundation
+import UIKit
 
 extension String {
     
