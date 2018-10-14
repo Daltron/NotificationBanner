@@ -332,13 +332,16 @@ public class BaseNotificationBanner: UIView {
             NotificationCenter.default.post(name: NotificationBanner.BannerWillAppear, object: self, userInfo: notificationUserInfo)
             delegate?.notificationBannerWillAppear(self)
             
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.onTapGestureRecognizer))
+            self.addGestureRecognizer(tapGestureRecognizer)
+            
             self.isDisplaying = true
             
             UIView.animate(withDuration: 0.5,
                            delay: 0.0,
                            usingSpringWithDamping: 0.7,
                            initialSpringVelocity: 1,
-                           options: .curveLinear,
+                           options: [.curveLinear,.allowUserInteraction],
                            animations: {
                             BannerHapticGenerator.generate(self.haptic)
                             self.frame = self.bannerPositionFrame.endFrame
@@ -346,10 +349,7 @@ public class BaseNotificationBanner: UIView {
                 
                 NotificationCenter.default.post(name: NotificationBanner.BannerDidAppear, object: self, userInfo: self.notificationUserInfo)
                 self.delegate?.notificationBannerDidAppear(self)
-                
-                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.onTapGestureRecognizer))
-                self.addGestureRecognizer(tapGestureRecognizer)
-                
+
                 /* We don't want to add the selector if another banner was queued in front of it
                    before it finished animating or if it is meant to be shown infinitely
                 */
