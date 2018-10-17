@@ -32,6 +32,7 @@ public protocol NotificationBannerDelegate: class {
     func notificationBannerDidDisappear(_ banner: BaseNotificationBanner)
 }
 
+@objcMembers
 public class BaseNotificationBanner: UIView {
     
     /// The delegate of the notification banner

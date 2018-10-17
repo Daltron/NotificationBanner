@@ -18,7 +18,8 @@
 
 import UIKit
 
-public enum BannerPosition {
+@objc
+public enum BannerPosition: Int {
     case bottom
     case top
 }
