@@ -51,7 +51,7 @@ Then add `import NotificationBannerSwift` at the top of each file you use Notifi
 
 ```ruby
 pod 'NotificationBannerSwift', '1.6.3'
-pod 'MarqueeLabel', '3.1.6'
+pod 'MarqueeLabel/Swift', '3.1.6'
 ```
 
 Then add `import NotificationBannerSwift` at the top of each file you use NotificationBanner in your project.
