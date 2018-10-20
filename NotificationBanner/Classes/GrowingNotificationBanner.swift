@@ -53,7 +53,11 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
                 let statusBarHeight: CGFloat = shouldAdjustForNotchFeaturedIphone() ? 44.0 : 20.0
                 let minHeight: CGFloat = shouldAdjustForNotchFeaturedIphone() ? 88.0 : 64.0
                 
-                let actualBannerHeight = titleHeight + 2.5 + subtitleHeight + statusBarHeight
+                var actualBannerHeight = statusBarHeight + titleHeight + subtitleHeight + bottomSpacing
+                
+                if !subtitleHeight.isZero {
+                    actualBannerHeight += innerSpacing
+                }
                 
                 return max(actualBannerHeight, minHeight)
             }
@@ -61,6 +65,12 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
             customBannerHeight = newValue
         }
     }
+    
+    /// Spacing between the last label and the bottom edge of the banner
+    private let bottomSpacing: CGFloat = 10.0
+    
+    /// Spacing between title and subtitle
+    private let innerSpacing: CGFloat = 2.5
     
     /// The bottom most label of the notification if a subtitle is provided
     public private(set) var subtitleLabel: UILabel?
@@ -117,6 +127,7 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
             make.top.equalToSuperview()
             make.left.equalToSuperview()
             make.right.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview()
         }
         
         if let subtitle = subtitle {
@@ -131,6 +142,7 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
                 make.top.equalTo(titleLabel!.snp.bottom).offset(2.5)
                 make.left.equalTo(titleLabel!)
                 make.right.equalTo(titleLabel!)
+                make.bottom.equalToSuperview()
             }
         }
         
@@ -156,13 +168,7 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
                 }
             }
             
-            make.centerY.equalToSuperview()
-            
-            if let subtitleLabel = subtitleLabel {
-                make.bottom.equalTo(subtitleLabel)
-            } else {
-                make.bottom.equalTo(titleLabel!)
-            }
+            make.bottom.equalToSuperview().offset(-bottomSpacing)
         }
     }
     
