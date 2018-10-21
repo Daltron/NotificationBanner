@@ -63,10 +63,10 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
                     font: UIFont.systemFont(ofSize: 15.0)
                     ) ?? 0.0
                 
-                let statusBarHeight: CGFloat = shouldAdjustForNotchFeaturedIphone() ? 44.0 : 20.0
+                let topOffset: CGFloat = shouldAdjustForNotchFeaturedIphone() ? 44.0 : verticalSpacing
                 let minHeight: CGFloat = shouldAdjustForNotchFeaturedIphone() ? 88.0 : 64.0
                 
-                var actualBannerHeight = statusBarHeight + titleHeight + subtitleHeight + bottomSpacing
+                var actualBannerHeight = topOffset + titleHeight + subtitleHeight + verticalSpacing
                 
                 if !subtitleHeight.isZero {
                     actualBannerHeight += innerSpacing
@@ -80,7 +80,7 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
     }
     
     /// Spacing between the last label and the bottom edge of the banner
-    private let bottomSpacing: CGFloat = 10.0
+    private let verticalSpacing: CGFloat = 10.0
     
     /// Spacing between title and subtitle
     private let innerSpacing: CGFloat = 2.5
@@ -94,6 +94,7 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
     /// The view that is presented on the right side of the notification
     private var rightView: UIView?
     
+    /// Square size for left/ right view if set
     private let iconSize: CGFloat = 24.0
     
     public init(title: String,
@@ -102,7 +103,7 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
                 rightView: UIView? = nil,
                 style: BannerStyle = .info,
                 colors: BannerColorsProtocol? = nil,
-                iconPosition: IconPosition = .top) {
+                iconPosition: IconPosition = .center) {
         
         self.leftView = leftView
         self.rightView = rightView
@@ -156,9 +157,15 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
         
         contentView.addSubview(outerStackView)
         outerStackView.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(padding)
-            make.bottom.equalToSuperview().offset(-bottomSpacing)
-            make.right.equalToSuperview().offset(-padding)
+            if #available(iOS 11.0, *) {
+                make.left.equalTo(safeAreaLayoutGuide).offset(padding)
+                make.right.equalTo(safeAreaLayoutGuide).offset(-padding)
+            } else {
+                make.left.equalToSuperview().offset(padding)
+                make.right.equalToSuperview().offset(-padding)
+            }
+
+            make.bottom.equalToSuperview().offset(-verticalSpacing)
         }
     }
     
