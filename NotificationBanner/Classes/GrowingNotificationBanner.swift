@@ -40,6 +40,14 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
                     boundingWidth -= safeAreaOffset
                 }
                 
+                if leftView != nil {
+                    boundingWidth -= iconSize + padding
+                }
+                
+                if rightView != nil {
+                    boundingWidth -= iconSize + padding
+                }
+                
                 let titleHeight = titleLabel?.text?.height(
                     forConstrainedWidth: boundingWidth,
                     font: UIFont.systemFont(ofSize: 17.5, weight: UIFont.Weight.bold)
@@ -81,6 +89,8 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
     /// The view that is presented on the right side of the notification
     private var rightView: UIView?
     
+    private let iconSize: CGFloat = 24.0
+    
     public init(title: String,
                 subtitle: String? = nil,
                 leftView: UIView? = nil,
@@ -88,16 +98,21 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
                 style: BannerStyle = .info,
                 colors: BannerColorsProtocol? = nil) {
         
+        self.leftView = leftView
+        self.rightView = rightView
+        
         super.init(style: style, colors: colors)
+        
+        let labelsView = UIView()
+        contentView.addSubview(labelsView)
         
         if let leftView = leftView {
             contentView.addSubview(leftView)
             
             leftView.snp.makeConstraints({ (make) in
-                make.top.equalToSuperview().offset(10)
-                make.left.equalToSuperview().offset(10)
-                make.bottom.equalToSuperview().offset(-10)
-                make.width.equalTo(leftView.snp.height)
+                make.size.equalTo(iconSize)
+                make.centerY.equalTo(labelsView)
+                make.left.equalToSuperview().offset(padding)
             })
         }
         
@@ -105,15 +120,11 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
             contentView.addSubview(rightView)
             
             rightView.snp.makeConstraints({ (make) in
-                make.top.equalToSuperview().offset(10)
-                make.right.equalToSuperview().offset(-10)
-                make.bottom.equalToSuperview().offset(-10)
-                make.width.equalTo(rightView.snp.height)
+                make.size.equalTo(iconSize)
+                make.centerY.equalTo(labelsView)
+                make.right.equalToSuperview().offset(-padding)
             })
         }
-        
-        let labelsView = UIView()
-        contentView.addSubview(labelsView)
         
         titleLabel = UILabel()
         titleLabel!.font = UIFont.systemFont(ofSize: 17.5, weight: UIFont.Weight.bold)
