@@ -21,6 +21,11 @@ import SnapKit
 
 public class GrowingNotificationBanner: BaseNotificationBanner {
     
+    public enum IconPosition {
+        case top
+        case center
+    }
+    
     /// The height of the banner when it is presented
     override public var bannerHeight: CGFloat {
         get {
@@ -96,35 +101,35 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
                 leftView: UIView? = nil,
                 rightView: UIView? = nil,
                 style: BannerStyle = .info,
-                colors: BannerColorsProtocol? = nil) {
+                colors: BannerColorsProtocol? = nil,
+                iconPosition: IconPosition = .top) {
         
         self.leftView = leftView
         self.rightView = rightView
         
         super.init(style: style, colors: colors)
         
-        let labelsView = UIView()
-        contentView.addSubview(labelsView)
+        let labelsView = UIStackView()
+        labelsView.axis = .vertical
+        labelsView.spacing = innerSpacing
+        
+        let outerStackView = UIStackView()
+        outerStackView.spacing = padding
+        
+        switch iconPosition {
+        case .top:
+            outerStackView.alignment = .top
+        case .center:
+            outerStackView.alignment = .center
+        }
         
         if let leftView = leftView {
-            contentView.addSubview(leftView)
+            outerStackView.addArrangedSubview(leftView)
             
-            leftView.snp.makeConstraints({ (make) in
-                make.size.equalTo(iconSize)
-                make.centerY.equalTo(labelsView)
-                make.left.equalToSuperview().offset(padding)
-            })
+            leftView.snp.makeConstraints { $0.size.equalTo(iconSize) }
         }
         
-        if let rightView = rightView {
-            contentView.addSubview(rightView)
-            
-            rightView.snp.makeConstraints({ (make) in
-                make.size.equalTo(iconSize)
-                make.centerY.equalTo(labelsView)
-                make.right.equalToSuperview().offset(-padding)
-            })
-        }
+        outerStackView.addArrangedSubview(labelsView)
         
         titleLabel = UILabel()
         titleLabel!.font = UIFont.systemFont(ofSize: 17.5, weight: UIFont.Weight.bold)
@@ -132,14 +137,7 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
         titleLabel!.text = title
         titleLabel!.numberOfLines = 0
         titleLabel!.setContentHuggingPriority(.required, for: .vertical)
-        labelsView.addSubview(titleLabel!)
-        
-        titleLabel!.snp.makeConstraints { (make) in
-            make.top.equalToSuperview()
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-            make.bottom.lessThanOrEqualToSuperview()
-        }
+        labelsView.addArrangedSubview(titleLabel!)
         
         if let subtitle = subtitle {
             subtitleLabel = UILabel()
@@ -147,39 +145,20 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
             subtitleLabel!.numberOfLines = 0
             subtitleLabel!.textColor = .white
             subtitleLabel!.text = subtitle
-            labelsView.addSubview(subtitleLabel!)
-            
-            subtitleLabel!.snp.makeConstraints { (make) in
-                make.top.equalTo(titleLabel!.snp.bottom).offset(2.5)
-                make.left.equalTo(titleLabel!)
-                make.right.equalTo(titleLabel!)
-                make.bottom.equalToSuperview()
-            }
+            labelsView.addArrangedSubview(subtitleLabel!)
         }
         
-        labelsView.snp.makeConstraints { (make) in
-            if let leftView = leftView {
-                make.left.equalTo(leftView.snp.right).offset(padding)
-            } else {
-                if #available(iOS 11.0, *) {
-                    make.left.equalTo(safeAreaLayoutGuide).offset(padding)
-                } else {
-                    make.left.equalToSuperview().offset(padding)
-                }
-                
-            }
+        if let rightView = rightView {
+            outerStackView.addArrangedSubview(rightView)
             
-            if let rightView = rightView {
-                make.right.equalTo(rightView.snp.left).offset(-padding)
-            } else {
-                if #available(iOS 11.0, *) {
-                    make.right.equalTo(safeAreaLayoutGuide).offset(-padding)
-                } else {
-                    make.right.equalToSuperview().offset(-padding)
-                }
-            }
-            
+            rightView.snp.makeConstraints { $0.size.equalTo(iconSize) }
+        }
+        
+        contentView.addSubview(outerStackView)
+        outerStackView.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().offset(padding)
             make.bottom.equalToSuperview().offset(-bottomSpacing)
+            make.right.equalToSuperview().offset(-padding)
         }
     }
     
