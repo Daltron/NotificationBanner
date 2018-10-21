@@ -151,7 +151,7 @@ extension ExampleViewController: ExampleViewDelegate {
                 title: "Growing Notification",
                 subtitle: """
                 This is a growing notification.
-                Instead of scrolling when the content is too long to display it in one line, the banner view will grow in height in order to display all of the text.
+                Instead of using a scroll animation the view grows in height if needed.
                 """,
                 style: .success)
             
@@ -191,6 +191,19 @@ extension ExampleViewController: ExampleViewDelegate {
             let leftView = UIImageView(image: #imageLiteral(resourceName: "info"))
             let rightView = UIImageView(image: #imageLiteral(resourceName: "right_chevron"))
             let banner = NotificationBanner(title: "Info Notification", subtitle: "This notification has two side views!", leftView: leftView, rightView: rightView, style: .info)
+            banner.delegate = self
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
+        case 3:
+            // Growing Notification with left view
+            let leftView = UIImageView(image: #imageLiteral(resourceName: "success"))
+            let banner = GrowingNotificationBanner(
+                title: "Growing Notification",
+                subtitle: """
+                This is a growing notification.
+                Instead of using a scroll animation the view grows in height if needed.
+                """,
+                leftView: leftView,
+                style: .success)
             banner.delegate = self
             banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
         default:
@@ -272,7 +285,7 @@ extension ExampleViewController: ExampleViewDelegate {
         case 0:
             return 7
         case 1:
-            return 3
+            return 4
         case 2:
             return 1
         case 3:
@@ -348,6 +361,8 @@ extension ExampleViewController: ExampleViewDelegate {
                 return ("Danger Notification", "With Right View")
             case 2:
                 return ("Info Notification", "With Left and Right Views")
+            case 3:
+                return ("Growing Notification", "With Left View")
             default:
                 return ("", nil)
             }
