@@ -55,12 +55,12 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
                 
                 let titleHeight = titleLabel?.text?.height(
                     forConstrainedWidth: boundingWidth,
-                    font: UIFont.systemFont(ofSize: 17.5, weight: UIFont.Weight.bold)
+                    font: titleFont
                     ) ?? 0.0
                 
                 let subtitleHeight = subtitleLabel?.text?.height(
                     forConstrainedWidth: boundingWidth,
-                    font: UIFont.systemFont(ofSize: 15.0)
+                    font: subtitleFont
                     ) ?? 0.0
                 
                 let topOffset: CGFloat = shouldAdjustForNotchFeaturedIphone() ? 44.0 : verticalSpacing
@@ -96,6 +96,12 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
     
     /// Square size for left/ right view if set
     private let iconSize: CGFloat = 24.0
+    
+    /// Font used for the title label
+    private let titleFont: UIFont = UIFont.systemFont(ofSize: 17.5, weight: UIFont.Weight.bold)
+    
+    /// Font used for the subtitle label
+    private let subtitleFont: UIFont = UIFont.systemFont(ofSize: 15.0)
     
     public init(title: String,
                 subtitle: String? = nil,
@@ -133,7 +139,7 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
         outerStackView.addArrangedSubview(labelsView)
         
         titleLabel = UILabel()
-        titleLabel!.font = UIFont.systemFont(ofSize: 17.5, weight: UIFont.Weight.bold)
+        titleLabel!.font = titleFont
         titleLabel!.textColor = .white
         titleLabel!.text = title
         titleLabel!.numberOfLines = 0
@@ -142,7 +148,7 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
         
         if let subtitle = subtitle {
             subtitleLabel = UILabel()
-            subtitleLabel!.font = UIFont.systemFont(ofSize: 15.0)
+            subtitleLabel!.font = subtitleFont
             subtitleLabel!.numberOfLines = 0
             subtitleLabel!.textColor = .white
             subtitleLabel!.text = subtitle
