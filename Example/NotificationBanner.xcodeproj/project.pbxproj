@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B9CEC6121692C2100B5DEB9 /* GrowingNotificationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9CEC6021692C2100B5DEB9 /* GrowingNotificationBanner.swift */; };
 		53E5CC29B491F84E9D62E5E0 /* Pods_NotificationBanner_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9446DBF7E0185B738266C964 /* Pods_NotificationBanner_Tests.framework */; };
 		5C025F761EE9E09E00ADB444 /* BannerColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C025F6F1EE9E09E00ADB444 /* BannerColors.swift */; };
 		5C025F771EE9E09E00ADB444 /* BannerHapticGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C025F701EE9E09E00ADB444 /* BannerHapticGenerator.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		23D0884ED7027DCB5F8507CC /* NotificationBannerSwift.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = NotificationBannerSwift.podspec; path = ../NotificationBannerSwift.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		2B9CEC6021692C2100B5DEB9 /* GrowingNotificationBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GrowingNotificationBanner.swift; path = ../../NotificationBanner/Classes/GrowingNotificationBanner.swift; sourceTree = "<group>"; };
 		3088C9C352176F7A8F6F90A2 /* Pods-NotificationBanner_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationBanner_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NotificationBanner_Example/Pods-NotificationBanner_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		5C025F6F1EE9E09E00ADB444 /* BannerColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BannerColors.swift; path = ../../NotificationBanner/Classes/BannerColors.swift; sourceTree = "<group>"; };
 		5C025F701EE9E09E00ADB444 /* BannerHapticGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BannerHapticGenerator.swift; path = ../../NotificationBanner/Classes/BannerHapticGenerator.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				5C025F711EE9E09E00ADB444 /* BannerStyle.swift */,
 				5C025F721EE9E09E00ADB444 /* BaseNotificationBanner.swift */,
 				5C025F731EE9E09E00ADB444 /* NotificationBanner.swift */,
+				2B9CEC6021692C2100B5DEB9 /* GrowingNotificationBanner.swift */,
 				5C025F741EE9E09E00ADB444 /* NotificationBannerQueue.swift */,
 				5C025F751EE9E09E00ADB444 /* StatusBarNotificationBanner.swift */,
 				5C8890A71F7155840032D605 /* NotificationBannerUtilities.swift */,
@@ -376,6 +379,7 @@
 				5CBD22471E836DE50041DC8F /* NorthCarolinaBannerView.swift in Sources */,
 				5C025F7A1EE9E09E00ADB444 /* NotificationBanner.swift in Sources */,
 				5C025F761EE9E09E00ADB444 /* BannerColors.swift in Sources */,
+				2B9CEC6121692C2100B5DEB9 /* GrowingNotificationBanner.swift in Sources */,
 				5C025F781EE9E09E00ADB444 /* BannerStyle.swift in Sources */,
 				5C025F791EE9E09E00ADB444 /* BaseNotificationBanner.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ExampleViewController.swift in Sources */,

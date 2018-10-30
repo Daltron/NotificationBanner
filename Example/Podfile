@@ -17,7 +17,7 @@ post_install do |installer|
         swift4_projects = ['MarqueeLabel']
         if swift4_projects.include? target.name
             target.build_configurations.each do |config|
-                config.build_settings['SWIFT_VERSION'] = '4.0'
+                config.build_settings['SWIFT_VERSION'] = '4.2'
             end
         end
     end
