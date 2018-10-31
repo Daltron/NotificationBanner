@@ -28,21 +28,6 @@ import SnapKit
 @objcMembers
 public class NotificationBanner: BaseNotificationBanner {
     
-    /// Notification that will be posted when a notification banner will appear
-    public static let BannerWillAppear: Notification.Name = Notification.Name(rawValue: "NotificationBannerWillAppear")
-    
-    /// Notification that will be posted when a notification banner did appear
-    public static let BannerDidAppear: Notification.Name = Notification.Name(rawValue: "NotificationBannerDidAppear")
-    
-    /// Notification that will be posted when a notification banner will appear
-    public static let BannerWillDisappear: Notification.Name = Notification.Name(rawValue: "NotificationBannerWillDisappear")
-    
-    /// Notification that will be posted when a notification banner did appear
-    public static let BannerDidDisappear: Notification.Name = Notification.Name(rawValue: "NotificationBannerDidDisappear")
-    
-    /// Notification banner object key that is included with each Notification
-    public static let BannerObjectKey: String = "NotificationBannerObjectKey"
-    
     /// The bottom most label of the notification if a subtitle is provided
     public private(set) var subtitleLabel: MarqueeLabel?
     
@@ -87,7 +72,7 @@ public class NotificationBanner: BaseNotificationBanner {
         contentView.addSubview(labelsView)
         
         titleLabel = MarqueeLabel()
-        titleLabel!.type = .left
+        (titleLabel as! MarqueeLabel).type = .left
         titleLabel!.font = UIFont.systemFont(ofSize: 17.5, weight: UIFont.Weight.bold)
         titleLabel!.textColor = .white
         titleLabel!.text = title
