@@ -22,7 +22,9 @@ NotificationBanner is an extremely customizable and lightweight library that mak
 - Orientation change support ✅
 - Custom `UIView` support ✅
 - Custom colors support ✅
-- Scrolling label support for banners with long titles/subtitles ✅
+- Support for long titles/ subtitles ✅
+  - `NotificationBanner` uses horizontal scrolling labels
+  - `GrowingNotificationBanner` grows in height as needed
 - Presenting from top or bottom support ✅
 - Haptic feeback support ✅
 - Built in banner queue ✅
@@ -69,10 +71,17 @@ Then add `NotificationBanner.framework` and the dependencies `SnapKit.framework`
 
 ## Usage
 
-Creating drop down alerts with NotificationBanner is easy. To create and show a banner, simply:
+Creating drop down alerts with NotificationBanner is easy. To create a regular banner (with scrolling labels) and show it, simply:
 
 ```swift
 let banner = NotificationBanner(title: title, subtitle: subtitle, style: .success)
+banner.show()
+```
+
+If you want to create a banner which grows in height as needed and show it accordingly just use `GrowingNotificationBanner` instead of `NotificationBanner`:
+
+```swift
+let banner = GrowingNotificationBanner(title: title, subtitle: subtitle, style: .success)
 banner.show()
 ```
 
