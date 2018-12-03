@@ -71,7 +71,7 @@ open class NotificationBannerQueue: NSObject {
      */
     func removeBanner(_ banner: BaseNotificationBanner) {
         
-        if let index = banners.firstIndex(of: banner) {
+        if let index = banners.index(of: banner) {
             banners.remove(at: index)
         }
     }
@@ -104,5 +104,15 @@ open class NotificationBannerQueue: NSObject {
     */
     public func removeAll() {
         banners.removeAll()
+    }
+    
+    /**
+        Removes all notification banners from the queue except currently displaying one
+     */
+    public func removePendings() {
+        
+        for banner in banners {
+            banner.remove()
+        }
     }
 }

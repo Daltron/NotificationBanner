@@ -264,6 +264,19 @@ public class BaseNotificationBanner: UIView {
     }
     
     /**
+     Hides notifiaction banner if suspended
+     */
+    private func hide() {
+        
+        guard isSuspended else {
+            return
+        }
+        
+        self.removeFromSuperview()
+        self.isSuspended = false
+    }
+    
+    /**
         Removes the NotificationBanner from the queue if not displaying
      */
     public func remove() {
@@ -271,6 +284,8 @@ public class BaseNotificationBanner: UIView {
         guard !isDisplaying else {
             return
         }
+        
+        hide()
         
         bannerQueue.removeBanner(self)
     }
@@ -393,9 +408,9 @@ public class BaseNotificationBanner: UIView {
     func resume() {
         if autoDismiss {
             self.perform(#selector(dismiss), with: nil, afterDelay: self.duration)
-            isSuspended = false
-            isDisplaying = true
         }
+        isSuspended = false
+        isDisplaying = true
     }
     
     /**
