@@ -30,6 +30,14 @@ public protocol NotificationBannerDelegate: class {
     func notificationBannerDidAppear(_ banner: BaseNotificationBanner)
     func notificationBannerWillDisappear(_ banner: BaseNotificationBanner)
     func notificationBannerDidDisappear(_ banner: BaseNotificationBanner)
+    func notificationBannerShouldShowStatusBar(_ banner: BaseNotificationBanner) -> Bool
+}
+
+public extension NotificationBannerDelegate {
+    
+    func notificationBannerShouldShowStatusBar(_ banner: BaseNotificationBanner) -> Bool {
+        return true
+    }
 }
 
 @objcMembers
@@ -256,7 +264,10 @@ public class BaseNotificationBanner: UIView {
             self.delegate?.notificationBannerDidDisappear(self)
             
             self.bannerQueue.showNext(callback: { (isEmpty) in
-                if isEmpty || self.statusBarShouldBeShown() {
+                
+                let statusBarShouldBeShown = self.delegate?.notificationBannerShouldShowStatusBar(self) ?? true
+                
+                if (isEmpty || self.statusBarShouldBeShown()) && statusBarShouldBeShown {
                     self.appWindow.windowLevel = UIWindow.Level.normal
                 }
             })
