@@ -78,7 +78,7 @@ public class FloatGrowingNotificationBanner: GrowingNotificationBanner {
                      shadowBlurRadius: CGFloat = 0,
                      shadowCornerRadius: CGFloat = 0,
                      shadowOffset: UIOffset = .zero,
-                     shadowEdgeInsets: UIEdgeInsets = .zero) {
+                     shadowEdgeInsets: UIEdgeInsets? = nil) {
 
         self.bannerEdgeInsets = edgeInsets
         
