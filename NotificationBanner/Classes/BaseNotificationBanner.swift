@@ -134,8 +134,17 @@ public class BaseNotificationBanner: UIView {
     /// The position the notification banner should slide in from
     private(set) var bannerPosition: BannerPosition!
     
+    /// The notification banner sides edges insets from superview. If presented - spacerView color will be transparent
+    internal(set) var bannerEdgeInsets: UIEdgeInsets? = nil {
+        didSet {
+            if bannerEdgeInsets != nil {
+                spacerView.backgroundColor = .clear
+            }
+        }
+    }
+
     /// Object that stores the start and end frames for the notification banner based on the provided banner position
-    private var bannerPositionFrame: BannerPositionFrame!
+    internal var bannerPositionFrame: BannerPositionFrame!
     
     /// The user info that gets passed to each notification
     private var notificationUserInfo: [String: BaseNotificationBanner] {
@@ -315,7 +324,8 @@ public class BaseNotificationBanner: UIView {
             bannerPositionFrame = BannerPositionFrame(bannerPosition: bannerPosition,
                                                       bannerWidth: appWindow.frame.width,
                                                       bannerHeight: bannerHeight,
-                                                      maxY: maximumYPosition())
+                                                      maxY: maximumYPosition(),
+                                                      edgeInsets: bannerEdgeInsets)
         }
         
         NotificationCenter.default.removeObserver(self,
@@ -399,21 +409,31 @@ public class BaseNotificationBanner: UIView {
     }
     
     /**
+        Update banner height, it's necessary after banner labels font update
+     */
+    internal func updateBannerHeight() {
+        onOrientationChanged()
+    }
+    
+    /**
         Changes the frame of the notification banner when the orientation of the device changes
     */
     @objc private dynamic func onOrientationChanged() {
         updateSpacerViewHeight()
         
-        let newY = (bannerPosition == .top) ? (frame.origin.y) : (appWindow.frame.height - bannerHeight)
+        let edgeInsets = bannerEdgeInsets ?? .zero
+
+        let newY = (bannerPosition == .top) ? (frame.origin.y) : (appWindow.frame.height - bannerHeight + edgeInsets.top - edgeInsets.bottom)
         frame = CGRect(x: frame.origin.x,
                        y: newY,
-                       width: appWindow.frame.width,
+                       width: appWindow.frame.width - edgeInsets.left - edgeInsets.right,
                        height: bannerHeight)
     
         bannerPositionFrame = BannerPositionFrame(bannerPosition: bannerPosition,
                                                   bannerWidth: appWindow.frame.width,
                                                   bannerHeight: bannerHeight,
-                                                  maxY: maximumYPosition())
+                                                  maxY: maximumYPosition(),
+                                                  edgeInsets: bannerEdgeInsets)
     }
     
     /**
