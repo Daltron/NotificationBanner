@@ -179,3 +179,48 @@ public class NotificationBanner: BaseNotificationBanner {
     }
     
 }
+
+public extension NotificationBanner {
+    
+    func applyStyling(cornerRadius: CGFloat? = nil,
+                      titleFont: UIFont? = nil,
+                      titleColor: UIColor? = nil,
+                      titleTextAlign: NSTextAlignment? = nil,
+                      subtitleFont: UIFont? = nil,
+                      subtitleColor: UIColor? = nil,
+                      subtitleTextAlign: NSTextAlignment? = nil) {
+        
+        if let cornerRadius = cornerRadius {
+            contentView.layer.cornerRadius = cornerRadius
+        }
+        
+        if let titleFont = titleFont {
+            titleLabel!.font = titleFont
+        }
+        
+        if let titleColor = titleColor {
+            titleLabel!.textColor = titleColor
+        }
+        
+        if let titleTextAlign = titleTextAlign {
+            titleLabel!.textAlignment = titleTextAlign
+        }
+        
+        if let subtitleFont = subtitleFont {
+            subtitleLabel!.font = subtitleFont
+        }
+        
+        if let subtitleColor = subtitleColor {
+            subtitleLabel!.textColor = subtitleColor
+        }
+        
+        if let subtitleTextAlign = subtitleTextAlign {
+            subtitleLabel!.textAlignment = subtitleTextAlign
+        }
+        
+        if titleFont != nil || subtitleFont != nil {
+            updateBannerHeight()
+        }
+    }
+    
+}

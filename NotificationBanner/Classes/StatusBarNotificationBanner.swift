@@ -91,3 +91,19 @@ public class StatusBarNotificationBanner: BaseNotificationBanner {
     }
 
 }
+
+public extension StatusBarNotificationBanner {
+    
+    func applyStyling(titleColor: UIColor? = nil,
+                      titleTextAlign: NSTextAlignment? = nil) {
+        
+        if let titleColor = titleColor {
+            titleLabel!.textColor = titleColor
+        }
+        
+        if let titleTextAlign = titleTextAlign {
+            titleLabel!.textAlignment = titleTextAlign
+        }
+    }
+    
+}
