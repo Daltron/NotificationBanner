@@ -116,6 +116,9 @@ public class BaseNotificationBanner: UIView {
     /// A view that helps the spring animation look nice when the banner appears
     internal var spacerView: UIView!
     
+    /// The default offset for spacerView top or bottom
+    internal var spacerViewDefaultOffset: CGFloat = 10.0
+
     /// The default padding between edges and views
     internal var padding: CGFloat = 15.0
     
@@ -193,14 +196,13 @@ public class BaseNotificationBanner: UIView {
     /**
         Creates the proper banner constraints based on the desired banner position
      */
-    
     private func createBannerConstraints(for bannerPosition: BannerPosition) {
         
         spacerView.snp.remakeConstraints { (make) in
             if bannerPosition == .top {
-                make.top.equalToSuperview().offset(-10)
+                make.top.equalToSuperview().offset(-spacerViewDefaultOffset)
             } else {
-                make.bottom.equalToSuperview().offset(10)
+                make.bottom.equalToSuperview().offset(spacerViewDefaultOffset)
             }
             make.left.equalToSuperview()
             make.right.equalToSuperview()
@@ -225,11 +227,8 @@ public class BaseNotificationBanner: UIView {
     /**
          Updates the spacer view height. Specifically used for orientation changes.
      */
-    
     private func updateSpacerViewHeight(make: ConstraintMaker? = nil) {
-        let finalHeight = NotificationBannerUtilities.isNotchFeaturedIPhone()
-            && UIApplication.shared.statusBarOrientation.isPortrait
-            && (parentViewController?.navigationController?.isNavigationBarHidden ?? true) ? 40.0 : 10.0
+        let finalHeight = spacerViewHeight()
         if let make = make {
             make.height.equalTo(finalHeight)
         } else {
@@ -237,6 +236,12 @@ public class BaseNotificationBanner: UIView {
                 make.height.equalTo(finalHeight)
             })
         }
+    }
+    
+    internal func spacerViewHeight() -> CGFloat {
+        return NotificationBannerUtilities.isNotchFeaturedIPhone()
+            && UIApplication.shared.statusBarOrientation.isPortrait
+            && (parentViewController?.navigationController?.isNavigationBarHidden ?? true) ? 40.0 : 10.0
     }
     
     /**

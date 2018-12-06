@@ -124,6 +124,7 @@ private extension FloatGrowingNotificationBanner {
         
         if let edgeInsets = edgeInsets {
             var shadowRect = CGRect(origin: .zero, size: bannerPositionFrame.startFrame.size)
+            shadowRect.size.height -= (spacerViewHeight() - spacerViewDefaultOffset) // to proper handle spacer height affects
             shadowRect.origin.x += edgeInsets.left
             shadowRect.origin.y += edgeInsets.top
             shadowRect.size.width -= (edgeInsets.left + edgeInsets.right)
