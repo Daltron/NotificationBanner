@@ -397,6 +397,16 @@ public class BaseNotificationBanner: UIView {
             isDisplaying = true
         }
     }
+ 
+    /**
+        Resets a notification banner's elapsed duration to zero.
+    */
+    public func resetDuration() {
+        if autoDismiss {
+             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(dismiss), object: nil)
+             self.perform(#selector(dismiss), with: nil, afterDelay: self.duration)
+        }
+    }
     
     /**
         Changes the frame of the notification banner when the orientation of the device changes
