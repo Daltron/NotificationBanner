@@ -37,7 +37,13 @@ public class NotificationBanner: BaseNotificationBanner {
     /// The view that is presented on the right side of the notification
     private var rightView: UIView?
     
-    public init(title: String,
+    /// Font used for the title label
+    private var titleFont: UIFont = UIFont.systemFont(ofSize: 17.5, weight: UIFont.Weight.bold)
+    
+    /// Font used for the subtitle label
+    private var subtitleFont: UIFont = UIFont.systemFont(ofSize: 15.0)
+
+    public init(title: String? = nil,
                 subtitle: String? = nil,
                 leftView: UIView? = nil,
                 rightView: UIView? = nil,
@@ -71,37 +77,46 @@ public class NotificationBanner: BaseNotificationBanner {
         let labelsView = UIView()
         contentView.addSubview(labelsView)
         
-        titleLabel = MarqueeLabel()
-        (titleLabel as! MarqueeLabel).type = .left
-        titleLabel!.font = UIFont.systemFont(ofSize: 17.5, weight: UIFont.Weight.bold)
-        titleLabel!.textColor = .white
-        titleLabel!.text = title
-        labelsView.addSubview(titleLabel!)
-        
-        titleLabel!.snp.makeConstraints { (make) in
-            make.top.equalToSuperview()
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-            if let _ = subtitle {
-                titleLabel!.numberOfLines = 1
-            } else {
-                titleLabel!.numberOfLines = 2
+        if let title = title {
+            titleLabel = MarqueeLabel()
+            (titleLabel as! MarqueeLabel).type = .left
+            titleLabel!.font = titleFont
+            titleLabel!.textColor = .white
+            titleLabel!.text = title
+            labelsView.addSubview(titleLabel!)
+            
+            titleLabel!.snp.makeConstraints { (make) in
+                make.top.equalToSuperview()
+                make.left.equalToSuperview()
+                make.right.equalToSuperview()
+                if let _ = subtitle {
+                    titleLabel!.numberOfLines = 1
+                } else {
+                    titleLabel!.numberOfLines = 2
+                }
             }
         }
         
         if let subtitle = subtitle {
             subtitleLabel = MarqueeLabel()
             subtitleLabel!.type = .left
-            subtitleLabel!.font = UIFont.systemFont(ofSize: 15.0)
+            subtitleLabel!.font = subtitleFont
             subtitleLabel!.numberOfLines = 1
             subtitleLabel!.textColor = .white
             subtitleLabel!.text = subtitle
             labelsView.addSubview(subtitleLabel!)
             
             subtitleLabel!.snp.makeConstraints { (make) in
-                make.top.equalTo(titleLabel!.snp.bottom).offset(2.5)
-                make.left.equalTo(titleLabel!)
-                make.right.equalTo(titleLabel!)
+                if title != nil {
+                    make.top.equalTo(titleLabel!.snp.bottom).offset(2.5)
+                    make.left.equalTo(titleLabel!)
+                    make.right.equalTo(titleLabel!)
+                }
+                else {
+                    make.top.equalToSuperview()
+                    make.left.equalToSuperview()
+                    make.right.equalToSuperview()
+                }
             }
         }
         
@@ -161,6 +176,51 @@ public class NotificationBanner: BaseNotificationBanner {
     internal override func updateMarqueeLabelsDurations() {
         super.updateMarqueeLabelsDurations()
         subtitleLabel?.speed = .duration(CGFloat(duration - 3))
+    }
+    
+}
+
+public extension NotificationBanner {
+    
+    func applyStyling(cornerRadius: CGFloat? = nil,
+                      titleFont: UIFont? = nil,
+                      titleColor: UIColor? = nil,
+                      titleTextAlign: NSTextAlignment? = nil,
+                      subtitleFont: UIFont? = nil,
+                      subtitleColor: UIColor? = nil,
+                      subtitleTextAlign: NSTextAlignment? = nil) {
+        
+        if let cornerRadius = cornerRadius {
+            contentView.layer.cornerRadius = cornerRadius
+        }
+        
+        if let titleFont = titleFont {
+            titleLabel!.font = titleFont
+        }
+        
+        if let titleColor = titleColor {
+            titleLabel!.textColor = titleColor
+        }
+        
+        if let titleTextAlign = titleTextAlign {
+            titleLabel!.textAlignment = titleTextAlign
+        }
+        
+        if let subtitleFont = subtitleFont {
+            subtitleLabel!.font = subtitleFont
+        }
+        
+        if let subtitleColor = subtitleColor {
+            subtitleLabel!.textColor = subtitleColor
+        }
+        
+        if let subtitleTextAlign = subtitleTextAlign {
+            subtitleLabel!.textAlignment = subtitleTextAlign
+        }
+        
+        if titleFont != nil || subtitleFont != nil {
+            updateBannerHeight()
+        }
     }
     
 }

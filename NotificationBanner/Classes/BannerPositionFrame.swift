@@ -32,10 +32,11 @@ class BannerPositionFrame: NSObject {
     init(bannerPosition: BannerPosition,
          bannerWidth: CGFloat,
          bannerHeight: CGFloat,
-         maxY: CGFloat) {
+         maxY: CGFloat,
+         edgeInsets: UIEdgeInsets?) {
         super.init()
-        self.startFrame = startFrame(for: bannerPosition, bannerWidth: bannerWidth, bannerHeight: bannerHeight, maxY: maxY)
-        self.endFrame = endFrame(for: bannerPosition, bannerWidth: bannerWidth, bannerHeight: bannerHeight, maxY: maxY)
+        self.startFrame = startFrame(for: bannerPosition, bannerWidth: bannerWidth, bannerHeight: bannerHeight, maxY: maxY, edgeInsets: edgeInsets)
+        self.endFrame = endFrame(for: bannerPosition, bannerWidth: bannerWidth, bannerHeight: bannerHeight, maxY: maxY, edgeInsets: edgeInsets)
     }
     
     /**
@@ -45,21 +46,26 @@ class BannerPositionFrame: NSObject {
         - parameter bannerHeight: The height of the notification banner
         - parameter maxY: The maximum `y` position the banner can slide in from. This value is only used 
         if the bannerPosition is .bottom
+        - parameter edgeInsets: The sides edges insets from superview
      */
     private func startFrame(for bannerPosition: BannerPosition,
                             bannerWidth: CGFloat,
                             bannerHeight: CGFloat,
-                            maxY: CGFloat) -> CGRect {
+                            maxY: CGFloat,
+                            edgeInsets: UIEdgeInsets?) -> CGRect {
+        
+        let edgeInsets = edgeInsets ?? .zero
+        
         switch bannerPosition {
         case .bottom:
-            return CGRect(x: 0,
+            return CGRect(x: edgeInsets.left,
                           y: maxY,
-                          width: bannerWidth,
+                          width: bannerWidth - edgeInsets.left - edgeInsets.right,
                           height: bannerHeight)
         case .top:
-            return CGRect(x: 0,
+            return CGRect(x: edgeInsets.left ?? 0,
                           y: -bannerHeight,
-                          width: bannerWidth,
+                          width: bannerWidth - edgeInsets.left - edgeInsets.right,
                           height: bannerHeight)
 
         }
@@ -70,25 +76,28 @@ class BannerPositionFrame: NSObject {
      - parameter bannerPosition: The position the notification banners should slide in from
      - parameter bannerWidth: The width of the notification banner
      - parameter bannerHeight: The height of the notification banner
-     - parameter maxY: The maximum `y` position the banner can slide in from. This value is only used
-     if the bannerPosition is .bottom
+     - parameter maxY: The maximum `y` position the banner can slide in from. This value is only used if the bannerPosition is .bottom
+     - parameter edgeInsets: The sides edges insets from superview
      */
     private func endFrame(for bannerPosition: BannerPosition,
                             bannerWidth: CGFloat,
                             bannerHeight: CGFloat,
-                            maxY: CGFloat) -> CGRect {
+                            maxY: CGFloat,
+                            edgeInsets: UIEdgeInsets?) -> CGRect {
+        
+        let edgeInsets = edgeInsets ?? .zero
+
         switch bannerPosition {
         case .bottom:
-            return CGRect(x: 0,
-                          y: maxY - bannerHeight,
-                          width: bannerWidth,
-                          height: bannerHeight)
-        case .top:
-            return CGRect(x: 0,
-                          y: 0,
+            return CGRect(x: edgeInsets.left,
+                          y: maxY - bannerHeight - edgeInsets.bottom,
                           width: startFrame.width,
                           height: startFrame.height)
-            
+        case .top:
+            return CGRect(x: edgeInsets.left,
+                          y: edgeInsets.top,
+                          width: startFrame.width,
+                          height: startFrame.height)
         }
     }
 

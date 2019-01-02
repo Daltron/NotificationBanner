@@ -53,22 +53,22 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
                     boundingWidth -= iconSize + padding
                 }
                 
-                let titleHeight = titleLabel?.text?.height(
+                let titleHeight = ceil(titleLabel?.text?.height(
                     forConstrainedWidth: boundingWidth,
                     font: titleFont
-                    ) ?? 0.0
+                    ) ?? 0.0)
                 
-                let subtitleHeight = subtitleLabel?.text?.height(
+                let subtitleHeight = ceil(subtitleLabel?.text?.height(
                     forConstrainedWidth: boundingWidth,
                     font: subtitleFont
-                    ) ?? 0.0
+                    ) ?? 0.0)
                 
                 let topOffset: CGFloat = shouldAdjustForNotchFeaturedIphone() ? 44.0 : verticalSpacing
                 let minHeight: CGFloat = shouldAdjustForNotchFeaturedIphone() ? 88.0 : 64.0
                 
                 var actualBannerHeight = topOffset + titleHeight + subtitleHeight + verticalSpacing
                 
-                if !subtitleHeight.isZero {
+                if !subtitleHeight.isZero && !titleHeight.isZero {
                     actualBannerHeight += innerSpacing
                 }
                 
@@ -80,7 +80,7 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
     }
     
     /// Spacing between the last label and the bottom edge of the banner
-    private let verticalSpacing: CGFloat = 10.0
+    private let verticalSpacing: CGFloat = 14.0
     
     /// Spacing between title and subtitle
     private let innerSpacing: CGFloat = 2.5
@@ -94,16 +94,16 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
     /// The view that is presented on the right side of the notification
     private var rightView: UIView?
     
-    /// Square size for left/ right view if set
+    /// Square size for left/right view if set
     private let iconSize: CGFloat = 24.0
     
     /// Font used for the title label
-    private let titleFont: UIFont = UIFont.systemFont(ofSize: 17.5, weight: UIFont.Weight.bold)
+    internal var titleFont: UIFont = UIFont.systemFont(ofSize: 17.5, weight: UIFont.Weight.bold)
     
     /// Font used for the subtitle label
-    private let subtitleFont: UIFont = UIFont.systemFont(ofSize: 15.0)
+    internal var subtitleFont: UIFont = UIFont.systemFont(ofSize: 15.0)
     
-    public init(title: String,
+    public init(title: String? = nil,
                 subtitle: String? = nil,
                 leftView: UIView? = nil,
                 rightView: UIView? = nil,
@@ -138,13 +138,15 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
         
         outerStackView.addArrangedSubview(labelsView)
         
-        titleLabel = UILabel()
-        titleLabel!.font = titleFont
-        titleLabel!.textColor = .white
-        titleLabel!.text = title
-        titleLabel!.numberOfLines = 0
-        titleLabel!.setContentHuggingPriority(.required, for: .vertical)
-        labelsView.addArrangedSubview(titleLabel!)
+        if let title = title {
+            titleLabel = UILabel()
+            titleLabel!.font = titleFont
+            titleLabel!.numberOfLines = 0
+            titleLabel!.textColor = .white
+            titleLabel!.text = title
+            titleLabel!.setContentHuggingPriority(.required, for: .vertical)
+            labelsView.addArrangedSubview(titleLabel!)
+        }
         
         if let subtitle = subtitle {
             subtitleLabel = UILabel()
@@ -152,6 +154,9 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
             subtitleLabel!.numberOfLines = 0
             subtitleLabel!.textColor = .white
             subtitleLabel!.text = subtitle
+            if title == nil {
+                subtitleLabel!.setContentHuggingPriority(.required, for: .vertical)
+            }
             labelsView.addArrangedSubview(subtitleLabel!)
         }
         
@@ -170,12 +175,59 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
                 make.left.equalToSuperview().offset(padding)
                 make.right.equalToSuperview().offset(-padding)
             }
-
-            make.bottom.equalToSuperview().offset(-verticalSpacing)
+            
+            make.centerY.equalToSuperview()
         }
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+public extension GrowingNotificationBanner {
+    
+    func applyStyling(cornerRadius: CGFloat? = nil,
+                      titleFont: UIFont? = nil,
+                      titleColor: UIColor? = nil,
+                      titleTextAlign: NSTextAlignment? = nil,
+                      subtitleFont: UIFont? = nil,
+                      subtitleColor: UIColor? = nil,
+                      subtitleTextAlign: NSTextAlignment? = nil) {
+        
+        if let cornerRadius = cornerRadius {
+            contentView.layer.cornerRadius = cornerRadius
+        }
+        
+        if let titleFont = titleFont {
+            self.titleFont = titleFont
+            titleLabel!.font = titleFont
+        }
+        
+        if let titleColor = titleColor {
+            titleLabel!.textColor = titleColor
+        }
+        
+        if let titleTextAlign = titleTextAlign {
+            titleLabel!.textAlignment = titleTextAlign
+        }
+        
+        if let subtitleFont = subtitleFont {
+            self.subtitleFont = subtitleFont
+            subtitleLabel!.font = subtitleFont
+        }
+        
+        if let subtitleColor = subtitleColor {
+            subtitleLabel!.textColor = subtitleColor
+        }
+        
+        if let subtitleTextAlign = subtitleTextAlign {
+            subtitleLabel!.textAlignment = subtitleTextAlign
+        }
+        
+        if titleFont != nil || subtitleFont != nil {
+            updateBannerHeight()
+        }
+    }
+    
 }

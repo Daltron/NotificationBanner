@@ -83,7 +83,7 @@ open class NotificationBannerQueue: NSObject {
     func showNext(callback: ((_ isEmpty: Bool) -> Void)) {
 
         if !banners.isEmpty {
-          banners.removeFirst()
+            banners.removeFirst()
         }
         guard let banner = banners.first else {
             callback(true)
