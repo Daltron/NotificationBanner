@@ -63,7 +63,7 @@ class BannerPositionFrame: NSObject {
                           width: bannerWidth - edgeInsets.left - edgeInsets.right,
                           height: bannerHeight)
         case .top:
-            return CGRect(x: edgeInsets.left ?? 0,
+            return CGRect(x: edgeInsets.left,
                           y: -bannerHeight,
                           width: bannerWidth - edgeInsets.left - edgeInsets.right,
                           height: bannerHeight)
