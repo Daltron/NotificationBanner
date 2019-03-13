@@ -12,9 +12,9 @@ NotificationBanner is an extremely customizable and lightweight library that mak
     s.license          = { :type => 'MIT', :file => 'LICENSE' }
     s.author           = { 'Daltron' => 'daltonhint4@gmail.com' }
     s.source           = { :git => 'https://github.com/Daltron/NotificationBanner.git', :tag => s.version.to_s }
-
+   
     s.ios.deployment_target = '9.0'
-
+    s.swift_version = '4.2'
     s.source_files = 'NotificationBanner/Classes/**/*'
 
     s.dependency 'SnapKit', '~> 4.2.0'
