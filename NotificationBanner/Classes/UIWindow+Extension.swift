@@ -2,7 +2,7 @@
 //  UIWindow+Extension.swift
 //  NotificationBanner
 //
-//  Created by branderstudio on 3/13/19.
+//  Created on 3/13/19.
 //  Copyright © 2019 Dalton Hinterscher. All rights reserved.
 //
 
