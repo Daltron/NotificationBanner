@@ -438,18 +438,44 @@ public class BaseNotificationBanner: UIView {
         
         let edgeInsets = bannerEdgeInsets ?? .zero
 
-        let newY = (bannerPosition == .top) ? (frame.origin.y) : (appWindow.frame.height - bannerHeight + edgeInsets.top - edgeInsets.bottom)
+        let newY = (bannerPosition == .top) ? (frame.origin.y) : (getWindowHeight() - bannerHeight + edgeInsets.top - edgeInsets.bottom)
         frame = CGRect(x: frame.origin.x,
                        y: newY,
-                       width: appWindow.frame.width - edgeInsets.left - edgeInsets.right,
+                       width: getWindowWidth() - edgeInsets.left - edgeInsets.right,
                        height: bannerHeight)
     
         bannerPositionFrame = BannerPositionFrame(bannerPosition: bannerPosition,
-                                                  bannerWidth: appWindow.frame.width,
+                                                  bannerWidth: getWindowWidth(),
                                                   bannerHeight: bannerHeight,
                                                   maxY: maximumYPosition(),
                                                   edgeInsets: bannerEdgeInsets)
     }
+  
+    func getWindowWidth() -> CGFloat {
+      let windowFrame = appWindow.frame
+      let orientation = UIDevice.current.orientation
+      switch orientation {
+      case .landscapeLeft, .landscapeRight:
+        return max(windowFrame.width, windowFrame.height)
+      case .portrait, .portraitUpsideDown:
+        return min(windowFrame.width, windowFrame.height)
+      default:
+        return windowFrame.width
+      }
+    }
+  
+  func getWindowHeight() -> CGFloat {
+    let windowFrame = appWindow.frame
+    let orientation = UIDevice.current.orientation
+    switch orientation {
+    case .landscapeLeft, .landscapeRight:
+      return min(windowFrame.width, windowFrame.height)
+    case .portrait, .portraitUpsideDown:
+      return max(windowFrame.width, windowFrame.height)
+    default:
+      return windowFrame.height
+    }
+  }
     
     /**
         Called when a notification banner is tapped
