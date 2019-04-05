@@ -47,7 +47,7 @@ it, simply add the following line to your Podfile:
 pod 'NotificationBannerSwift', git: => 'https://github.com/Daltron/NotificationBanner'
 ```
 
-Then add `import NotificationBannerSwift'` at the top of each file you use NotificationBanner in your project.
+Then add `import NotificationBannerSwift` at the top of each file you use NotificationBanner in your project.
 
 #### Swift 4.2
 
