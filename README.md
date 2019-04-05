@@ -7,7 +7,7 @@
 [![Downloads](https://img.shields.io/cocoapods/dt/NotificationBannerSwift.svg)](http://cocoapods.org/pods/NotificationBannerSwift)
 [![Apps](https://img.shields.io/cocoapods/at/NotificationBannerSwift.svg)](http://cocoapods.org/pods/NotificationBannerSwift)
 [![License](https://img.shields.io/cocoapods/l/NotificationBannerSwift.svg?style=flat)](http://cocoapods.org/pods/NotificationBannerSwift)
-## Written in Swift 5.0
+## Written in Swift 5
 
 NotificationBanner is an extremely customizable and lightweight library that makes the task of displaying in app notification banners and drop down alerts an absolute breeze in iOS.
 
