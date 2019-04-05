@@ -138,7 +138,7 @@ public class BaseNotificationBanner: UIView {
     private(set) var bannerPosition: BannerPosition!
     
     /// The notification banner sides edges insets from superview. If presented - spacerView color will be transparent
-    internal(set) var bannerEdgeInsets: UIEdgeInsets? = nil {
+    internal var bannerEdgeInsets: UIEdgeInsets? = nil {
         didSet {
             if bannerEdgeInsets != nil {
                 spacerView.backgroundColor = .clear

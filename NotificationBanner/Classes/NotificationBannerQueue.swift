@@ -49,7 +49,7 @@ open class NotificationBannerQueue: NSObject {
         if queuePosition == .back {
             banners.append(banner)
             
-            if banners.index(of: banner) == 0 {
+            if banners.firstIndex(of: banner) == 0 {
                 banner.show(placeOnQueue: false, bannerPosition: banner.bannerPosition)
             }
             
