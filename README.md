@@ -44,7 +44,7 @@ it, simply add the following line to your Podfile:
 #### Swift 5
 
 ```ruby
-pod 'NotificationBannerSwift', git: => 'https://github.com/Daltron/NotificationBanner'
+pod 'NotificationBannerSwift', :git => 'https://github.com/Daltron/NotificationBanner'
 ```
 
 Then add `import NotificationBannerSwift` at the top of each file you use NotificationBanner in your project.
