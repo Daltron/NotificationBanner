@@ -44,7 +44,7 @@ it, simply add the following line to your Podfile:
 #### Swift 5
 
 ```ruby
-pod 'NotificationBannerSwift', :git => 'https://github.com/Daltron/NotificationBanner'
+pod 'NotificationBannerSwift'
 ```
 
 Then add `import NotificationBannerSwift` at the top of each file you use NotificationBanner in your project.
@@ -70,7 +70,7 @@ Then add `import NotificationBannerSwift` at the top of each file you use Notifi
 
 To use NotificationBanner via Carthage simply add this line to your `Cartfile`:
 
-#### Swift 4.2
+#### Swift 5
 ```swift
 github "Daltron/NotificationBanner" "master"
 ```
