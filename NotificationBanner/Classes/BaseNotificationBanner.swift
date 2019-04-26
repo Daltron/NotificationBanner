@@ -438,14 +438,14 @@ public class BaseNotificationBanner: UIView {
         
         let edgeInsets = bannerEdgeInsets ?? .zero
 
-        let newY = (bannerPosition == .top) ? (frame.origin.y) : (appWindow.frame.height - bannerHeight + edgeInsets.top - edgeInsets.bottom)
+        let newY = (bannerPosition == .top) ? (frame.origin.y) : (appWindow.height - bannerHeight + edgeInsets.top - edgeInsets.bottom)
         frame = CGRect(x: frame.origin.x,
                        y: newY,
-                       width: appWindow.frame.width - edgeInsets.left - edgeInsets.right,
+                       width: appWindow.width - edgeInsets.left - edgeInsets.right,
                        height: bannerHeight)
     
         bannerPositionFrame = BannerPositionFrame(bannerPosition: bannerPosition,
-                                                  bannerWidth: appWindow.frame.width,
+                                                  bannerWidth: appWindow.width,
                                                   bannerHeight: bannerHeight,
                                                   maxY: maximumYPosition(),
                                                   edgeInsets: bannerEdgeInsets)
