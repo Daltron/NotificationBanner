@@ -189,7 +189,7 @@ public class BaseNotificationBanner: UIView {
     
     deinit {
         NotificationCenter.default.removeObserver(self,
-                                                  name: UIDevice.orientationDidChangeNotification,
+                                                  name: UIApplication.didChangeStatusBarOrientationNotification,
                                                   object: nil)
     }
     
@@ -334,11 +334,11 @@ public class BaseNotificationBanner: UIView {
         }
         
         NotificationCenter.default.removeObserver(self,
-                                                  name: UIDevice.orientationDidChangeNotification,
+                                                  name: UIApplication.didChangeStatusBarOrientationNotification,
                                                   object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(onOrientationChanged),
-                                               name: UIDevice.orientationDidChangeNotification,
+                                               name: UIApplication.didChangeStatusBarOrientationNotification,
                                                object: nil)
         
         if placeOnQueue {
