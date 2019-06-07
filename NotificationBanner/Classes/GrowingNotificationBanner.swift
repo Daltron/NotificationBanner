@@ -53,15 +53,13 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
                     boundingWidth -= iconSize + padding
                 }
                 
-                let titleHeight = ceil(titleLabel?.text?.height(
-                    forConstrainedWidth: boundingWidth,
-                    font: titleFont
-                    ) ?? 0.0)
+                let titleHeight = ceil(titleLabel?.sizeThatFits(
+                    CGSize(width: boundingWidth,
+                           height: .greatestFiniteMagnitude)).height ?? 0.0)
                 
-                let subtitleHeight = ceil(subtitleLabel?.text?.height(
-                    forConstrainedWidth: boundingWidth,
-                    font: subtitleFont
-                    ) ?? 0.0)
+                let subtitleHeight = ceil(subtitleLabel?.sizeThatFits(
+                    CGSize(width: boundingWidth,
+                           height: .greatestFiniteMagnitude)).height ?? 0.0)
                 
                 let topOffset: CGFloat = shouldAdjustForNotchFeaturedIphone() ? 44.0 : verticalSpacing
                 let minHeight: CGFloat = shouldAdjustForNotchFeaturedIphone() ? 88.0 : 64.0
