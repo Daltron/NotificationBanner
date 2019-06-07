@@ -19,11 +19,7 @@
 import UIKit
 import SnapKit
 
-#if CARTHAGE_CONFIG
-    import MarqueeLabelSwift
-#else
-    import MarqueeLabel
-#endif
+import MarqueeLabel
 
 public protocol NotificationBannerDelegate: class {
     func notificationBannerWillAppear(_ banner: BaseNotificationBanner)

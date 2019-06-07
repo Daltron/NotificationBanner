@@ -75,7 +75,7 @@ To use NotificationBanner via Carthage simply add this line to your `Cartfile`:
 github "Daltron/NotificationBanner" "master"
 ```
 
-Then add `NotificationBanner.framework` and the dependencies `SnapKit.framework` and `MarqueeLabelSwift.framework` in your project.
+Then add `NotificationBanner.framework` and the dependencies `SnapKit.framework` and `MarqueeLabel.framework` in your project.
 
 ## Usage
 

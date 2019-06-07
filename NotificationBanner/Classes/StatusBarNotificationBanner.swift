@@ -18,11 +18,7 @@
 
 import UIKit
 
-#if CARTHAGE_CONFIG
-    import MarqueeLabelSwift
-#else
-    import MarqueeLabel
-#endif
+import MarqueeLabel
 
 @objcMembers
 public class StatusBarNotificationBanner: BaseNotificationBanner {
