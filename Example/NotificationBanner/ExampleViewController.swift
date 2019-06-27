@@ -35,7 +35,6 @@ class ExampleViewController: UIViewController {
         return selectedIndex == 0 ? .top : .bottom
     }
 
-    var date: Date!
 }
 
 extension ExampleViewController: NotificationBannerDelegate {
@@ -193,19 +192,6 @@ extension ExampleViewController: ExampleViewDelegate {
             let banner = NotificationBanner(title: "Info Notification", subtitle: "This notification has two side views!", leftView: leftView, rightView: rightView, style: .info)
             banner.delegate = self
             banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
-        case 3:
-            // Growing Notification with left view
-            let leftView = UIImageView(image: #imageLiteral(resourceName: "success"))
-            let banner = GrowingNotificationBanner(
-                title: "Growing Notification",
-                subtitle: """
-                This is a growing notification.
-                Instead of using a scroll animation the view grows in height if needed.
-                """,
-                leftView: leftView,
-                style: .success)
-            banner.delegate = self
-            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
         default:
             return
         }
@@ -220,6 +206,21 @@ extension ExampleViewController: ExampleViewDelegate {
             banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
         default:
             return
+        }
+    }
+    
+    internal func basicGrowingNotificationCellSelected(at index: Int) {
+        switch index {
+        case 0:
+            let leftView = UIImageView(image: #imageLiteral(resourceName: "danger"))
+            let banner = GrowingNotificationBanner(title: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", subtitle: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", leftView: leftView, style: .success)
+            banner.delegate = self
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
+        default:
+            let leftView = UIImageView(image: #imageLiteral(resourceName: "danger"))
+            let banner = GrowingNotificationBanner(title: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", subtitle: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", leftView: leftView, style: .danger, sideViewSize: 48)
+            banner.delegate = self
+            banner.show(queuePosition: selectedQueuePosition(), bannerPosition: selectedBannerPosition())
         }
     }
     
@@ -283,12 +284,14 @@ extension ExampleViewController: ExampleViewDelegate {
     internal func numberOfCells(for section: Int) -> Int {
         switch section {
         case 0:
-            return 7
+            return 6
         case 1:
             return 4
         case 2:
             return 1
         case 3:
+            return 2
+        case 4:
             return 6
         default:
             return 0
@@ -304,6 +307,8 @@ extension ExampleViewController: ExampleViewDelegate {
         case 2:
             return "Notification Banner with Custom View"
         case 3:
+            return "Growing Notification Banners"
+        case 4:
             return "Status Bar Notifications"
         default:
             return ""
@@ -313,7 +318,7 @@ extension ExampleViewController: ExampleViewDelegate {
     internal func blockColor(at indexPath: IndexPath) -> UIColor {
         
         if indexPath == IndexPath(row: numberOfCells(for: indexPath.section) - 2, section: 0)
-            || indexPath == IndexPath(row: numberOfCells(for: indexPath.section) - 2, section: 3){
+            || indexPath == IndexPath(row: numberOfCells(for: indexPath.section) - 2, section: 4) {
             return CustomBannerColors().color(for: .warning)
         }
         
@@ -375,6 +380,15 @@ extension ExampleViewController: ExampleViewDelegate {
             }
             
         } else if indexPath.section == 3 {
+            switch indexPath.row {
+            case 0:
+                return ("Success Notification", "With default side view size")
+            case 1:
+                return ("Danger Notification", "With custom side view size")
+            default:
+                return ("", nil)
+            }
+        } else if indexPath.section == 4 {
             switch indexPath.row {
             case 0:
                 return ("Success Notification", nil)

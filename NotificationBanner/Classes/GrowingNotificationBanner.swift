@@ -46,11 +46,11 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
                 }
                 
                 if leftView != nil {
-                    boundingWidth -= iconSize + padding
+                    boundingWidth -= sideViewSize + padding
                 }
                 
                 if rightView != nil {
-                    boundingWidth -= iconSize + padding
+                    boundingWidth -= sideViewSize + padding
                 }
                 
                 let titleHeight = ceil(titleLabel?.sizeThatFits(
@@ -93,7 +93,7 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
     private var rightView: UIView?
     
     /// Square size for left/right view if set
-    private let iconSize: CGFloat = 24.0
+    private let sideViewSize: CGFloat
     
     /// Font used for the title label
     internal var titleFont: UIFont = UIFont.systemFont(ofSize: 17.5, weight: UIFont.Weight.bold)
@@ -107,10 +107,12 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
                 rightView: UIView? = nil,
                 style: BannerStyle = .info,
                 colors: BannerColorsProtocol? = nil,
-                iconPosition: IconPosition = .center) {
+                iconPosition: IconPosition = .center,
+                sideViewSize: CGFloat = 24.0) {
         
         self.leftView = leftView
         self.rightView = rightView
+        self.sideViewSize = sideViewSize
         
         super.init(style: style, colors: colors)
         
@@ -130,8 +132,7 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
         
         if let leftView = leftView {
             outerStackView.addArrangedSubview(leftView)
-            
-            leftView.snp.makeConstraints { $0.size.equalTo(iconSize) }
+            leftView.snp.makeConstraints { $0.size.equalTo(sideViewSize) }
         }
         
         outerStackView.addArrangedSubview(labelsView)
@@ -160,8 +161,7 @@ public class GrowingNotificationBanner: BaseNotificationBanner {
         
         if let rightView = rightView {
             outerStackView.addArrangedSubview(rightView)
-            
-            rightView.snp.makeConstraints { $0.size.equalTo(iconSize) }
+            rightView.snp.makeConstraints { $0.size.equalTo(sideViewSize) }
         }
         
         contentView.addSubview(outerStackView)
