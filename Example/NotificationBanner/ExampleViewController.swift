@@ -224,6 +224,28 @@ extension ExampleViewController: ExampleViewDelegate {
         }
     }
     
+    internal func basicFloatingNotificationCellSelected(at index: Int) {
+        switch index {
+        case 0:
+            let banner = FloatingNotificationBanner(title: "Success Notification",
+                                                    subtitle: "This type of banner floats and has the capability of growing to an infinite amount of lines. This one also has a shadow.",
+                                                    style: .success)
+            banner.delegate = self
+            banner.show(queuePosition: selectedQueuePosition(),
+                        bannerPosition: selectedBannerPosition(),
+                        cornerRadius: 10,
+                        shadowBlurRadius: 15)
+        default:
+            let banner = FloatingNotificationBanner(title: "Danger Notification",
+                                                    subtitle: "This type of banner floats and has the capability of growing to an infinite amount of lines.",
+                                                    style: .danger)
+            banner.delegate = self
+            banner.show(queuePosition: selectedQueuePosition(),
+                        bannerPosition: selectedBannerPosition(),
+                        cornerRadius: 10)
+        }
+    }
+    
     internal func basicStatusBarNotificationCellSelected(at index: Int) {
         switch index {
         case 0:
@@ -292,6 +314,8 @@ extension ExampleViewController: ExampleViewDelegate {
         case 3:
             return 2
         case 4:
+            return 2
+        case 5:
             return 6
         default:
             return 0
@@ -309,6 +333,8 @@ extension ExampleViewController: ExampleViewDelegate {
         case 3:
             return "Growing Notification Banners"
         case 4:
+            return "Floating Notification Banners"
+        case 5:
             return "Status Bar Notifications"
         default:
             return ""
@@ -318,7 +344,7 @@ extension ExampleViewController: ExampleViewDelegate {
     internal func blockColor(at indexPath: IndexPath) -> UIColor {
         
         if indexPath == IndexPath(row: numberOfCells(for: indexPath.section) - 2, section: 0)
-            || indexPath == IndexPath(row: numberOfCells(for: indexPath.section) - 2, section: 4) {
+            || indexPath == IndexPath(row: numberOfCells(for: indexPath.section) - 2, section: 5) {
             return CustomBannerColors().color(for: .warning)
         }
         
@@ -389,6 +415,15 @@ extension ExampleViewController: ExampleViewDelegate {
                 return ("", nil)
             }
         } else if indexPath.section == 4 {
+            switch indexPath.row {
+            case 0:
+                return ("Success Notification", "This type of banner can float and can have its cornerRadius property adjusted")
+            case 1:
+                return ("Danger Notification", "This type of banner can float and can have its cornerRadius property adjusted")
+            default:
+                return ("", nil)
+            }
+        } else if indexPath.section == 5 {
             switch indexPath.row {
             case 0:
                 return ("Success Notification", nil)

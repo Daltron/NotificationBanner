@@ -16,6 +16,7 @@
 		5C025F7B1EE9E09E00ADB444 /* NotificationBannerQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C025F741EE9E09E00ADB444 /* NotificationBannerQueue.swift */; };
 		5C025F7C1EE9E09E00ADB444 /* StatusBarNotificationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C025F751EE9E09E00ADB444 /* StatusBarNotificationBanner.swift */; };
 		5C34233C1EB50580004B804C /* CustomBannerColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C34233B1EB50580004B804C /* CustomBannerColors.swift */; };
+		5C4022EE22D8E33800FD9E11 /* FloatingNotificationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4022ED22D8E33800FD9E11 /* FloatingNotificationBanner.swift */; };
 		5C8542E41EFDCA3A00AFBC90 /* BannerPositionFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8542E31EFDCA3A00AFBC90 /* BannerPositionFrame.swift */; };
 		5C8890A81F7155840032D605 /* NotificationBannerUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8890A71F7155840032D605 /* NotificationBannerUtilities.swift */; };
 		5CBD22411E8353B30041DC8F /* ExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBD22401E8353B30041DC8F /* ExampleView.swift */; };
@@ -40,6 +41,7 @@
 		5C025F741EE9E09E00ADB444 /* NotificationBannerQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationBannerQueue.swift; path = ../../NotificationBanner/Classes/NotificationBannerQueue.swift; sourceTree = "<group>"; };
 		5C025F751EE9E09E00ADB444 /* StatusBarNotificationBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StatusBarNotificationBanner.swift; path = ../../NotificationBanner/Classes/StatusBarNotificationBanner.swift; sourceTree = "<group>"; };
 		5C34233B1EB50580004B804C /* CustomBannerColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomBannerColors.swift; sourceTree = "<group>"; };
+		5C4022ED22D8E33800FD9E11 /* FloatingNotificationBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingNotificationBanner.swift; sourceTree = "<group>"; };
 		5C8542E31EFDCA3A00AFBC90 /* BannerPositionFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BannerPositionFrame.swift; path = ../../NotificationBanner/Classes/BannerPositionFrame.swift; sourceTree = "<group>"; };
 		5C8890A71F7155840032D605 /* NotificationBannerUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NotificationBannerUtilities.swift; path = ../../NotificationBanner/Classes/NotificationBannerUtilities.swift; sourceTree = "<group>"; };
 		5CBD22401E8353B30041DC8F /* ExampleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleView.swift; sourceTree = "<group>"; };
@@ -80,11 +82,12 @@
 				5C8542E31EFDCA3A00AFBC90 /* BannerPositionFrame.swift */,
 				5C025F711EE9E09E00ADB444 /* BannerStyle.swift */,
 				5C025F721EE9E09E00ADB444 /* BaseNotificationBanner.swift */,
-				5C025F731EE9E09E00ADB444 /* NotificationBanner.swift */,
+				5C4022ED22D8E33800FD9E11 /* FloatingNotificationBanner.swift */,
 				2B9CEC6021692C2100B5DEB9 /* GrowingNotificationBanner.swift */,
+				5C025F731EE9E09E00ADB444 /* NotificationBanner.swift */,
 				5C025F741EE9E09E00ADB444 /* NotificationBannerQueue.swift */,
-				5C025F751EE9E09E00ADB444 /* StatusBarNotificationBanner.swift */,
 				5C8890A71F7155840032D605 /* NotificationBannerUtilities.swift */,
+				5C025F751EE9E09E00ADB444 /* StatusBarNotificationBanner.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				5C025F7A1EE9E09E00ADB444 /* NotificationBanner.swift in Sources */,
 				5C025F761EE9E09E00ADB444 /* BannerColors.swift in Sources */,
 				2B9CEC6121692C2100B5DEB9 /* GrowingNotificationBanner.swift in Sources */,
+				5C4022EE22D8E33800FD9E11 /* FloatingNotificationBanner.swift in Sources */,
 				5C025F781EE9E09E00ADB444 /* BannerStyle.swift in Sources */,
 				5C025F791EE9E09E00ADB444 /* BaseNotificationBanner.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ExampleViewController.swift in Sources */,

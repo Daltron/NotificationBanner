@@ -4,9 +4,8 @@
 <a href="https://github.com/Carthage/Carthage/"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat"></a>
 [![Platform](https://img.shields.io/cocoapods/p/NotificationBannerSwift.svg?style=flat)](http://cocoapods.org/pods/NotificationBannerSwift)
 <a href="https://developer.apple.com/swift"><img src="https://img.shields.io/badge/swift-5-4BC51D.svg?style=flat" alt="Language: Swift" /></a>
-[![Downloads](https://img.shields.io/cocoapods/dt/NotificationBannerSwift.svg)](http://cocoapods.org/pods/NotificationBannerSwift)
-[![Apps](https://img.shields.io/cocoapods/at/NotificationBannerSwift.svg)](http://cocoapods.org/pods/NotificationBannerSwift)
 [![License](https://img.shields.io/cocoapods/l/NotificationBannerSwift.svg?style=flat)](http://cocoapods.org/pods/NotificationBannerSwift)
+
 ## Written in Swift 5
 
 NotificationBanner is an extremely customizable and lightweight library that makes the task of displaying in app notification banners and drop down alerts an absolute breeze in iOS.
@@ -15,6 +14,9 @@ NotificationBanner is an extremely customizable and lightweight library that mak
 | ------------- | ------------- | ------------- |
 | ![Basic Banners](NotificationBanner/Assets/basic.gif)  | ![Banners with Side Views](NotificationBanner/Assets/side_views.gif)  | ![Status Bar Banners](NotificationBanner/Assets/status_bar.gif) |
 
+| Growing Banners | Floating Banners  |
+| ------------- | ------------- | 
+| ![Growing Banners](NotificationBanner/Assets/growing.gif)  | ![Floating Banners](NotificationBanner/Assets/floating.gif)
 ## Features
 - Highly customizable ✅
 - `NSAttributedString` support ✅

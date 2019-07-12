@@ -41,7 +41,7 @@
 		43C7F0638FD8A6E9B9F4965F6CE9D438 /* BannerHapticGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD77CAEE2062F396C14E5842B02CF5C /* BannerHapticGenerator.swift */; };
 		46038BAA549A8D1BB34A39B613DF9D7A /* Debugging.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECAFC4A7E5BB9FC39F6671F8374B5DF4 /* Debugging.swift */; };
 		46E444D3D75C69D60FD9324BB73626AE /* NotificationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4144094337C2068970E6DA2C2BD4E20 /* NotificationBanner.swift */; };
-		4745CA795FAECD021486730255683660 /* FloatGrowingNotificationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4951988E0E1CE9C53D1F103662CB7928 /* FloatGrowingNotificationBanner.swift */; };
+		4745CA795FAECD021486730255683660 /* FloatingNotificationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4951988E0E1CE9C53D1F103662CB7928 /* FloatingNotificationBanner.swift */; };
 		48CD09DCB37ADF5EDCC1DA6FC2D27D63 /* NotificationBannerQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351CDD2F1DA77B3FF5ED3E34DA646868 /* NotificationBannerQueue.swift */; };
 		4FD2AE551B63EF2DE1FC03B7753A52C5 /* ConstraintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597E560DB93DA0A10F62439E2A4DF47C /* ConstraintView.swift */; };
 		5A48877A978210C3078C8FC853D40A89 /* ConstraintMakerEditable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 536A4846E0D445594F4F262530DA2E02 /* ConstraintMakerEditable.swift */; };
@@ -172,7 +172,7 @@
 		43117B41714196C11BB0589756017B46 /* ConstraintLayoutGuide+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ConstraintLayoutGuide+Extensions.swift"; path = "Source/ConstraintLayoutGuide+Extensions.swift"; sourceTree = "<group>"; };
 		4312BACD5616A69A9243697A3FDFD11A /* ConstraintPriorityTarget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintPriorityTarget.swift; path = Source/ConstraintPriorityTarget.swift; sourceTree = "<group>"; };
 		4486169D394A08BA9384596E253AD695 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reveal.framework; path = "Reveal-Framework-iOS-1.6.2/Reveal.framework"; sourceTree = "<group>"; };
-		4951988E0E1CE9C53D1F103662CB7928 /* FloatGrowingNotificationBanner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FloatGrowingNotificationBanner.swift; path = NotificationBanner/Classes/FloatGrowingNotificationBanner.swift; sourceTree = "<group>"; };
+		4951988E0E1CE9C53D1F103662CB7928 /* FloatingNotificationBanner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FloatingNotificationBanner.swift; path = Example/NotificationBanner/FloatingNotificationBanner.swift; sourceTree = "<group>"; };
 		4A35EDA4509BBA62B27962784B07ADB4 /* MarqueeLabel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MarqueeLabel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D4D7CDE661C0BDA5EA06D3A27FE58AA /* Typealiases.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Typealiases.swift; path = Source/Typealiases.swift; sourceTree = "<group>"; };
 		4E504119AD3E840B612D13C88AAD8470 /* StatusBarNotificationBanner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StatusBarNotificationBanner.swift; path = NotificationBanner/Classes/StatusBarNotificationBanner.swift; sourceTree = "<group>"; };
@@ -313,7 +313,7 @@
 				1F3D5CFAFA2952961E3B858643C02FB6 /* BannerPositionFrame.swift */,
 				903253D9C64B6386B99BA7952E05E1A3 /* BannerStyle.swift */,
 				8D14BCEC50266DAF315E7E9B0432C610 /* BaseNotificationBanner.swift */,
-				4951988E0E1CE9C53D1F103662CB7928 /* FloatGrowingNotificationBanner.swift */,
+				4951988E0E1CE9C53D1F103662CB7928 /* FloatingNotificationBanner.swift */,
 				2FAA8A3FED7A506A32C15CE727EABDE2 /* GrowingNotificationBanner.swift */,
 				C4144094337C2068970E6DA2C2BD4E20 /* NotificationBanner.swift */,
 				351CDD2F1DA77B3FF5ED3E34DA646868 /* NotificationBannerQueue.swift */,
@@ -818,7 +818,7 @@
 				343AAB166190635528B7ED756B5932E2 /* BannerPositionFrame.swift in Sources */,
 				EB6F17C55CD8B079209C7DA711EE5D0E /* BannerStyle.swift in Sources */,
 				CA224E17159578AF6DA60E5ED73554D3 /* BaseNotificationBanner.swift in Sources */,
-				4745CA795FAECD021486730255683660 /* FloatGrowingNotificationBanner.swift in Sources */,
+				4745CA795FAECD021486730255683660 /* FloatingNotificationBanner.swift in Sources */,
 				E4DD1BC446F73DFE7EDEAF2E9D988B45 /* GrowingNotificationBanner.swift in Sources */,
 				46E444D3D75C69D60FD9324BB73626AE /* NotificationBanner.swift in Sources */,
 				48CD09DCB37ADF5EDCC1DA6FC2D27D63 /* NotificationBannerQueue.swift in Sources */,

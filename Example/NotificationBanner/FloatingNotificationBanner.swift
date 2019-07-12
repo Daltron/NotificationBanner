@@ -19,7 +19,7 @@
 import UIKit
 import SnapKit
 
-public class FloatGrowingNotificationBanner: GrowingNotificationBanner {
+public class FloatingNotificationBanner: GrowingNotificationBanner {
     
     public init(title: String? = nil,
                 subtitle: String? = nil,
@@ -105,7 +105,7 @@ public class FloatGrowingNotificationBanner: GrowingNotificationBanner {
     
 }
 
-private extension FloatGrowingNotificationBanner {
+private extension FloatingNotificationBanner {
     
     /**
      Add shadow for notification with specified parameters.
