@@ -297,6 +297,7 @@ I'd love to know anything that you think NotificationBanner is missing. Open an 
 [![Happy Scale](AppIcons/happy_scale.png)](https://apps.apple.com/app/happy-scale/id532430574)
 [![Wanderings](AppIcons/wanderings.png)](https://apps.apple.com/app/wanderings-travel-tracking/id1292503352)
 [![Modern Magic 8 Ball](AppIcons/modernmagic8ball.png)](https://apps.apple.com/app/modern-magic-8-ball/id1381145384)
+[![Envision: Habits Tracker](AppIcons/envision.png)](https://apps.apple.com/app/envision-habits-tracker/id1423771095)
  
 #### Feel free to add yours!
 
