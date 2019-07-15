@@ -172,7 +172,7 @@
 		43117B41714196C11BB0589756017B46 /* ConstraintLayoutGuide+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ConstraintLayoutGuide+Extensions.swift"; path = "Source/ConstraintLayoutGuide+Extensions.swift"; sourceTree = "<group>"; };
 		4312BACD5616A69A9243697A3FDFD11A /* ConstraintPriorityTarget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintPriorityTarget.swift; path = Source/ConstraintPriorityTarget.swift; sourceTree = "<group>"; };
 		4486169D394A08BA9384596E253AD695 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reveal.framework; path = "Reveal-Framework-iOS-1.6.2/Reveal.framework"; sourceTree = "<group>"; };
-		4951988E0E1CE9C53D1F103662CB7928 /* FloatingNotificationBanner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FloatingNotificationBanner.swift; path = Example/NotificationBanner/FloatingNotificationBanner.swift; sourceTree = "<group>"; };
+		4951988E0E1CE9C53D1F103662CB7928 /* FloatingNotificationBanner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = FloatingNotificationBanner.swift; path = NotificationBanner/Classes/FloatingNotificationBanner.swift; sourceTree = "<group>"; };
 		4A35EDA4509BBA62B27962784B07ADB4 /* MarqueeLabel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MarqueeLabel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D4D7CDE661C0BDA5EA06D3A27FE58AA /* Typealiases.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Typealiases.swift; path = Source/Typealiases.swift; sourceTree = "<group>"; };
 		4E504119AD3E840B612D13C88AAD8470 /* StatusBarNotificationBanner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StatusBarNotificationBanner.swift; path = NotificationBanner/Classes/StatusBarNotificationBanner.swift; sourceTree = "<group>"; };
@@ -318,9 +318,9 @@
 				C4144094337C2068970E6DA2C2BD4E20 /* NotificationBanner.swift */,
 				351CDD2F1DA77B3FF5ED3E34DA646868 /* NotificationBannerQueue.swift */,
 				EE85E19F6E05C3CB2231C1801034FE8B /* NotificationBannerUtilities.swift */,
+				6C4D5E914F589B02621A35E3967E385D /* Pod */,
 				4E504119AD3E840B612D13C88AAD8470 /* StatusBarNotificationBanner.swift */,
 				71E60EACDB089FAE24721FE1E3B221F0 /* String+heightForConstrainedWidth.swift */,
-				6C4D5E914F589B02621A35E3967E385D /* Pod */,
 				5944B5F499163F4E7555EFB0F59C37F5 /* Support Files */,
 			);
 			name = NotificationBannerSwift;
