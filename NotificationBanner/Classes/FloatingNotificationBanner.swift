@@ -64,6 +64,16 @@ public class FloatingNotificationBanner: GrowingNotificationBanner {
         }
     }
     
+    public init(customView: UIView) {
+        super.init(style: .customView)
+        contentView.addSubview(customView)
+        customView.snp.makeConstraints { (make) in
+            make.edges.equalTo(contentView)
+        }
+        
+        spacerView.backgroundColor = customView.backgroundColor
+    }
+    
     /**
      Convenience function to display banner with non .zero default edge insets
      */
@@ -84,6 +94,11 @@ public class FloatingNotificationBanner: GrowingNotificationBanner {
         
         if let cornerRadius = cornerRadius {
             contentView.layer.cornerRadius = cornerRadius
+            contentView.subviews.last?.layer.cornerRadius = cornerRadius
+        }
+        
+        if style == .customView, let customView = contentView.subviews.last {
+           customView.backgroundColor = customView.backgroundColor?.withAlphaComponent(transparency)
         }
 
         show(queuePosition: queuePosition,
@@ -116,7 +131,7 @@ private extension FloatingNotificationBanner {
                              cornerRadius: CGFloat = 0,
                              offset: UIOffset = .zero,
                              edgeInsets: UIEdgeInsets? = nil) {
-        
+        guard blurRadius > 0 else { return }
         contentView.layer.shadowColor = color.cgColor
         contentView.layer.shadowOpacity = Float(opacity)
         contentView.layer.shadowRadius = blurRadius

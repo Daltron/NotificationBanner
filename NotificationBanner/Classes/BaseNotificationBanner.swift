@@ -48,6 +48,9 @@ public class BaseNotificationBanner: UIView {
     
     /// The delegate of the notification banner
     public weak var delegate: NotificationBannerDelegate?
+    
+    /// The style of the notification banner
+    public let style: BannerStyle
 
     /// The height of the banner when it is presented
     public var bannerHeight: CGFloat {
@@ -79,6 +82,14 @@ public class BaseNotificationBanner: UIView {
                 dismissOnTap = false
                 dismissOnSwipeUp = false
             }
+        }
+    }
+    
+    /// The transparency of the background of the notification banner
+    public var transparency: CGFloat = 1.0 {
+        didSet {
+            let color = backgroundColor
+            self.backgroundColor = color
         }
     }
     
@@ -154,12 +165,14 @@ public class BaseNotificationBanner: UIView {
         get {
             return contentView.backgroundColor
         } set {
-            contentView.backgroundColor = newValue
-            spacerView.backgroundColor = newValue
+            let color = newValue?.withAlphaComponent(transparency)
+            contentView.backgroundColor = color
+            spacerView.backgroundColor = color
         }
     }
     
     init(style: BannerStyle, colors: BannerColorsProtocol? = nil) {
+        self.style = style
         super.init(frame: .zero)
         
         spacerView = UIView()
@@ -179,8 +192,8 @@ public class BaseNotificationBanner: UIView {
         addGestureRecognizer(swipeUpGesture)
     }
     
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     deinit {

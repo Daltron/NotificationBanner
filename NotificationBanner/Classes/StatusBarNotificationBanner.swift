@@ -73,7 +73,7 @@ public class StatusBarNotificationBanner: BaseNotificationBanner {
     }
 
     public init(customView: UIView) {
-        super.init(style: .none)
+        super.init(style: .customView)
         contentView.addSubview(customView)
         customView.snp.makeConstraints { make in
             make.edges.equalTo(contentView)

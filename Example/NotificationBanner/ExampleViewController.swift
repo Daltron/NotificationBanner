@@ -129,7 +129,7 @@ extension ExampleViewController: ExampleViewDelegate {
             // Basic Warning Notification with Custom Color
             let banner = NotificationBanner(title: "Basic Notification",
                                             subtitle: "Must Be Dismissed Manually",
-                                            style: .none)
+                                            style: .customView)
             banner.delegate = self
             banner.backgroundColor = blockColor(at: IndexPath(row: 5, section: 0))
             banner.autoDismiss = false
@@ -230,12 +230,13 @@ extension ExampleViewController: ExampleViewDelegate {
             let banner = FloatingNotificationBanner(title: "Success Notification",
                                                     subtitle: "This type of banner floats and has the capability of growing to an infinite amount of lines. This one also has a shadow.",
                                                     style: .success)
+
             banner.delegate = self
             banner.show(queuePosition: selectedQueuePosition(),
                         bannerPosition: selectedBannerPosition(),
                         cornerRadius: 10,
                         shadowBlurRadius: 15)
-        default:
+        case 1:
             let banner = FloatingNotificationBanner(title: "Danger Notification",
                                                     subtitle: "This type of banner floats and has the capability of growing to an infinite amount of lines.",
                                                     style: .danger)
@@ -243,6 +244,22 @@ extension ExampleViewController: ExampleViewDelegate {
             banner.show(queuePosition: selectedQueuePosition(),
                         bannerPosition: selectedBannerPosition(),
                         cornerRadius: 10)
+        case 2:
+            let banner = FloatingNotificationBanner(title: "Info Notification",
+                                                    subtitle: "With adjusted transparency!",
+                                                    style: .info)
+            banner.delegate = self
+            banner.transparency = 0.75
+            banner.show(queuePosition: selectedQueuePosition(),
+                        bannerPosition: selectedBannerPosition(),
+                        cornerRadius: 10)
+        default:
+            let banner = FloatingNotificationBanner(customView: NorthCarolinaBannerView())
+            banner.delegate = self
+            banner.show(queuePosition: selectedQueuePosition(),
+                        bannerPosition: selectedBannerPosition(),
+                        cornerRadius: 10,
+                        shadowBlurRadius: 15)
         }
     }
     
@@ -314,7 +331,7 @@ extension ExampleViewController: ExampleViewDelegate {
         case 3:
             return 2
         case 4:
-            return 2
+            return 4
         case 5:
             return 6
         default:
@@ -420,6 +437,10 @@ extension ExampleViewController: ExampleViewDelegate {
                 return ("Success Notification", "This type of banner can float and can have its cornerRadius property adjusted")
             case 1:
                 return ("Danger Notification", "This type of banner can float and can have its cornerRadius property adjusted")
+            case 2:
+                return ("Info Notification", "With adjusted transparency!")
+            case 3:
+                return ("Tarheels Notification", "This type of banner can float and can have its cornerRadius property adjusted")
             default:
                 return ("", nil)
             }
@@ -449,6 +470,13 @@ extension ExampleViewController: ExampleViewDelegate {
         if indexPath.section == 2 {
             switch indexPath.row {
             case 0:
+                return #imageLiteral(resourceName: "unc_logo")
+            default:
+                return nil
+            }
+        } else if indexPath.section == 4 {
+            switch indexPath.row {
+            case 3:
                 return #imageLiteral(resourceName: "unc_logo")
             default:
                 return nil

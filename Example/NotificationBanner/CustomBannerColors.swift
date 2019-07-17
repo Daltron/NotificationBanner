@@ -17,7 +17,7 @@ class CustomBannerColors: BannerColors {
         switch style {
             case .danger:   return super.color(for: style)
             case .info:     return super.color(for: style)
-            case .none:     return super.color(for: style)
+            case .customView:     return super.color(for: style)
             case .success:  return super.color(for: style)
             case .warning:  return UIColor(red:0.99, green:0.40, blue:0.13, alpha:1.00)
         }
