@@ -29,7 +29,7 @@ public protocol NotificationBannerDelegate: class {
 }
 
 @objcMembers
-public class BaseNotificationBanner: UIView {
+open class BaseNotificationBanner: UIView {
     
     /// Notification that will be posted when a notification banner will appear
     public static let BannerWillAppear: Notification.Name = Notification.Name(rawValue: "NotificationBannerWillAppear")
@@ -88,8 +88,12 @@ public class BaseNotificationBanner: UIView {
     /// The transparency of the background of the notification banner
     public var transparency: CGFloat = 1.0 {
         didSet {
-            let color = backgroundColor
-            self.backgroundColor = color
+            if let customView = customView {
+                customView.backgroundColor = customView.backgroundColor?.withAlphaComponent(transparency)
+            } else {
+                let color = backgroundColor
+                self.backgroundColor = color
+            }
         }
     }
     
@@ -122,6 +126,9 @@ public class BaseNotificationBanner: UIView {
     
     /// A view that helps the spring animation look nice when the banner appears
     internal var spacerView: UIView!
+    
+    // The custom view inside the notification banner
+    internal var customView: UIView?
     
     /// The default offset for spacerView top or bottom
     internal var spacerViewDefaultOffset: CGFloat = 10.0
@@ -161,10 +168,11 @@ public class BaseNotificationBanner: UIView {
         return [BaseNotificationBanner.BannerObjectKey: self]
     }
     
-    public override var backgroundColor: UIColor? {
+    open override var backgroundColor: UIColor? {
         get {
             return contentView.backgroundColor
         } set {
+            guard style != .customView else { return }
             let color = newValue?.withAlphaComponent(transparency)
             contentView.backgroundColor = color
             spacerView.backgroundColor = color
@@ -192,7 +200,7 @@ public class BaseNotificationBanner: UIView {
         addGestureRecognizer(swipeUpGesture)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

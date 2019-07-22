@@ -19,7 +19,7 @@
 import UIKit
 import SnapKit
 
-public class FloatingNotificationBanner: GrowingNotificationBanner {
+open class FloatingNotificationBanner: GrowingNotificationBanner {
     
     public init(title: String? = nil,
                 subtitle: String? = nil,
@@ -66,6 +66,8 @@ public class FloatingNotificationBanner: GrowingNotificationBanner {
     
     public init(customView: UIView) {
         super.init(style: .customView)
+        self.customView = customView
+        
         contentView.addSubview(customView)
         customView.snp.makeConstraints { (make) in
             make.edges.equalTo(contentView)

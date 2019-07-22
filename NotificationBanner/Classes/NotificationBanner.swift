@@ -22,7 +22,7 @@ import SnapKit
 import MarqueeLabel
 
 @objcMembers
-public class NotificationBanner: BaseNotificationBanner {
+open class NotificationBanner: BaseNotificationBanner {
     
     /// The bottom most label of the notification if a subtitle is provided
     public private(set) var subtitleLabel: MarqueeLabel?
@@ -157,6 +157,8 @@ public class NotificationBanner: BaseNotificationBanner {
     
     public init(customView: UIView) {
         super.init(style: .customView)
+        self.customView = customView
+        
         contentView.addSubview(customView)
         customView.snp.makeConstraints { (make) in
             make.edges.equalTo(contentView)
