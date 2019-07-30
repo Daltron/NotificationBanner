@@ -9,7 +9,7 @@
 
 import UIKit
 
-public extension String {
+public extension NSString {
     
     /// Calculates the height a label will need in order to display the String for the given width and font.
     ///
