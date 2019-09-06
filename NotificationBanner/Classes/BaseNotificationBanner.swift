@@ -531,7 +531,7 @@ open class BaseNotificationBanner: UIView {
         Updates the scrolling marquee label duration
     */
     internal func updateMarqueeLabelsDurations() {
-        (titleLabel as? MarqueeLabel)?.speed = .duration(CGFloat(duration - 3))
+        (titleLabel as? MarqueeLabel)?.speed = .duration(CGFloat(duration <= 3 ? 0.5 : duration - 3))
     }
 }
 
