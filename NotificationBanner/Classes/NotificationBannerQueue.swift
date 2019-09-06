@@ -33,9 +33,16 @@ open class NotificationBannerQueue: NSObject {
     /// The notification banners currently placed on the queue
     private(set) var banners: [BaseNotificationBanner] = []
     
+    /// The notification banners currently placed on the queue
+    private(set) var maxBannersOnScreenSimultaneously: Int = 1
+
     /// The current number of notification banners on the queue
     public var numberOfBanners: Int {
         return banners.count
+    }
+    
+    public init(maxBannersOnScreenSimultaneously: Int = 1) {
+        self.maxBannersOnScreenSimultaneously = maxBannersOnScreenSimultaneously
     }
     
     /**
@@ -49,14 +56,15 @@ open class NotificationBannerQueue: NSObject {
         if queuePosition == .back {
             banners.append(banner)
             
-            if banners.firstIndex(of: banner) == 0 {
+            let bannersCnt =  banners.filter { $0.isDisplaying }.count
+            if bannersCnt < maxBannersOnScreenSimultaneously {
                 banner.show(placeOnQueue: false, bannerPosition: banner.bannerPosition)
             }
             
         } else {
             banner.show(placeOnQueue: false, bannerPosition: banner.bannerPosition)
             
-            if let firstBanner = banners.first {
+            if let firstBanner = firstNotDisplayedBanner() {
                 firstBanner.suspend()
             }
             
@@ -74,6 +82,13 @@ open class NotificationBannerQueue: NSObject {
         if let index = banners.firstIndex(of: banner) {
             banners.remove(at: index)
         }
+        
+        banners.forEach {
+            $0.updateBannerPositionFrames()
+            if $0.isDisplaying {
+                $0.animateUpdatedBannerPositionFrames()
+            }
+        }
     }
     
     /**
@@ -82,21 +97,24 @@ open class NotificationBannerQueue: NSObject {
     */
     func showNext(callback: ((_ isEmpty: Bool) -> Void)) {
 
-        if !banners.isEmpty {
-            banners.removeFirst()
+        if let banner = firstNotDisplayedBanner() {
+            
+            if banner.isSuspended {
+                banner.resume()
+            } else {
+                banner.show(placeOnQueue: false)
+            }
+
+            callback(false)
         }
-        guard let banner = banners.first else {
+        else {
             callback(true)
             return
         }
-        
-        if banner.isSuspended {
-            banner.resume()
-        } else {
-            banner.show(placeOnQueue: false)
-        }
-        
-        callback(false)
+    }
+    
+    func firstNotDisplayedBanner() -> BaseNotificationBanner? {
+        return banners.filter { !$0.isDisplaying }.first
     }
     
     /**
@@ -105,4 +123,13 @@ open class NotificationBannerQueue: NSObject {
     public func removeAll() {
         banners.removeAll()
     }
+    
+    /**
+     Forced dissmiss all notification banners from the queue
+     */
+    public func dismissAllForced() {
+        banners.forEach { $0.dismiss(forced: true) }
+        banners.removeAll()
+    }
+
 }
