@@ -146,18 +146,15 @@ open class BaseNotificationBanner: UIView {
     var isSuspended: Bool = false
     
     /// The main window of the application which banner views are placed on
-    private let appWindow: UIWindow = {
+    private let appWindow: UIWindow? = {
         if #available(iOS 13.0, *) {
-            let connectedScenes = UIApplication.shared.connectedScenes
-            for scene in connectedScenes {
-                if scene.activationState == .foregroundActive {
-                    let windowScene = scene as? UIWindowScene
-                    return windowScene?.windows.first! ?? UIWindow()
-                }
-            }
+            return UIApplication.shared.connectedScenes
+                .first { $0.activationState == .foregroundActive }
+                .map { $0 as? UIWindowScene }
+                .map { $0?.windows.first } ?? nil
         }
         
-        return UIApplication.shared.delegate!.window!!
+        return UIApplication.shared.delegate?.window ?? nil
     }()
     
     /// The position the notification banner should slide in from
@@ -300,7 +297,7 @@ open class BaseNotificationBanner: UIView {
             
             self.bannerQueue.showNext(callback: { (isEmpty) in
                 if isEmpty || self.statusBarShouldBeShown() {
-                    self.appWindow.windowLevel = UIWindow.Level.normal
+                    self.appWindow?.windowLevel = UIWindow.Level.normal
                 }
             })
         }
@@ -352,11 +349,11 @@ open class BaseNotificationBanner: UIView {
             return
         }
         
-        if bannerPositionFrame == nil {
+        if let window = appWindow, bannerPositionFrame == nil {
             self.bannerPosition = bannerPosition
             createBannerConstraints(for: bannerPosition)
             bannerPositionFrame = BannerPositionFrame(bannerPosition: bannerPosition,
-                                                      bannerWidth: appWindow.frame.width,
+                                                      bannerWidth: window.frame.width,
                                                       bannerHeight: bannerHeight,
                                                       maxY: maximumYPosition(),
                                                       edgeInsets: bannerEdgeInsets)
@@ -378,14 +375,14 @@ open class BaseNotificationBanner: UIView {
             if let parentViewController = parentViewController {
                 parentViewController.view.addSubview(self)
                 if statusBarShouldBeShown() {
-                    appWindow.windowLevel = UIWindow.Level.normal
+                    appWindow?.windowLevel = UIWindow.Level.normal
                 }
             } else {
-                appWindow.addSubview(self)
+                appWindow?.addSubview(self)
                 if statusBarShouldBeShown() && !(parentViewController == nil && bannerPosition == .top) {
-                    appWindow.windowLevel = UIWindow.Level.normal
+                    appWindow?.windowLevel = UIWindow.Level.normal
                 } else {
-                    appWindow.windowLevel = UIWindow.Level.statusBar + 1
+                    appWindow?.windowLevel = UIWindow.Level.statusBar + 1
                 }
             }
             
@@ -463,18 +460,20 @@ open class BaseNotificationBanner: UIView {
         Changes the frame of the notification banner when the orientation of the device changes
     */
     @objc private dynamic func onOrientationChanged() {
+        guard let window = appWindow else { return }
+        
         updateSpacerViewHeight()
         
         let edgeInsets = bannerEdgeInsets ?? .zero
 
-        let newY = (bannerPosition == .top) ? (frame.origin.y) : (appWindow.frame.height - bannerHeight + edgeInsets.top - edgeInsets.bottom)
+        let newY = (bannerPosition == .top) ? (frame.origin.y) : (window.frame.height - bannerHeight + edgeInsets.top - edgeInsets.bottom)
         frame = CGRect(x: frame.origin.x,
                        y: newY,
-                       width: appWindow.frame.width - edgeInsets.left - edgeInsets.right,
+                       width: window.frame.width - edgeInsets.left - edgeInsets.right,
                        height: bannerHeight)
     
         bannerPositionFrame = BannerPositionFrame(bannerPosition: bannerPosition,
-                                                  bannerWidth: appWindow.frame.width,
+                                                  bannerWidth: window.frame.width,
                                                   bannerHeight: bannerHeight,
                                                   maxY: maximumYPosition(),
                                                   edgeInsets: bannerEdgeInsets)
@@ -526,7 +525,7 @@ open class BaseNotificationBanner: UIView {
         if let parentViewController = parentViewController {
             return parentViewController.view.frame.height
         } else {
-            return appWindow.frame.height
+            return appWindow?.frame.height ?? 0
         }
     }
 
