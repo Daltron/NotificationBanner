@@ -44,17 +44,19 @@ open class NotificationBannerQueue: NSObject {
         -parameter queuePosition: The position to show the notification banner. If the position is .front, the
         banner will be displayed immediately
     */
-    func addBanner(_ banner: BaseNotificationBanner, queuePosition: QueuePosition) {
+    func addBanner(_ banner: BaseNotificationBanner,
+                   bannerPosition: BannerPosition,
+                   queuePosition: QueuePosition) {
         
         if queuePosition == .back {
             banners.append(banner)
             
             if banners.firstIndex(of: banner) == 0 {
-                banner.show(placeOnQueue: false, bannerPosition: banner.bannerPosition)
+                banner.show(placeOnQueue: false, bannerPosition: bannerPosition)
             }
             
         } else {
-            banner.show(placeOnQueue: false, bannerPosition: banner.bannerPosition)
+            banner.show(placeOnQueue: false, bannerPosition: bannerPosition)
             
             if let firstBanner = banners.first {
                 firstBanner.suspend()

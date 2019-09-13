@@ -369,7 +369,9 @@ open class BaseNotificationBanner: UIView {
                                                object: nil)
         
         if placeOnQueue {
-            bannerQueue.addBanner(self, queuePosition: queuePosition)
+            bannerQueue.addBanner(self,
+                                  bannerPosition: bannerPosition,
+                                  queuePosition: queuePosition)
         } else {
             self.frame = bannerPositionFrame.startFrame
             
