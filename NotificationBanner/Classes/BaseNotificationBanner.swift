@@ -349,9 +349,10 @@ open class BaseNotificationBanner: UIView {
             return
         }
         
+        self.bannerPosition = bannerPosition
+        createBannerConstraints(for: bannerPosition)
+        
         if let window = appWindow, bannerPositionFrame == nil {
-            self.bannerPosition = bannerPosition
-            createBannerConstraints(for: bannerPosition)
             bannerPositionFrame = BannerPositionFrame(bannerPosition: bannerPosition,
                                                       bannerWidth: window.frame.width,
                                                       bannerHeight: bannerHeight,
