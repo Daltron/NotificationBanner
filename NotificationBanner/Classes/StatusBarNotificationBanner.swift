@@ -30,11 +30,21 @@ open class StatusBarNotificationBanner: BaseNotificationBanner {
             } else if shouldAdjustForNotchFeaturedIphone() {
                 return 50.0
             } else {
-                return 20.0
+                return 20.0 + heightAdjustment
             }
         } set {
             customBannerHeight = newValue
         }
+    }
+
+    private var heightAdjustment: CGFloat {
+        // iOS 13 does not allow covering the status bar on non-notch iPhones
+        // The banner needs to be moved further down under the status bar in this case
+        guard #available(iOS 13.0, *), !NotificationBannerUtilities.isNotchFeaturedIPhone() else {
+            return 0
+        }
+
+        return UIApplication.shared.statusBarFrame.height
     }
 
     override init(style: BannerStyle, colors: BannerColorsProtocol? = nil) {
@@ -49,7 +59,7 @@ open class StatusBarNotificationBanner: BaseNotificationBanner {
         contentView.addSubview(titleLabel!)
 
         titleLabel!.snp.makeConstraints { (make) in
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().offset(heightAdjustment)
             make.left.equalToSuperview().offset(5)
             make.right.equalToSuperview().offset(-5)
             make.bottom.equalToSuperview()

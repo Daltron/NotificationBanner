@@ -10,6 +10,7 @@
 		0D0D9ADF1F15D19D003B35A8 /* BannerPositionFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0D9ADE1F15D19D003B35A8 /* BannerPositionFrame.swift */; };
 		2B9A8469216538CA00A7418D /* GrowingNotificationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9A8468216538CA00A7418D /* GrowingNotificationBanner.swift */; };
 		2B9A846B216544E600A7418D /* String+heightForConstrainedWidth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9A846A216544E600A7418D /* String+heightForConstrainedWidth.swift */; };
+		7ECA5719232FA42B00256BB9 /* FloatingNotificationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECA5718232FA42B00256BB9 /* FloatingNotificationBanner.swift */; };
 		823255AF1EB87313006F95C3 /* BannerColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232559F1EB87313006F95C3 /* BannerColors.swift */; };
 		823255B01EB87313006F95C3 /* BannerStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823255A01EB87313006F95C3 /* BannerStyle.swift */; };
 		823255B11EB87313006F95C3 /* BaseNotificationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823255A11EB87313006F95C3 /* BaseNotificationBanner.swift */; };
@@ -28,6 +29,7 @@
 		0D0D9ADE1F15D19D003B35A8 /* BannerPositionFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerPositionFrame.swift; sourceTree = "<group>"; };
 		2B9A8468216538CA00A7418D /* GrowingNotificationBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrowingNotificationBanner.swift; sourceTree = "<group>"; };
 		2B9A846A216544E600A7418D /* String+heightForConstrainedWidth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+heightForConstrainedWidth.swift"; sourceTree = "<group>"; };
+		7ECA5718232FA42B00256BB9 /* FloatingNotificationBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingNotificationBanner.swift; sourceTree = "<group>"; };
 		8232558B1EB872AB006F95C3 /* NotificationBanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NotificationBanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8232559E1EB87313006F95C3 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8232559F1EB87313006F95C3 /* BannerColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerColors.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 				823255A41EB87313006F95C3 /* StatusBarNotificationBanner.swift */,
 				F7E13CF51FB192ED0008EE4C /* NotificationBannerUtilities.swift */,
 				2B9A8468216538CA00A7418D /* GrowingNotificationBanner.swift */,
+				7ECA5718232FA42B00256BB9 /* FloatingNotificationBanner.swift */,
 				2B9A846A216544E600A7418D /* String+heightForConstrainedWidth.swift */,
 			);
 			path = Classes;
@@ -219,6 +222,7 @@
 				823255B21EB87313006F95C3 /* NotificationBanner.swift in Sources */,
 				2B9A846B216544E600A7418D /* String+heightForConstrainedWidth.swift in Sources */,
 				0D0D9ADF1F15D19D003B35A8 /* BannerPositionFrame.swift in Sources */,
+				7ECA5719232FA42B00256BB9 /* FloatingNotificationBanner.swift in Sources */,
 				823255AF1EB87313006F95C3 /* BannerColors.swift in Sources */,
 				2B9A8469216538CA00A7418D /* GrowingNotificationBanner.swift in Sources */,
 				F7E13CF61FB192ED0008EE4C /* NotificationBannerUtilities.swift in Sources */,
