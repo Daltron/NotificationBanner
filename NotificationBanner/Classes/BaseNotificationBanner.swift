@@ -134,7 +134,7 @@ open class BaseNotificationBanner: UIView {
     internal var spacerViewDefaultOffset: CGFloat = 10.0
 
     /// The maximum number of banners simultaneously visible on screen
-    internal var maximumVisibleBanners: Int = 3
+    internal var maximumVisibleBanners: Int = 1
 
     /// The default padding between edges and views
     internal var padding: CGFloat = 15.0
