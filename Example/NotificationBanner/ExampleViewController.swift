@@ -283,17 +283,17 @@ extension ExampleViewController: ExampleViewDelegate {
             let bannerQueue2AllowedSuccess = NotificationBannerQueue(maxBannersOnScreenSimultaneously: 2)
 
             let banner1 = FloatingNotificationBanner(title: "Success Notification 1",
-                                                    subtitle: "First Success Notification in current queue with 2 banners allowed simaltaneously",
+                                                    subtitle: "First Success Notification in current queue with 2 banners allowed simultaneously",
                                                     style: .success)
             banner1.delegate = self
 
             let banner2 = FloatingNotificationBanner(title: "Success Notification 2",
-                                                    subtitle: "Second Success Notification in current queue with 2 banners allowed simaltaneously",
+                                                    subtitle: "Second Success Notification in current queue with 2 banners allowed simultaneously",
                                                     style: .success)
             banner2.delegate = self
 
             let banner3 = FloatingNotificationBanner(title: "Success Notification 3",
-                                                    subtitle: "Third Success Notification in current queue with 2 banners allowed simaltaneously",
+                                                    subtitle: "Third Success Notification in current queue with 2 banners allowed simultaneously",
                                                     style: .success)
             banner3.delegate = self
 
@@ -304,12 +304,12 @@ extension ExampleViewController: ExampleViewDelegate {
             let bannerQueue3AllowedDanger = NotificationBannerQueue(maxBannersOnScreenSimultaneously: 3)
 
             let banner1 = FloatingNotificationBanner(title: "Danger Notification 1",
-                                                     subtitle: "First Danger Notification in current queue with 3 banners allowed simaltaneously",
+                                                     subtitle: "First Danger Notification in current queue with 3 banners allowed simultaneously",
                                                      style: .danger)
             banner1.delegate = self
 
             let banner2 = FloatingNotificationBanner(title: "Danger Notification 2",
-                                                     subtitle: "Second Danger Notification in current queue with 3 banners allowed simaltaneously",
+                                                     subtitle: "Second Danger Notification in current queue with 3 banners allowed simultaneously",
                                                      style: .danger)
             banner2.delegate = self
 
@@ -320,27 +320,27 @@ extension ExampleViewController: ExampleViewDelegate {
             let bannerQueue5AllowedMixed = NotificationBannerQueue(maxBannersOnScreenSimultaneously: 3)
 
             let banner1 = FloatingNotificationBanner(title: "Success Notification - 1",
-                                                     subtitle: "First Notification from 5 in current queue with 3 banners allowed simaltaneously",
+                                                     subtitle: "First Notification from 5 in current queue with 3 banners allowed simultaneously",
                                                      style: .success)
             banner1.delegate = self
 
             let banner2 = FloatingNotificationBanner(title: "Danger Notification - 2",
-                                                     subtitle: "Second Notification from 5 in current queue with 3 banners allowed simaltaneously",
+                                                     subtitle: "Second Notification from 5 in current queue with 3 banners allowed simultaneously",
                                                      style: .danger)
             banner2.delegate = self
 
             let banner3 = FloatingNotificationBanner(title: "Info Notification - 3",
-                                                     subtitle: "Third Notification from 5 in current queue with 3 banners allowed simaltaneously",
+                                                     subtitle: "Third Notification from 5 in current queue with 3 banners allowed simultaneously",
                                                      style: .info)
             banner3.delegate = self
 
             let banner4 = FloatingNotificationBanner(title: "Success Notification - 4",
-                                                     subtitle: "Fourth Notification from 5 in current queue with 3 banners allowed simaltaneously",
+                                                     subtitle: "Fourth Notification from 5 in current queue with 3 banners allowed simultaneously",
                                                      style: .success)
             banner4.delegate = self
 
             let banner5 = FloatingNotificationBanner(title: "Info Notification - 5",
-                                                     subtitle: "Fifth Notification from 5 in current queue with 3 banners allowed simaltaneously",
+                                                     subtitle: "Fifth Notification from 5 in current queue with 3 banners allowed simultaneously",
                                                      style: .info)
             banner5.delegate = self
 
