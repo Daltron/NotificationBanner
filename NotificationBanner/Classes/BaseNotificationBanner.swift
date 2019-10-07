@@ -266,11 +266,11 @@ open class BaseNotificationBanner: UIView {
     
     private func finishBannerYOffset() -> CGFloat {
         let bannerIndex = (bannerQueue.banners.firstIndex(of: self) ?? bannerQueue.banners.filter { $0.isDisplaying }.count)
-        var finishOffset = bannerQueue.banners.prefix(bannerIndex).reduce(0) { $0
+        let finishOffset = bannerQueue.banners.prefix(bannerIndex).reduce(0) { $0
             + $1.bannerHeight
-            - spacerViewHeight() // notch spacer height
-            + (bannerPosition == .top ? spacerViewDefaultOffset : -spacerViewDefaultOffset) // to reduct additions in createBannerConstraints
-            + spacerViewDefaultOffset // default space between banners, maaybe needs to add separate value for this
+            - (bannerPosition == .top ? spacerViewHeight() : 0) // notch spacer height for top position only
+            + (bannerPosition == .top ? spacerViewDefaultOffset : -spacerViewDefaultOffset) // to reduct additions in createBannerConstraints (it's needed for proper shadow framing)
+            + (bannerPosition == .top ? spacerViewDefaultOffset : -spacerViewDefaultOffset) // default space between banners
             // this calculations are made only for banners except first one, for first banner it'll be 0
         }
         
