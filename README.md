@@ -14,9 +14,10 @@ NotificationBanner is an extremely customizable and lightweight library that mak
 | ------------- | ------------- | ------------- |
 | ![Basic Banners](NotificationBanner/Assets/basic.gif)  | ![Banners with Side Views](NotificationBanner/Assets/side_views.gif)  | ![Status Bar Banners](NotificationBanner/Assets/status_bar.gif) |
 
-| Growing Banners | Floating Banners  |
-| ------------- | ------------- | 
-| ![Growing Banners](NotificationBanner/Assets/growing.gif)  | ![Floating Banners](NotificationBanner/Assets/floating.gif)
+| Growing Banners | Floating Banners  | Stacked Banners |
+| ------------- | ------------- | ------------- | 
+| ![Growing Banners](NotificationBanner/Assets/growing.gif)  | ![Floating Banners](NotificationBanner/Assets/floating.gif) | ![Floating Banners](NotificationBanner/Assets/stacked.gif)
+
 ## Features
 - Highly customizable ✅
 - `NSAttributedString` support ✅
@@ -44,18 +45,16 @@ NotificationBanner is an extremely customizable and lightweight library that mak
 NotificationBanner is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
-#### Swift 5
+#### Swift 5 + xCode 11 + iOS 13 Support
 
 ```ruby
-pod 'NotificationBannerSwift'
+pod 'NotificationBannerSwift', '~> 3.0.0'
 ```
 
-Then add `import NotificationBannerSwift` at the top of each file you use NotificationBanner in your project.
-
-#### iOS13 
+#### Swift 5 + xCode 10.x
 
 ```ruby
-pod 'NotificationBannerSwift', :git => 'https://github.com/Daltron/NotificationBanner', :branch => 'ios13'
+pod 'NotificationBannerSwift', '2.5.0'
 ```
 
 #### Swift 4.2
@@ -63,8 +62,6 @@ pod 'NotificationBannerSwift', :git => 'https://github.com/Daltron/NotificationB
 ```ruby
 pod 'NotificationBannerSwift', '2.0.1'
 ```
-
-Then add `import NotificationBannerSwift` at the top of each file you use NotificationBanner in your project.
 
 #### Swift 4.0
 
@@ -292,9 +289,9 @@ let numberOfBanners = NotificationBannerQueue.default.numberOfBanners
 
  <b>This is all automatically managed!</b>
 
-## Banner Queue and display banners simultaneously
+## Banner Queue and display banners simultaneously (stacked)
 
-Also you can create the queue to display several banners at once with controlling of maximum number of banners to be displayed simultaneously. You can "show" more banners than allowed by queue settings - banners what exceed this value will be displayed some time later, after some banners already displayed on screen will be closed. In example below we create queue with maximum simultaneous banners allowed - 3:
+You can also create the queue to display several banners at once with controlling of maximum number of banners to be displayed simultaneously. You can "show" more banners than allowed by queue settings - banners what exceed this value will be displayed some time later, after some banners already displayed on screen will be closed. In example below we create queue with maximum simultaneous banners allowed - 3:
 
 ```swift
 let bannerQueueToDisplaySeveralBanners = NotificationBannerQueue(maxBannersOnScreenSimultaneously: 3)
