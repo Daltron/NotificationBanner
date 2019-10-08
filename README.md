@@ -30,6 +30,7 @@ NotificationBanner is an extremely customizable and lightweight library that mak
 - Presenting from top or bottom support ✅
 - Haptic feeback support ✅
 - Built in banner queue ✅
+- Allow to display several banners simultaneously, configurable in banners queue
 
 ## Requirements
 
@@ -291,6 +292,67 @@ let numberOfBanners = NotificationBannerQueue.default.numberOfBanners
 
  <b>This is all automatically managed!</b>
 
+## Banner Queue and display banners simultaneously
+
+Also you can create the queue to display several banners at once with controlling of maximum number of banners to be displayed simultaneously. You can "show" more banners than allowed by queue settings - banners what exceed this value will be displayed some time later, after some banners already displayed on screen will be closed. In example below we create queue with maximum simultaneous banners allowed - 3:
+
+```swift
+let bannerQueueToDisplaySeveralBanners = NotificationBannerQueue(maxBannersOnScreenSimultaneously: 3)
+```
+
+Create five different banners:
+
+```swift
+let banner1 = FloatingNotificationBanner(title: "Success Notification - 1",
+                                         subtitle: "First Notification from 5 in current queue with 3 banners allowed simultaneously",
+                                         style: .success)
+banner1.delegate = self
+
+let banner2 = FloatingNotificationBanner(title: "Danger Notification - 2",
+                                         subtitle: "Second Notification from 5 in current queue with 3 banners allowed simultaneously",
+                                         style: .danger)
+banner2.delegate = self
+
+let banner3 = FloatingNotificationBanner(title: "Info Notification - 3",
+                                         subtitle: "Third Notification from 5 in current queue with 3 banners allowed simultaneously",
+                                         style: .info)
+banner3.delegate = self
+
+let banner4 = FloatingNotificationBanner(title: "Success Notification - 4",
+                                         subtitle: "Fourth Notification from 5 in current queue with 3 banners allowed simultaneously",
+                                         style: .success)
+banner4.delegate = self
+
+let banner5 = FloatingNotificationBanner(title: "Info Notification - 5",
+                                         subtitle: "Fifth Notification from 5 in current queue with 3 banners allowed simultaneously",
+                                         style: .info)
+banner5.delegate = self
+```
+
+and show all five banners at once:
+```swift
+showBanners([banner1, banner2, banner3, banner4, banner5],
+            in: bannerQueue5AllowedMixed)
+```
+
+using this supporting method
+
+```swift
+func showBanners(_ banners: [FloatingNotificationBanner],
+                 in notificationBannerQueue: NotificationBannerQueue) {
+    banners.forEach { banner in
+        banner.show(bannerPosition: selectedBannerPosition(),
+                    queue: notificationBannerQueue,
+                    cornerRadius: 8,
+                    shadowColor: UIColor(red: 0.431, green: 0.459, blue: 0.494, alpha: 1),
+                    shadowBlurRadius: 16,
+                    shadowEdgeInsets: UIEdgeInsets(top: 8, left: 8, bottom: 0, right: 8))
+    }
+}
+```
+
+It will display first three banners at once, and after some time (or by user tap) it will be hidden and 4 and 5 banner will be displayed when. All it with fancy animation.
+
 ## Feature Requests
 
 I'd love to know anything that you think NotificationBanner is missing. Open an issue and I'll add the `feature request` label to it and I'll do everything I can to accomodate that request if it is in the library's best interest. 😄 
@@ -304,7 +366,10 @@ I'd love to know anything that you think NotificationBanner is missing. Open an 
 [![Wanderings](AppIcons/wanderings.png)](https://apps.apple.com/app/wanderings-travel-tracking/id1292503352)
 [![Modern Magic 8 Ball](AppIcons/modernmagic8ball.png)](https://apps.apple.com/app/modern-magic-8-ball/id1381145384)
 [![Envision: Habits Tracker](AppIcons/envision.png)](https://apps.apple.com/app/envision-habits-tracker/id1423771095)
- 
+[![TSUM](AppIcons/tsum.png)](https://apps.apple.com/ru/app/%D1%86%D1%83%D0%BC-%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82-%D0%BC%D0%B0%D0%B3%D0%B0%D0%B7%D0%B8%D0%BD-%D0%BE%D0%B4%D0%B5%D0%B6%D0%B4%D1%8B/id1089560311)
+[![RIS](AppIcons/ris.png)](https://apps.apple.com/ru/app/%D1%80%D0%B5%D1%81%D1%82%D0%BE%D1%80%D0%B0%D0%BD%D1%8B-%D1%80%D0%B8%D1%81-%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7-%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%B0/id932844115)
+[![LukaPizza](AppIcons/lukapizza.png)](https://apps.apple.com/ru/app/luka-pizza-%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7-%D0%B8-%D0%B4%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%B0/id1202155629)
+
 #### Feel free to add yours!
 
 ## Author

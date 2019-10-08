@@ -115,11 +115,11 @@ open class BaseNotificationBanner: UIView {
     /// Responsible for positioning and auto managing notification banners
     public var bannerQueue: NotificationBannerQueue = NotificationBannerQueue.default
     
-    /// Banner dimiss animation duration
-    public var dismissDuration: TimeInterval = 0.5
+    /// Banner show and dimiss animation duration
+    public var animationDuration: TimeInterval = 0.5
     
     /// Wether or not the notification banner is currently being displayed
-    public private(set) var isDisplaying: Bool = false
+    public var isDisplaying: Bool = false
 
     /// The view that the notification layout is presented on. The constraints/frame of this should not be changed
     internal var contentView: UIView!
@@ -132,6 +132,9 @@ open class BaseNotificationBanner: UIView {
     
     /// The default offset for spacerView top or bottom
     internal var spacerViewDefaultOffset: CGFloat = 10.0
+
+    /// The maximum number of banners simultaneously visible on screen
+    internal var maximumVisibleBanners: Int = 1
 
     /// The default padding between edges and views
     internal var padding: CGFloat = 15.0
@@ -273,49 +276,36 @@ open class BaseNotificationBanner: UIView {
             && (parentViewController?.navigationController?.isNavigationBarHidden ?? true) ? 40.0 : 10.0
     }
     
-    /**
-        Dismisses the NotificationBanner and shows the next one if there is one to show on the queue
-    */
-    @objc public func dismiss() {
-        
-        guard isDisplaying else {
-            return
+    private func finishBannerYOffset() -> CGFloat {
+        let bannerIndex = (bannerQueue.banners.firstIndex(of: self) ?? bannerQueue.banners.filter { $0.isDisplaying }.count)
+        let finishOffset = bannerQueue.banners.prefix(bannerIndex).reduce(0) { $0
+            + $1.bannerHeight
+            - (bannerPosition == .top ? spacerViewHeight() : 0) // notch spacer height for top position only
+            + (bannerPosition == .top ? spacerViewDefaultOffset : -spacerViewDefaultOffset) // to reduct additions in createBannerConstraints (it's needed for proper shadow framing)
+            + (bannerPosition == .top ? spacerViewDefaultOffset : -spacerViewDefaultOffset) // default space between banners
+            // this calculations are made only for banners except first one, for first banner it'll be 0
         }
         
-        NSObject.cancelPreviousPerformRequests(withTarget: self,
-                                               selector: #selector(dismiss),
-                                               object: nil)
-        
-        NotificationCenter.default.post(name: BaseNotificationBanner.BannerWillDisappear, object: self, userInfo: notificationUserInfo)
-        delegate?.notificationBannerWillDisappear(self)
-        
-        UIView.animate(withDuration: dismissDuration, animations: {
-            self.frame = self.bannerPositionFrame.startFrame
-        }) { (completed) in
-            self.removeFromSuperview()
-            self.isDisplaying = false
-            
-            NotificationCenter.default.post(name: BaseNotificationBanner.BannerDidDisappear, object: self, userInfo: self.notificationUserInfo)
-            self.delegate?.notificationBannerDidDisappear(self)
-            
-            self.bannerQueue.showNext(callback: { (isEmpty) in
-                if isEmpty || self.statusBarShouldBeShown() {
-                    self.appWindow.windowLevel = UIWindow.Level.normal
-                }
-            })
-        }
+        return finishOffset
+    }
+
+    internal func updateBannerPositionFrames() {
+        bannerPositionFrame = BannerPositionFrame(bannerPosition: bannerPosition,
+                                                  bannerWidth: appWindow.frame.width,
+                                                  bannerHeight: bannerHeight,
+                                                  maxY: maximumYPosition(),
+                                                  finishYOffset: finishBannerYOffset(),
+                                                  edgeInsets: bannerEdgeInsets)
     }
     
-    /**
-        Removes the NotificationBanner from the queue if not displaying
-     */
-    public func remove() {
-        
-        guard !isDisplaying else {
-            return
-        }
-        
-        bannerQueue.removeBanner(self)
+    internal func animateUpdatedBannerPositionFrames() {
+        UIView.animate(withDuration: animationDuration,
+                       delay: 0.0,
+                       usingSpringWithDamping: 0.7,
+                       initialSpringVelocity: 1,
+                       options: [.curveLinear, .allowUserInteraction],animations: {
+                        self.frame = self.bannerPositionFrame.endFrame
+        })
     }
     
     /**
@@ -355,11 +345,7 @@ open class BaseNotificationBanner: UIView {
         if bannerPositionFrame == nil {
             self.bannerPosition = bannerPosition
             createBannerConstraints(for: bannerPosition)
-            bannerPositionFrame = BannerPositionFrame(bannerPosition: bannerPosition,
-                                                      bannerWidth: appWindow.frame.width,
-                                                      bannerHeight: bannerHeight,
-                                                      maxY: maximumYPosition(),
-                                                      edgeInsets: bannerEdgeInsets)
+            updateBannerPositionFrames()
         }
         
         NotificationCenter.default.removeObserver(self,
@@ -396,12 +382,13 @@ open class BaseNotificationBanner: UIView {
             self.addGestureRecognizer(tapGestureRecognizer)
             
             self.isDisplaying = true
-            
-            UIView.animate(withDuration: 0.5,
+
+            let bannerIndex = Double(bannerQueue.banners.firstIndex(of: self) ?? 0) + 1
+            UIView.animate(withDuration: animationDuration * bannerIndex,
                            delay: 0.0,
                            usingSpringWithDamping: 0.7,
                            initialSpringVelocity: 1,
-                           options: [.curveLinear,.allowUserInteraction],
+                           options: [.curveLinear, .allowUserInteraction],
                            animations: {
                             BannerHapticGenerator.generate(self.haptic)
                             self.frame = self.bannerPositionFrame.endFrame
@@ -418,6 +405,10 @@ open class BaseNotificationBanner: UIView {
                 }
             }
         }
+    }
+    
+    @objc private func showNextSimultaneously() {
+        self.bannerQueue.showNext(callback: { _ in })
     }
     
     /**
@@ -477,9 +468,59 @@ open class BaseNotificationBanner: UIView {
                                                   bannerWidth: appWindow.frame.width,
                                                   bannerHeight: bannerHeight,
                                                   maxY: maximumYPosition(),
+                                                  finishYOffset: finishBannerYOffset(),
                                                   edgeInsets: bannerEdgeInsets)
     }
     
+    /**
+     Dismisses the NotificationBanner and shows the next one if there is one to show on the queue
+     */
+    @objc public func dismiss(forced: Bool = false) {
+        
+        guard isDisplaying else {
+            return
+        }
+        
+        NSObject.cancelPreviousPerformRequests(withTarget: self,
+                                               selector: #selector(dismiss),
+                                               object: nil)
+        
+        NotificationCenter.default.post(name: BaseNotificationBanner.BannerWillDisappear, object: self, userInfo: notificationUserInfo)
+        delegate?.notificationBannerWillDisappear(self)
+        
+        isDisplaying = false
+        remove()
+        
+        UIView.animate(withDuration: forced ? animationDuration / 2 : animationDuration,
+                       animations: {
+                        self.frame = self.bannerPositionFrame.startFrame
+        }) { (completed) in
+            
+            self.removeFromSuperview()
+            
+            NotificationCenter.default.post(name: BaseNotificationBanner.BannerDidDisappear, object: self, userInfo: self.notificationUserInfo)
+            self.delegate?.notificationBannerDidDisappear(self)
+            
+            self.bannerQueue.showNext(callback: { (isEmpty) in
+                if isEmpty || self.statusBarShouldBeShown() {
+                    self.appWindow.windowLevel = UIWindow.Level.normal
+                }
+            })
+        }
+    }
+    
+    /**
+     Removes the NotificationBanner from the queue if not displaying
+     */
+    public func remove() {
+        
+        guard !isDisplaying else {
+            return
+        }
+        
+        bannerQueue.removeBanner(self)
+    }
+
     /**
         Called when a notification banner is tapped
     */
@@ -543,7 +584,7 @@ open class BaseNotificationBanner: UIView {
         Updates the scrolling marquee label duration
     */
     internal func updateMarqueeLabelsDurations() {
-        (titleLabel as? MarqueeLabel)?.speed = .duration(CGFloat(duration - 3))
+        (titleLabel as? MarqueeLabel)?.speed = .duration(CGFloat(duration <= 3 ? 0.5 : duration - 3))
     }
 }
 

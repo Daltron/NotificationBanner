@@ -263,6 +263,94 @@ extension ExampleViewController: ExampleViewDelegate {
                         shadowBlurRadius: 15)
         }
     }
+
+    internal func basicSimulanteousFloatingNotificationCellSelected(at index: Int) {
+
+        func showBanners(_ banners: [FloatingNotificationBanner],
+                         in notificationBannerQueue: NotificationBannerQueue) {
+            banners.forEach { banner in
+                banner.show(bannerPosition: selectedBannerPosition(),
+                            queue: notificationBannerQueue,
+                            cornerRadius: 8,
+                            shadowColor: UIColor(red: 0.431, green: 0.459, blue: 0.494, alpha: 1),
+                            shadowBlurRadius: 16,
+                            shadowEdgeInsets: UIEdgeInsets(top: 8, left: 8, bottom: 0, right: 8))
+            }
+        }
+
+        switch index {
+        case 0:
+            let bannerQueue2AllowedSuccess = NotificationBannerQueue(maxBannersOnScreenSimultaneously: 2)
+
+            let banner1 = FloatingNotificationBanner(title: "Success Notification 1",
+                                                    subtitle: "First Success Notification in current queue with 2 banners allowed simultaneously",
+                                                    style: .success)
+            banner1.delegate = self
+
+            let banner2 = FloatingNotificationBanner(title: "Success Notification 2",
+                                                    subtitle: "Second Success Notification in current queue with 2 banners allowed simultaneously",
+                                                    style: .success)
+            banner2.delegate = self
+
+            let banner3 = FloatingNotificationBanner(title: "Success Notification 3",
+                                                    subtitle: "Third Success Notification in current queue with 2 banners allowed simultaneously",
+                                                    style: .success)
+            banner3.delegate = self
+
+            showBanners([banner1, banner2, banner3],
+                        in: bannerQueue2AllowedSuccess)
+
+        case 1:
+            let bannerQueue3AllowedDanger = NotificationBannerQueue(maxBannersOnScreenSimultaneously: 3)
+
+            let banner1 = FloatingNotificationBanner(title: "Danger Notification 1",
+                                                     subtitle: "First Danger Notification in current queue with 3 banners allowed simultaneously",
+                                                     style: .danger)
+            banner1.delegate = self
+
+            let banner2 = FloatingNotificationBanner(title: "Danger Notification 2",
+                                                     subtitle: "Second Danger Notification in current queue with 3 banners allowed simultaneously",
+                                                     style: .danger)
+            banner2.delegate = self
+
+            showBanners([banner1, banner2],
+                        in: bannerQueue3AllowedDanger)
+
+        case 2:
+            let bannerQueue5AllowedMixed = NotificationBannerQueue(maxBannersOnScreenSimultaneously: 3)
+
+            let banner1 = FloatingNotificationBanner(title: "Success Notification - 1",
+                                                     subtitle: "First Notification from 5 in current queue with 3 banners allowed simultaneously",
+                                                     style: .success)
+            banner1.delegate = self
+
+            let banner2 = FloatingNotificationBanner(title: "Danger Notification - 2",
+                                                     subtitle: "Second Notification from 5 in current queue with 3 banners allowed simultaneously",
+                                                     style: .danger)
+            banner2.delegate = self
+
+            let banner3 = FloatingNotificationBanner(title: "Info Notification - 3",
+                                                     subtitle: "Third Notification from 5 in current queue with 3 banners allowed simultaneously",
+                                                     style: .info)
+            banner3.delegate = self
+
+            let banner4 = FloatingNotificationBanner(title: "Success Notification - 4",
+                                                     subtitle: "Fourth Notification from 5 in current queue with 3 banners allowed simultaneously",
+                                                     style: .success)
+            banner4.delegate = self
+
+            let banner5 = FloatingNotificationBanner(title: "Info Notification - 5",
+                                                     subtitle: "Fifth Notification from 5 in current queue with 3 banners allowed simultaneously",
+                                                     style: .info)
+            banner5.delegate = self
+
+            showBanners([banner1, banner2, banner3, banner4, banner5],
+                        in: bannerQueue5AllowedMixed)
+
+        default:
+            break
+        }
+    }
     
     internal func basicStatusBarNotificationCellSelected(at index: Int) {
         switch index {
@@ -334,6 +422,8 @@ extension ExampleViewController: ExampleViewDelegate {
         case 4:
             return 4
         case 5:
+            return 3
+        case 6:
             return 6
         default:
             return 0
@@ -353,6 +443,8 @@ extension ExampleViewController: ExampleViewDelegate {
         case 4:
             return "Floating Notification Banners"
         case 5:
+            return "Simultaneous Floating Notification Banners"
+        case 6:
             return "Status Bar Notifications"
         default:
             return ""
@@ -362,7 +454,7 @@ extension ExampleViewController: ExampleViewDelegate {
     internal func blockColor(at indexPath: IndexPath) -> UIColor {
         
         if indexPath == IndexPath(row: numberOfCells(for: indexPath.section) - 2, section: 0)
-            || indexPath == IndexPath(row: numberOfCells(for: indexPath.section) - 2, section: 5) {
+            || indexPath == IndexPath(row: numberOfCells(for: indexPath.section) - 2, section: 6) {
             return CustomBannerColors().color(for: .warning)
         }
         
@@ -446,6 +538,17 @@ extension ExampleViewController: ExampleViewDelegate {
                 return ("", nil)
             }
         } else if indexPath.section == 5 {
+            switch indexPath.row {
+            case 0:
+                return ("3 Success Notifications", "Display it at once, with 2 in queue allowed simultaneosly")
+            case 1:
+                return ("2 Danger Notifications", "Display it at once, with 3 in queue allowed simultaneosly")
+            case 2:
+                return ("5 Mixed Notifications", "Display it at once, with 3 in queue allowed simultaneosly")
+            default:
+                return ("", nil)
+            }
+        } else if indexPath.section == 6 {
             switch indexPath.row {
             case 0:
                 return ("Success Notification", nil)

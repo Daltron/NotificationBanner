@@ -173,7 +173,7 @@ open class NotificationBanner: BaseNotificationBanner {
     
     internal override func updateMarqueeLabelsDurations() {
         super.updateMarqueeLabelsDurations()
-        subtitleLabel?.speed = .duration(CGFloat(duration - 3))
+        subtitleLabel?.speed = .duration(CGFloat(duration <= 3 ? 0.5 : duration - 3))
     }
     
 }
