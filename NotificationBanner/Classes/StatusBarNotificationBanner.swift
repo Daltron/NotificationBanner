@@ -30,7 +30,7 @@ open class StatusBarNotificationBanner: BaseNotificationBanner {
             } else if shouldAdjustForNotchFeaturedIphone() {
                 return 50.0
             } else {
-                return 20.0
+                return 20.0 + heightAdjustment
             }
         } set {
             customBannerHeight = newValue
@@ -49,7 +49,7 @@ open class StatusBarNotificationBanner: BaseNotificationBanner {
         contentView.addSubview(titleLabel!)
 
         titleLabel!.snp.makeConstraints { (make) in
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().offset(heightAdjustment)
             make.left.equalToSuperview().offset(5)
             make.right.equalToSuperview().offset(-5)
             make.bottom.equalToSuperview()

@@ -129,7 +129,7 @@ extension ExampleViewController: ExampleViewDelegate {
             // Basic Warning Notification with Custom Color
             let banner = NotificationBanner(title: "Basic Notification",
                                             subtitle: "Must Be Dismissed Manually",
-                                            style: .customView)
+                                            style: .info)
             banner.delegate = self
             banner.backgroundColor = blockColor(at: IndexPath(row: 5, section: 0))
             banner.autoDismiss = false

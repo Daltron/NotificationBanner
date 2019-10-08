@@ -70,7 +70,7 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
                     actualBannerHeight += innerSpacing
                 }
                 
-                return statusBarHeightAdjustment + max(actualBannerHeight, minHeight)
+                return heightAdjustment + max(actualBannerHeight, minHeight)
             }
         } set {
             customBannerHeight = newValue
@@ -182,17 +182,8 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
         fatalError("init(coder:) has not been implemented")
     }
 
-
-    private var statusBarHeightAdjustment: CGFloat {
-        guard #available(iOS 13.0, *), !NotificationBannerUtilities.isNotchFeaturedIPhone() else {
-            return 0
-        }
-
-        return UIApplication.shared.statusBarFrame.height
-    }
-
     override func spacerViewHeight() -> CGFloat {
-        return super.spacerViewHeight() + statusBarHeightAdjustment
+        return super.spacerViewHeight() + heightAdjustment
     }
 }
 

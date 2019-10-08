@@ -3,9 +3,5 @@ platform :ios, '10.0'
 
 target 'NotificationBanner_Example' do
   pod 'NotificationBannerSwift', :path => '../'
-  pod 'Reveal-iOS-SDK', :configurations => ['Debug']
-
-  target 'NotificationBanner_Tests' do
-    inherit! :search_paths
-  end
+  pod 'Reveal-SDK', :configurations => ['Debug']
 end
