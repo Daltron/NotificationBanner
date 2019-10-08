@@ -16,7 +16,7 @@ NotificationBanner is an extremely customizable and lightweight library that mak
 
 | Growing Banners | Floating Banners  | Stacked Banners |
 | ------------- | ------------- | ------------- | 
-| ![Growing Banners](NotificationBanner/Assets/growing.gif)  | ![Floating Banners](NotificationBanner/Assets/floating.gif) | ![Floating Banners](NotificationBanner/Assets/stacked.gif)
+| ![Growing Banners](NotificationBanner/Assets/growing.gif)  | ![Floating Banners](NotificationBanner/Assets/floating.gif) | ![Floating Banners](NotificationBanner/Assets/stacked.gif) |
 
 ## Features
 - Highly customizable ✅
