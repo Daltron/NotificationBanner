@@ -440,14 +440,24 @@ open class BaseNotificationBanner: UIView {
         The height adjustment needed in order for the banner to look properly displayed.
      */
     internal var heightAdjustment: CGFloat {
+        guard customStatusBarHeightAdjustment == nil else {
+            return customStatusBarHeightAdjustment
+        }
+        
         // iOS 13 does not allow covering the status bar on non-notch iPhones
         // The banner needs to be moved further down under the status bar in this case
         guard #available(iOS 13.0, *), !NotificationBannerUtilities.isNotchFeaturedIPhone() else {
             return 0
         }
-
+        
         return UIApplication.shared.statusBarFrame.height
     }
+    
+    
+    /// Provides access to customize the height adjustment on the status bar. If this value is set
+    /// it is recommended that you add a condition to return 0 in the event of a notched iPhone.
+    /// This is an iOS 13 feature that does not allow the covering of the status bar.
+    public var customStatusBarHeightAdjustment: CGFloat?
 
     /**
         Update banner height, it's necessary after banner labels font update
