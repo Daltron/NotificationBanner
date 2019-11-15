@@ -288,7 +288,7 @@ open class BaseNotificationBanner: UIView {
     internal func updateBannerPositionFrames() {
         guard let window = appWindow else { return }
         bannerPositionFrame = BannerPositionFrame(bannerPosition: bannerPosition,
-                                                  bannerWidth: window.frame.width,
+                                                  bannerWidth: window.width,
                                                   bannerHeight: bannerHeight,
                                                   maxY: maximumYPosition(),
                                                   finishYOffset: finishBannerYOffset(),
@@ -466,14 +466,14 @@ open class BaseNotificationBanner: UIView {
 
         let edgeInsets = bannerEdgeInsets ?? .zero
 
-        let newY = (bannerPosition == .top) ? (frame.origin.y) : (window.frame.height - bannerHeight + edgeInsets.top - edgeInsets.bottom)
+        let newY = (bannerPosition == .top) ? (frame.origin.y) : (window.height - bannerHeight + edgeInsets.top - edgeInsets.bottom)
         frame = CGRect(x: frame.origin.x,
                        y: newY,
-                       width: window.frame.width - edgeInsets.left - edgeInsets.right,
+                       width: window.width - edgeInsets.left - edgeInsets.right,
                        height: bannerHeight)
 
         bannerPositionFrame = BannerPositionFrame(bannerPosition: bannerPosition,
-                                                  bannerWidth: window.frame.width,
+                                                  bannerWidth: window.width,
                                                   bannerHeight: bannerHeight,
                                                   maxY: maximumYPosition(),
                                                   finishYOffset: finishBannerYOffset(),
@@ -575,7 +575,7 @@ open class BaseNotificationBanner: UIView {
         if let parentViewController = parentViewController {
             return parentViewController.view.frame.height
         } else {
-            return appWindow?.frame.height ?? 0
+            return appWindow?.height ?? 0
         }
     }
 
