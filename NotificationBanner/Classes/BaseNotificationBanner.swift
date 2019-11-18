@@ -440,7 +440,7 @@ open class BaseNotificationBanner: UIView {
         The height adjustment needed in order for the banner to look properly displayed.
      */
     internal var heightAdjustment: CGFloat {
-        guard customStatusBarHeightAdjustment == nil else {
+        if let customStatusBarHeightAdjustment = customStatusBarHeightAdjustment {
             return customStatusBarHeightAdjustment
         }
         
