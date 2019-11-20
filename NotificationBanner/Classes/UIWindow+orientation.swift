@@ -5,7 +5,7 @@
 //  Created by gabmarfer on 15/10/2019.
 //
 
-import Foundation
+import UIKit
 
 extension UIWindow {
 
