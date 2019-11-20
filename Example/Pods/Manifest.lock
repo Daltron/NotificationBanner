@@ -1,6 +1,6 @@
 PODS:
   - MarqueeLabel (4.0.0)
-  - NotificationBannerSwift (2.6.0):
+  - NotificationBannerSwift (3.0.1):
     - MarqueeLabel (~> 4.0.0)
     - SnapKit (~> 5.0.0)
   - Reveal-SDK (24)
@@ -11,7 +11,7 @@ DEPENDENCIES:
   - Reveal-SDK
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - MarqueeLabel
     - Reveal-SDK
     - SnapKit
@@ -22,10 +22,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   MarqueeLabel: b55b26e690b6ad41faedd95cbf5eae6f1d1735b4
-  NotificationBannerSwift: ea8b993a6a4949838626c016613b16ec33cb45cc
+  NotificationBannerSwift: 4fbb64e7740ce16543c08c1fb2df895e30b8e3e1
   Reveal-SDK: 5d7e56b8f018c0a88b3a2c10bf68d598bbd3b071
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
 
 PODFILE CHECKSUM: 9da8a8eebe6c6fde318fed3c4233a33c797d63ad
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.8.4

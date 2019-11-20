@@ -22,6 +22,7 @@
 		A999043F1EEF64F0006DA132 /* BannerHapticGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A999043E1EEF64F0006DA132 /* BannerHapticGenerator.swift */; };
 		EA9A178A1EC75DE000CF2261 /* MarqueeLabel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9A17891EC75DE000CF2261 /* MarqueeLabel.framework */; };
 		EA9A178C1EC75DE400CF2261 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9A178B1EC75DE400CF2261 /* SnapKit.framework */; };
+		F63A905B2381423E00F70CEB /* UIWindow+orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63A90592381423E00F70CEB /* UIWindow+orientation.swift */; };
 		F7E13CF61FB192ED0008EE4C /* NotificationBannerUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E13CF51FB192ED0008EE4C /* NotificationBannerUtilities.swift */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,7 @@
 		A999043E1EEF64F0006DA132 /* BannerHapticGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerHapticGenerator.swift; sourceTree = "<group>"; };
 		EA9A17891EC75DE000CF2261 /* MarqueeLabel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MarqueeLabel.framework; path = Carthage/Build/iOS/MarqueeLabel.framework; sourceTree = "<group>"; };
 		EA9A178B1EC75DE400CF2261 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
+		F63A90592381423E00F70CEB /* UIWindow+orientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+orientation.swift"; sourceTree = "<group>"; };
 		F7E13CF51FB192ED0008EE4C /* NotificationBannerUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationBannerUtilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -92,6 +94,7 @@
 		8232559D1EB87313006F95C3 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F63A90592381423E00F70CEB /* UIWindow+orientation.swift */,
 				0D0D9ADE1F15D19D003B35A8 /* BannerPositionFrame.swift */,
 				8232559E1EB87313006F95C3 /* .gitkeep */,
 				8232559F1EB87313006F95C3 /* BannerColors.swift */,
@@ -218,6 +221,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F63A905B2381423E00F70CEB /* UIWindow+orientation.swift in Sources */,
 				823255B41EB87313006F95C3 /* StatusBarNotificationBanner.swift in Sources */,
 				823255B21EB87313006F95C3 /* NotificationBanner.swift in Sources */,
 				2B9A846B216544E600A7418D /* String+heightForConstrainedWidth.swift in Sources */,
