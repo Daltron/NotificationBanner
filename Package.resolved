@@ -5,9 +5,9 @@
         "package": "MarqueeLabel",
         "repositoryURL": "https://github.com/cbpowell/MarqueeLabel",
         "state": {
-          "branch": "master",
-          "revision": "afe65f92df8a6e4a3c22b3d32f22d7bc8f72d8e6",
-          "version": null
+          "branch": null,
+          "revision": "0a95aef9ab924ec93eb6e8c7fe896abaaf1aa172",
+          "version": "4.0.1"
         }
       },
       {
