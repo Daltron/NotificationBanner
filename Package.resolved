@@ -5,9 +5,9 @@
         "package": "MarqueeLabel",
         "repositoryURL": "https://github.com/cbpowell/MarqueeLabel",
         "state": {
-          "branch": "xcode11",
-          "revision": "ac87bb9f1ee16cdfcd94ac5271f1b1e8033c9ffc",
-          "version": null
+          "branch": null,
+          "revision": "0a95aef9ab924ec93eb6e8c7fe896abaaf1aa172",
+          "version": "4.0.1"
         }
       },
       {

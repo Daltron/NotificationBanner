@@ -11,7 +11,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/SnapKit/SnapKit", from: "5.0.1"),
-        .package(url: "https://github.com/cbpowell/MarqueeLabel", .branch("xcode11"))
+        .package(url: "https://github.com/cbpowell/MarqueeLabel", from: "4.0.1")
     ],
     targets: [
         .target(
