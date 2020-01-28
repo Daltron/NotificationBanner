@@ -104,7 +104,7 @@ open class NotificationBannerQueue: NSObject {
             if banner.isSuspended {
                 banner.resume()
             } else {
-                banner.show(placeOnQueue: false)
+                banner.show(placeOnQueue: false, bannerPosition: banner.bannerPosition)
             }
 
             callback(false)
