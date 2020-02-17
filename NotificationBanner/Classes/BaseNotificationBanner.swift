@@ -128,7 +128,7 @@ open class BaseNotificationBanner: UIView {
     internal var spacerView: UIView!
 
     // The custom view inside the notification banner
-    internal var customView: UIView?
+    public internal(set) var customView: UIView?
 
     /// The default offset for spacerView top or bottom
     internal var spacerViewDefaultOffset: CGFloat = 10.0
