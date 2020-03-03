@@ -54,25 +54,20 @@ open class NotificationBannerQueue: NSObject {
     func addBanner(_ banner: BaseNotificationBanner,
                    bannerPosition: BannerPosition,
                    queuePosition: QueuePosition) {
-
+        let bannersCount =  banners.filter { $0.isDisplaying }.count
         if queuePosition == .back {
             banners.append(banner)
-
-            let bannersCount =  banners.filter { $0.isDisplaying }.count
             if bannersCount < maxBannersOnScreenSimultaneously {
                 banner.show(placeOnQueue: false, bannerPosition: banner.bannerPosition)
             }
-
         } else {
-            banner.show(placeOnQueue: false, bannerPosition: bannerPosition)
-
-            if let firstBanner = firstNotDisplayedBanner() {
-                firstBanner.suspend()
+            if bannersCount >= maxBannersOnScreenSimultaneously {
+                banners.first?.suspend()
             }
 
+            banner.show(placeOnQueue: false, bannerPosition: bannerPosition)
             banners.insert(banner, at: 0)
         }
-
     }
 
     /**
