@@ -173,7 +173,7 @@ open class BaseNotificationBanner: UIView {
     }
 
     /// Object that stores the start and end frames for the notification banner based on the provided banner position
-    internal var bannerPositionFrame: BannerPositionFrame!
+    internal var bannerPositionFrame: BannerPositionFrame?
 
     /// The user info that gets passed to each notification
     private var notificationUserInfo: [String: BaseNotificationBanner] {
@@ -296,13 +296,15 @@ open class BaseNotificationBanner: UIView {
     }
 
     internal func animateUpdatedBannerPositionFrames() {
-        UIView.animate(withDuration: animationDuration,
-                       delay: 0.0,
-                       usingSpringWithDamping: 0.7,
-                       initialSpringVelocity: 1,
-                       options: [.curveLinear, .allowUserInteraction],animations: {
-                        self.frame = self.bannerPositionFrame.endFrame
-        })
+        if let endFrame = self.bannerPositionFrame?.endFrame {
+            UIView.animate(withDuration: animationDuration,
+                           delay: 0.0,
+                           usingSpringWithDamping: 0.7,
+                           initialSpringVelocity: 1,
+                           options: [.curveLinear, .allowUserInteraction],animations: {
+                            self.frame = endFrame
+            })
+        }
     }
 
     /**
@@ -355,8 +357,10 @@ open class BaseNotificationBanner: UIView {
             bannerQueue.addBanner(self,
                                   bannerPosition: bannerPosition,
                                   queuePosition: queuePosition)
-        } else {
-            self.frame = bannerPositionFrame.startFrame
+        } else if let startFrame = bannerPositionFrame?.startFrame,
+            let endFrame = bannerPositionFrame?.endFrame {
+            
+            self.frame = startFrame
 
             if let parentViewController = parentViewController {
                 parentViewController.view.addSubview(self)
@@ -388,7 +392,7 @@ open class BaseNotificationBanner: UIView {
                            options: [.curveLinear, .allowUserInteraction],
                            animations: {
                             BannerHapticGenerator.generate(self.haptic)
-                            self.frame = self.bannerPositionFrame.endFrame
+                            self.frame = endFrame
             }) { (completed) in
 
                 NotificationCenter.default.post(name: BaseNotificationBanner.BannerDidAppear, object: self, userInfo: self.notificationUserInfo)
@@ -401,6 +405,8 @@ open class BaseNotificationBanner: UIView {
                     self.perform(#selector(self.dismiss), with: nil, afterDelay: self.duration)
                 }
             }
+        } else {
+            print("I was unable to show the banner because no 'bannerPositionFrame' has being found. This might happen on i(pad)OS 13 and later versions.\nTo lern more (and/or help) refer to https://github.com/Daltron/NotificationBanner/issues/286")
         }
     }
 
@@ -501,7 +507,9 @@ open class BaseNotificationBanner: UIView {
 
         UIView.animate(withDuration: forced ? animationDuration / 2 : animationDuration,
                        animations: {
-                        self.frame = self.bannerPositionFrame.startFrame
+                        if let startFrame = self.bannerPositionFrame?.startFrame {
+                            self.frame = startFrame
+                        }
         }) { (completed) in
 
             self.removeFromSuperview()

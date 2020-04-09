@@ -141,7 +141,7 @@ private extension FloatingNotificationBanner {
         contentView.layer.shadowRadius = blurRadius
         contentView.layer.shadowOffset = CGSize(width: offset.horizontal, height: offset.vertical)
         
-        if let edgeInsets = edgeInsets {
+        if let edgeInsets = edgeInsets, let bannerPositionFrame = bannerPositionFrame {
             var shadowRect = CGRect(origin: .zero, size: bannerPositionFrame.startFrame.size)
             shadowRect.size.height -= (spacerViewHeight() - spacerViewDefaultOffset) // to proper handle spacer height affects
             shadowRect.origin.x += edgeInsets.left
