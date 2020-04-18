@@ -24,6 +24,8 @@ public protocol BannerColorsProtocol {
 }
 
 public class BannerColors: BannerColorsProtocol {
+ 
+    public init() { }
 
     public func color(for style: BannerStyle) -> UIColor {
         switch style {
