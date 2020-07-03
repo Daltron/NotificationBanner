@@ -193,28 +193,34 @@ public extension NotificationBanner {
             contentView.layer.cornerRadius = cornerRadius
         }
         
-        if let titleFont = titleFont {
-            titleLabel!.font = titleFont
+        if let titleFont = titleFont,
+            let titleLabel = titleLabel {
+            titleLabel.font = titleFont
         }
         
-        if let titleColor = titleColor {
-            titleLabel!.textColor = titleColor
+        if let titleColor = titleColor,
+            let titleLabel = titleLabel {
+            titleLabel.textColor = titleColor
         }
         
-        if let titleTextAlign = titleTextAlign {
-            titleLabel!.textAlignment = titleTextAlign
+        if let titleTextAlign = titleTextAlign,
+            let titleLabel = titleLabel {
+            titleLabel.textAlignment = titleTextAlign
         }
         
-        if let subtitleFont = subtitleFont {
-            subtitleLabel!.font = subtitleFont
+        if let subtitleFont = subtitleFont,
+            let subtitleLabel = subtitleLabel {
+            subtitleLabel.font = subtitleFont
         }
         
-        if let subtitleColor = subtitleColor {
-            subtitleLabel!.textColor = subtitleColor
+        if let subtitleColor = subtitleColor,
+            let subtitleLabel = subtitleLabel {
+            subtitleLabel.textColor = subtitleColor
         }
         
-        if let subtitleTextAlign = subtitleTextAlign {
-            subtitleLabel!.textAlignment = subtitleTextAlign
+        if let subtitleTextAlign = subtitleTextAlign,
+            let subtitleLabel = subtitleLabel {
+            subtitleLabel.textAlignment = subtitleTextAlign
         }
         
         if titleFont != nil || subtitleFont != nil {
