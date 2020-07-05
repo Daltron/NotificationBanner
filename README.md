@@ -6,6 +6,8 @@
 <a href="https://developer.apple.com/swift"><img src="https://img.shields.io/badge/swift-5-4BC51D.svg?style=flat" alt="Language: Swift" /></a>
 [![License](https://img.shields.io/cocoapods/l/NotificationBannerSwift.svg?style=flat)](http://cocoapods.org/pods/NotificationBannerSwift)
 
+### NotificationBanner is being sponsored by the following tool. Please help to support us by taking a look and signing up to a free trial.
+
 <a href="https://tracking.gitads.io/?repo=NotificationBanner" target="_blank">
 	<img src="https://images.gitads.io/NotificationBanner">
 </a>
