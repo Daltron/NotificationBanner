@@ -268,14 +268,12 @@ open class BaseNotificationBanner: UIView {
     }
 
     internal func spacerViewHeight() -> CGFloat {
-        return NotificationBannerUtilities.isNotchFeaturedIPhone()
-            && UIApplication.shared.statusBarOrientation.isPortrait
-            && (parentViewController?.navigationController?.isNavigationBarHidden ?? true) ? 40.0 : 10.0
+        return shouldAdjustForNotchFeaturedIphone() ? 40.0 : 10.0
     }
 
     private func finishBannerYOffset() -> CGFloat {
         let bannerIndex = (bannerQueue.banners.firstIndex(of: self) ?? bannerQueue.banners.filter { $0.isDisplaying }.count)
-        
+
         return bannerQueue.banners.prefix(bannerIndex).reduce(0) { $0
             + $1.bannerHeight
             - (bannerPosition == .top ? spacerViewHeight() : 0) // notch spacer height for top position only
@@ -284,7 +282,7 @@ open class BaseNotificationBanner: UIView {
             // this calculations are made only for banners except first one, for first banner it'll be 0
         }
     }
-    
+
     internal func updateBannerPositionFrames() {
         guard let window = appWindow else { return }
         bannerPositionFrame = BannerPositionFrame(bannerPosition: bannerPosition,
@@ -359,7 +357,12 @@ open class BaseNotificationBanner: UIView {
             self.frame = bannerPositionFrame.startFrame
 
             if let parentViewController = parentViewController {
-                parentViewController.view.addSubview(self)
+                if let tabController = parentViewController as? UITabBarController {
+                    tabController.view.insertSubview(self, belowSubview: tabController.tabBar)
+                } else {
+                    parentViewController.view.addSubview(self)
+                }
+
                 if statusBarShouldBeShown() {
                     appWindow?.windowLevel = UIWindow.Level.normal
                 }
@@ -435,7 +438,7 @@ open class BaseNotificationBanner: UIView {
              self.perform(#selector(dismiss), with: nil, afterDelay: self.duration)
         }
     }
-    
+
     /**
         The height adjustment needed in order for the banner to look properly displayed.
      */
@@ -573,7 +576,11 @@ open class BaseNotificationBanner: UIView {
 
     private func maximumYPosition() -> CGFloat {
         if let parentViewController = parentViewController {
-            return parentViewController.view.frame.height
+            if let tabController = parentViewController as? UITabBarController {
+                return tabController.tabBar.frame.minY
+            } else {
+                return parentViewController.view.frame.height
+            }
         } else {
             return appWindow?.height ?? 0
         }
@@ -584,6 +591,10 @@ open class BaseNotificationBanner: UIView {
      */
 
     internal func shouldAdjustForNotchFeaturedIphone() -> Bool {
+        if parentViewController is UITabBarController, let position = bannerPosition, position == .bottom {
+            return false
+        }
+
         return NotificationBannerUtilities.isNotchFeaturedIPhone()
             && UIApplication.shared.statusBarOrientation.isPortrait
             && (self.parentViewController?.navigationController?.isNavigationBarHidden ?? true)
