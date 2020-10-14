@@ -25,7 +25,7 @@ import MarqueeLabel
 open class NotificationBanner: BaseNotificationBanner {
     
     /// The bottom most label of the notification if a subtitle is provided
-    public private(set) var subtitleLabel: MarqueeLabel?
+	public internal(set) var subtitleLabel: MarqueeLabel?
     
     /// The view that is presented on the left side of the notification
     private var leftView: UIView?
