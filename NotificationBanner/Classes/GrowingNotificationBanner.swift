@@ -100,6 +100,9 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
     
     /// Font used for the subtitle label
     internal var subtitleFont: UIFont = UIFont.systemFont(ofSize: 15.0)
+	
+	/// The default side view width
+	public static let defaultSideViewSize : CGFloat = 24.0
     
     public init(
         title: String? = nil,
@@ -109,7 +112,7 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
         style: BannerStyle = .info,
         colors: BannerColorsProtocol? = nil,
         iconPosition: IconPosition = .center,
-        sideViewSize: CGFloat = 24.0
+        sideViewSize: CGFloat = defaultSideViewSize
     ) {
         
         self.leftView = leftView
