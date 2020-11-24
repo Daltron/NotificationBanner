@@ -122,13 +122,13 @@ open class BaseNotificationBanner: UIView {
     public var isDisplaying: Bool = false
 
     /// The view that the notification layout is presented on. The constraints/frame of this should not be changed
-    internal var contentView: UIView!
+    public var contentView: UIView!
 
     /// A view that helps the spring animation look nice when the banner appears
-    internal var spacerView: UIView!
+    public var spacerView: UIView!
 
     // The custom view inside the notification banner
-    internal var customView: UIView?
+    public var customView: UIView?
 
     /// The default offset for spacerView top or bottom
     internal var spacerViewDefaultOffset: CGFloat = 10.0
