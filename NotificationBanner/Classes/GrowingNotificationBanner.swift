@@ -84,7 +84,7 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
     private let innerSpacing: CGFloat = 2.5
     
     /// The bottom most label of the notification if a subtitle is provided
-	public internal(set) var subtitleLabel: UILabel?
+    public internal(set) var subtitleLabel: UILabel?
     
     /// The view that is presented on the left side of the notification
     private var leftView: UIView?
@@ -187,7 +187,7 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
     }
 }
 
-public extension GrowingNotificationBanner {
+public extensionngNotificationBanner {
     
     func applyStyling(cornerRadius: CGFloat? = nil,
                       titleFont: UIFont? = nil,

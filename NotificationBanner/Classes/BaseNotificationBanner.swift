@@ -374,7 +374,7 @@ open class BaseNotificationBanner: UIView {
 
             NotificationCenter.default.post(name: BaseNotificationBanner.BannerWillAppear, object: self, userInfo: notificationUserInfo)
             delegate?.notificationBannerWillAppear(self)
-			postAccessibilityNotification()
+            postAccessibilityNotification()
 
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.onTapGestureRecognizer))
             self.addGestureRecognizer(tapGestureRecognizer)
@@ -597,30 +597,30 @@ open class BaseNotificationBanner: UIView {
     }
 
 
-	/**
-		Posts a `UIAccessibility` notification when a notification appears.
-	*/
-	private func postAccessibilityNotification() {
-		var bannerAccessibilityLabel: String? = nil
-		switch self {
-		case let banner as NotificationBanner:
-			if let title = banner.titleLabel?.text, let subtitle = banner.subtitleLabel?.text {
-				bannerAccessibilityLabel = "\(title) \(subtitle)"
-			}
-		case let banner as FloatingNotificationBanner:
-			if let title = banner.titleLabel?.text, let subtitle = banner.subtitleLabel?.text {
-				bannerAccessibilityLabel = "\(title) \(subtitle)"
-			}
-		case let banner as GrowingNotificationBanner:
-			if let title = banner.titleLabel?.text, let subtitle = banner.subtitleLabel?.text {
-				bannerAccessibilityLabel = "\(title) \(subtitle)"
-			}
-		default:
-			break
-		}
-		accessibilityLabel = bannerAccessibilityLabel
-		isAccessibilityElement = true
-		UIAccessibility.post(notification: .screenChanged, argument: self)
-	}
+    /**
+     Posts a `UIAccessibility` notification when a notification appears.
+     */
+    private func postAccessibilityNotification() {
+        var bannerAccessibilityLabel: String? = nil
+        switch self {
+        case let banner as NotificationBanner:
+            if let title = banner.titleLabel?.text, let subtitle = banner.subtitleLabel?.text {
+                bannerAccessibilityLabel = "\(title) \(subtitle)"
+            }
+        case let banner as FloatingNotificationBanner:
+            if let title = banner.titleLabel?.text, let subtitle = banner.subtitleLabel?.text {
+                bannerAccessibilityLabel = "\(title) \(subtitle)"
+            }
+        case let banner as GrowingNotificationBanner:
+            if let title = banner.titleLabel?.text, let subtitle = banner.subtitleLabel?.text {
+                bannerAccessibilityLabel = "\(title) \(subtitle)"
+            }
+        default:
+            break
+        }
+        accessibilityLabel = bannerAccessibilityLabel
+        isAccessibilityElement = true
+        UIAccessibility.post(notification: .screenChanged, argument: self)
+    }
 }
 
