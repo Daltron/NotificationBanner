@@ -187,7 +187,7 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
     }
 }
 
-public extensionngNotificationBanner {
+public extension GrowingNotificationBanner {
     
     func applyStyling(cornerRadius: CGFloat? = nil,
                       titleFont: UIFont? = nil,
