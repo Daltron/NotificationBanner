@@ -24,20 +24,36 @@ public enum BannerPosition: Int {
     case top
 }
 
-class BannerPositionFrame: NSObject {
+class BannerPositionFrame {
     
     private(set) var startFrame: CGRect!
     private(set) var endFrame: CGRect!
 
-    init(bannerPosition: BannerPosition,
-         bannerWidth: CGFloat,
-         bannerHeight: CGFloat,
-         maxY: CGFloat,
-         finishYOffset: CGFloat = 0,
-         edgeInsets: UIEdgeInsets?) {
-        super.init()
-        self.startFrame = startFrame(for: bannerPosition, bannerWidth: bannerWidth, bannerHeight: bannerHeight, maxY: maxY, edgeInsets: edgeInsets)
-        self.endFrame = endFrame(for: bannerPosition, bannerWidth: bannerWidth, bannerHeight: bannerHeight, maxY: maxY, finishYOffset: finishYOffset, edgeInsets: edgeInsets)
+    init(
+        bannerPosition: BannerPosition,
+        bannerWidth: CGFloat,
+        bannerHeight: CGFloat,
+        maxY: CGFloat,
+        finishYOffset: CGFloat = 0,
+        edgeInsets: UIEdgeInsets?
+    ) {
+
+        self.startFrame = startFrame(
+            for: bannerPosition,
+            bannerWidth: bannerWidth,
+            bannerHeight: bannerHeight,
+            maxY: maxY,
+            edgeInsets: edgeInsets
+        )
+        
+        self.endFrame = endFrame(
+            for: bannerPosition,
+            bannerWidth: bannerWidth,
+            bannerHeight: bannerHeight,
+            maxY: maxY,
+            finishYOffset: finishYOffset,
+            edgeInsets: edgeInsets
+        )
     }
     
     /**
@@ -49,25 +65,31 @@ class BannerPositionFrame: NSObject {
         if the bannerPosition is .bottom
         - parameter edgeInsets: The sides edges insets from superview
      */
-    private func startFrame(for bannerPosition: BannerPosition,
-                            bannerWidth: CGFloat,
-                            bannerHeight: CGFloat,
-                            maxY: CGFloat,
-                            edgeInsets: UIEdgeInsets?) -> CGRect {
+    private func startFrame(
+        for bannerPosition: BannerPosition,
+        bannerWidth: CGFloat,
+        bannerHeight: CGFloat,
+        maxY: CGFloat,
+        edgeInsets: UIEdgeInsets?
+    ) -> CGRect {
         
         let edgeInsets = edgeInsets ?? .zero
         
         switch bannerPosition {
         case .bottom:
-            return CGRect(x: edgeInsets.left,
-                          y: maxY,
-                          width: bannerWidth - edgeInsets.left - edgeInsets.right,
-                          height: bannerHeight)
+            return CGRect(
+                x: edgeInsets.left,
+                y: maxY,
+                width: bannerWidth - edgeInsets.left - edgeInsets.right,
+                height: bannerHeight
+            )
         case .top:
-            return CGRect(x: edgeInsets.left,
-                          y: -bannerHeight,
-                          width: bannerWidth - edgeInsets.left - edgeInsets.right,
-                          height: bannerHeight)
+            return CGRect(
+                x: edgeInsets.left,
+                y: -bannerHeight,
+                width: bannerWidth - edgeInsets.left - edgeInsets.right,
+                height: bannerHeight
+            )
 
         }
     }
@@ -81,26 +103,31 @@ class BannerPositionFrame: NSObject {
      - parameter finishYOffset: The `y` position offset the banner can slide in. Used for displaying several banenrs simaltaneously
      - parameter edgeInsets: The sides edges insets from superview
      */
-    private func endFrame(for bannerPosition: BannerPosition,
-                            bannerWidth: CGFloat,
-                            bannerHeight: CGFloat,
-                            maxY: CGFloat,
-                            finishYOffset: CGFloat = 0,
-                            edgeInsets: UIEdgeInsets?) -> CGRect {
+    private func endFrame(
+        for bannerPosition: BannerPosition,
+        bannerWidth: CGFloat,
+        bannerHeight: CGFloat,
+        maxY: CGFloat,
+        finishYOffset: CGFloat = 0,
+        edgeInsets: UIEdgeInsets?
+    ) -> CGRect {
         
         let edgeInsets = edgeInsets ?? .zero
 
         switch bannerPosition {
         case .bottom:
-            return CGRect(x: edgeInsets.left,
-                          y: maxY - bannerHeight - edgeInsets.bottom - finishYOffset,
-                          width: startFrame.width,
-                          height: startFrame.height)
+            return CGRect(
+                x: edgeInsets.left,
+                y: maxY - bannerHeight - edgeInsets.bottom - finishYOffset,
+                width: startFrame.width,
+                height: startFrame.height)
         case .top:
-            return CGRect(x: edgeInsets.left,
-                          y: edgeInsets.top + finishYOffset,
-                          width: startFrame.width,
-                          height: startFrame.height)
+            return CGRect(
+                x: edgeInsets.left,
+                y: edgeInsets.top + finishYOffset,
+                width: startFrame.width,
+                height: startFrame.height
+            )
         }
     }
 

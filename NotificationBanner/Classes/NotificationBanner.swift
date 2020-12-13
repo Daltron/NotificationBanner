@@ -39,12 +39,14 @@ open class NotificationBanner: BaseNotificationBanner {
     /// Font used for the subtitle label
     private var subtitleFont: UIFont = UIFont.systemFont(ofSize: 15.0)
 
-    public init(title: String? = nil,
-                subtitle: String? = nil,
-                leftView: UIView? = nil,
-                rightView: UIView? = nil,
-                style: BannerStyle = .info,
-                colors: BannerColorsProtocol? = nil) {
+    public init(
+        title: String? = nil,
+        subtitle: String? = nil,
+        leftView: UIView? = nil,
+        rightView: UIView? = nil,
+        style: BannerStyle = .info,
+        colors: BannerColorsProtocol? = nil
+    ) {
         
         super.init(style: style, colors: colors)
         
@@ -143,12 +145,14 @@ open class NotificationBanner: BaseNotificationBanner {
         
     }
     
-    public convenience init(attributedTitle: NSAttributedString,
-                            attributedSubtitle: NSAttributedString? = nil,
-                            leftView: UIView? = nil,
-                            rightView: UIView? = nil,
-                            style: BannerStyle = .info,
-                            colors: BannerColorsProtocol? = nil) {
+    public convenience init(
+        attributedTitle: NSAttributedString,
+        attributedSubtitle: NSAttributedString? = nil,
+        leftView: UIView? = nil,
+        rightView: UIView? = nil,
+        style: BannerStyle = .info,
+        colors: BannerColorsProtocol? = nil
+    ) {
         
         let subtitle: String? = (attributedSubtitle != nil) ? "" : nil
         self.init(title: "", subtitle: subtitle, leftView: leftView, rightView: rightView, style: style, colors: colors)
@@ -181,13 +185,15 @@ open class NotificationBanner: BaseNotificationBanner {
 
 public extension NotificationBanner {
     
-    func applyStyling(cornerRadius: CGFloat? = nil,
-                      titleFont: UIFont? = nil,
-                      titleColor: UIColor? = nil,
-                      titleTextAlign: NSTextAlignment? = nil,
-                      subtitleFont: UIFont? = nil,
-                      subtitleColor: UIColor? = nil,
-                      subtitleTextAlign: NSTextAlignment? = nil) {
+    func applyStyling(
+        cornerRadius: CGFloat? = nil,
+        titleFont: UIFont? = nil,
+        titleColor: UIColor? = nil,
+        titleTextAlign: NSTextAlignment? = nil,
+        subtitleFont: UIFont? = nil,
+        subtitleColor: UIColor? = nil,
+        subtitleTextAlign: NSTextAlignment? = nil
+    ) {
         
         if let cornerRadius = cornerRadius {
             contentView.layer.cornerRadius = cornerRadius

@@ -287,21 +287,25 @@ open class BaseNotificationBanner: UIView {
     
     internal func updateBannerPositionFrames() {
         guard let window = appWindow else { return }
-        bannerPositionFrame = BannerPositionFrame(bannerPosition: bannerPosition,
-                                                  bannerWidth: window.width,
-                                                  bannerHeight: bannerHeight,
-                                                  maxY: maximumYPosition(),
-                                                  finishYOffset: finishBannerYOffset(),
-                                                  edgeInsets: bannerEdgeInsets)
+        bannerPositionFrame = BannerPositionFrame(
+            bannerPosition: bannerPosition,
+            bannerWidth: window.width,
+            bannerHeight: bannerHeight,
+            maxY: maximumYPosition(),
+            finishYOffset: finishBannerYOffset(),
+            edgeInsets: bannerEdgeInsets
+        )
     }
 
     internal func animateUpdatedBannerPositionFrames() {
-        UIView.animate(withDuration: animationDuration,
-                       delay: 0.0,
-                       usingSpringWithDamping: 0.7,
-                       initialSpringVelocity: 1,
-                       options: [.curveLinear, .allowUserInteraction],animations: {
-                        self.frame = self.bannerPositionFrame.endFrame
+        UIView.animate(
+            withDuration: animationDuration,
+            delay: 0.0,
+            usingSpringWithDamping: 0.7,
+            initialSpringVelocity: 1,
+            options: [.curveLinear, .allowUserInteraction],
+            animations: {
+                self.frame = self.bannerPositionFrame.endFrame
         })
     }
 
@@ -315,13 +319,19 @@ open class BaseNotificationBanner: UIView {
         - parameter viewController: The view controller to display the notifification banner on. If nil, it will
         be placed on the main app window
     */
-    public func show(queuePosition: QueuePosition = .back,
-                     bannerPosition: BannerPosition = .top,
-                     queue: NotificationBannerQueue = NotificationBannerQueue.default,
-                     on viewController: UIViewController? = nil) {
+    public func show(
+        queuePosition: QueuePosition = .back,
+        bannerPosition: BannerPosition = .top,
+        queue: NotificationBannerQueue = NotificationBannerQueue.default,
+        on viewController: UIViewController? = nil
+    ) {
         parentViewController = viewController
         bannerQueue = queue
-        show(placeOnQueue: true, queuePosition: queuePosition, bannerPosition: bannerPosition)
+        show(
+            placeOnQueue: true,
+            queuePosition: queuePosition,
+            bannerPosition: bannerPosition
+        )
     }
 
     /**
@@ -331,9 +341,11 @@ open class BaseNotificationBanner: UIView {
         banner will be displayed immediately
         - parameter bannerPosition: The position the notification banner should slide in from
     */
-    func show(placeOnQueue: Bool,
-              queuePosition: QueuePosition = .back,
-              bannerPosition: BannerPosition = .top) {
+    func show(
+        placeOnQueue: Bool,
+        queuePosition: QueuePosition = .back,
+        bannerPosition: BannerPosition = .top
+    ) {
 
         guard !isDisplaying else {
             return
@@ -343,18 +355,25 @@ open class BaseNotificationBanner: UIView {
         createBannerConstraints(for: bannerPosition)
         updateBannerPositionFrames()
 
-        NotificationCenter.default.removeObserver(self,
-                                                  name: UIDevice.orientationDidChangeNotification,
-                                                  object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(onOrientationChanged),
-                                               name: UIDevice.orientationDidChangeNotification,
-                                               object: nil)
+        NotificationCenter.default.removeObserver(
+            self,
+            name: UIDevice.orientationDidChangeNotification,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(onOrientationChanged),
+            name: UIDevice.orientationDidChangeNotification,
+            object: nil
+        )
 
         if placeOnQueue {
-            bannerQueue.addBanner(self,
-                                  bannerPosition: bannerPosition,
-                                  queuePosition: queuePosition)
+            bannerQueue.addBanner(
+                self,
+                bannerPosition: bannerPosition,
+                queuePosition: queuePosition
+            )
         } else {
             self.frame = bannerPositionFrame.startFrame
 
@@ -372,7 +391,12 @@ open class BaseNotificationBanner: UIView {
                 }
             }
 
-            NotificationCenter.default.post(name: BaseNotificationBanner.BannerWillAppear, object: self, userInfo: notificationUserInfo)
+            NotificationCenter.default.post(
+                name: BaseNotificationBanner.BannerWillAppear,
+                object: self,
+                userInfo: notificationUserInfo
+            )
+            
             delegate?.notificationBannerWillAppear(self)
             postAccessibilityNotification()
 
@@ -382,24 +406,34 @@ open class BaseNotificationBanner: UIView {
             self.isDisplaying = true
 
             let bannerIndex = Double(bannerQueue.banners.firstIndex(of: self) ?? 0) + 1
-            UIView.animate(withDuration: animationDuration * bannerIndex,
-                           delay: 0.0,
-                           usingSpringWithDamping: 0.7,
-                           initialSpringVelocity: 1,
-                           options: [.curveLinear, .allowUserInteraction],
-                           animations: {
-                            BannerHapticGenerator.generate(self.haptic)
-                            self.frame = self.bannerPositionFrame.endFrame
+            UIView.animate(
+                withDuration: animationDuration * bannerIndex,
+                delay: 0.0,
+                usingSpringWithDamping: 0.7,
+                initialSpringVelocity: 1,
+                options: [.curveLinear, .allowUserInteraction],
+                animations: {
+                    BannerHapticGenerator.generate(self.haptic)
+                    self.frame = self.bannerPositionFrame.endFrame
             }) { (completed) in
 
-                NotificationCenter.default.post(name: BaseNotificationBanner.BannerDidAppear, object: self, userInfo: self.notificationUserInfo)
+                NotificationCenter.default.post(
+                    name: BaseNotificationBanner.BannerDidAppear,
+                    object: self,
+                    userInfo: self.notificationUserInfo
+                )
+                
                 self.delegate?.notificationBannerDidAppear(self)
 
                 /* We don't want to add the selector if another banner was queued in front of it
                    before it finished animating or if it is meant to be shown infinitely
                 */
                 if !self.isSuspended && self.autoDismiss {
-                    self.perform(#selector(self.dismiss), with: nil, afterDelay: self.duration)
+                    self.perform(
+                        #selector(self.dismiss),
+                        with: nil,
+                        afterDelay: self.duration
+                    )
                 }
             }
         }
@@ -410,7 +444,11 @@ open class BaseNotificationBanner: UIView {
     */
     func suspend() {
         if autoDismiss {
-            NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(dismiss), object: nil)
+            NSObject.cancelPreviousPerformRequests(
+                withTarget: self,
+                selector: #selector(dismiss),
+                object: nil
+            )
             isSuspended = true
             isDisplaying = false
         }
@@ -421,7 +459,11 @@ open class BaseNotificationBanner: UIView {
     */
     func resume() {
         if autoDismiss {
-            self.perform(#selector(dismiss), with: nil, afterDelay: self.duration)
+            self.perform(
+                #selector(dismiss),
+                with: nil,
+                afterDelay: self.duration
+            )
             isSuspended = false
             isDisplaying = true
         }
@@ -432,7 +474,12 @@ open class BaseNotificationBanner: UIView {
     */
     public func resetDuration() {
         if autoDismiss {
-             NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(dismiss), object: nil)
+             NSObject.cancelPreviousPerformRequests(
+                withTarget: self,
+                selector: #selector(dismiss),
+                object: nil
+             )
+            
              self.perform(#selector(dismiss), with: nil, afterDelay: self.duration)
         }
     }
@@ -468,17 +515,22 @@ open class BaseNotificationBanner: UIView {
         let edgeInsets = bannerEdgeInsets ?? .zero
 
         let newY = (bannerPosition == .top) ? (frame.origin.y) : (window.height - bannerHeight + edgeInsets.top - edgeInsets.bottom)
-        frame = CGRect(x: frame.origin.x,
-                       y: newY,
-                       width: window.width - edgeInsets.left - edgeInsets.right,
-                       height: bannerHeight)
+        
+        frame = CGRect(
+            x: frame.origin.x,
+            y: newY,
+            width: window.width - edgeInsets.left - edgeInsets.right,
+            height: bannerHeight
+        )
 
-        bannerPositionFrame = BannerPositionFrame(bannerPosition: bannerPosition,
-                                                  bannerWidth: window.width,
-                                                  bannerHeight: bannerHeight,
-                                                  maxY: maximumYPosition(),
-                                                  finishYOffset: finishBannerYOffset(),
-                                                  edgeInsets: bannerEdgeInsets)
+        bannerPositionFrame = BannerPositionFrame(
+            bannerPosition: bannerPosition,
+            bannerWidth: window.width,
+            bannerHeight: bannerHeight,
+            maxY: maximumYPosition(),
+            finishYOffset: finishBannerYOffset(),
+            edgeInsets: bannerEdgeInsets
+        )
     }
 
     /**
@@ -490,24 +542,37 @@ open class BaseNotificationBanner: UIView {
             return
         }
 
-        NSObject.cancelPreviousPerformRequests(withTarget: self,
-                                               selector: #selector(dismiss),
-                                               object: nil)
+        NSObject.cancelPreviousPerformRequests(
+            withTarget: self,
+            selector: #selector(dismiss),
+            object: nil
+        )
 
-        NotificationCenter.default.post(name: BaseNotificationBanner.BannerWillDisappear, object: self, userInfo: notificationUserInfo)
+        NotificationCenter.default.post(
+            name: BaseNotificationBanner.BannerWillDisappear,
+            object: self,
+            userInfo: notificationUserInfo
+        )
+        
         delegate?.notificationBannerWillDisappear(self)
 
         isDisplaying = false
         remove()
 
-        UIView.animate(withDuration: forced ? animationDuration / 2 : animationDuration,
-                       animations: {
-                        self.frame = self.bannerPositionFrame.startFrame
+        UIView.animate(
+            withDuration: forced ? animationDuration / 2 : animationDuration,
+            animations: {
+                self.frame = self.bannerPositionFrame.startFrame
         }) { (completed) in
 
             self.removeFromSuperview()
 
-            NotificationCenter.default.post(name: BaseNotificationBanner.BannerDidDisappear, object: self, userInfo: self.notificationUserInfo)
+            NotificationCenter.default.post(
+                name: BaseNotificationBanner.BannerDidDisappear,
+                object: self,
+                userInfo: self.notificationUserInfo
+            )
+            
             self.delegate?.notificationBannerDidDisappear(self)
 
             self.bannerQueue.showNext(callback: { (isEmpty) in

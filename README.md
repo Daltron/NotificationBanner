@@ -31,7 +31,8 @@ NotificationBanner is an extremely customizable and lightweight library that mak
 - Presenting from top or bottom support ✅
 - Haptic feeback support ✅
 - Built in banner queue ✅
-- Allow to display several banners simultaneously, configurable in banners queue
+- Allow to display several banners simultaneously, configurable in banners queue ✅
+- Accessibility support ✅
 
 ## Requirements
 

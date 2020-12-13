@@ -101,14 +101,16 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
     /// Font used for the subtitle label
     internal var subtitleFont: UIFont = UIFont.systemFont(ofSize: 15.0)
     
-    public init(title: String? = nil,
-                subtitle: String? = nil,
-                leftView: UIView? = nil,
-                rightView: UIView? = nil,
-                style: BannerStyle = .info,
-                colors: BannerColorsProtocol? = nil,
-                iconPosition: IconPosition = .center,
-                sideViewSize: CGFloat = 24.0) {
+    public init(
+        title: String? = nil,
+        subtitle: String? = nil,
+        leftView: UIView? = nil,
+        rightView: UIView? = nil,
+        style: BannerStyle = .info,
+        colors: BannerColorsProtocol? = nil,
+        iconPosition: IconPosition = .center,
+        sideViewSize: CGFloat = 24.0
+    ) {
         
         self.leftView = leftView
         self.rightView = rightView
@@ -189,13 +191,15 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
 
 public extension GrowingNotificationBanner {
     
-    func applyStyling(cornerRadius: CGFloat? = nil,
-                      titleFont: UIFont? = nil,
-                      titleColor: UIColor? = nil,
-                      titleTextAlign: NSTextAlignment? = nil,
-                      subtitleFont: UIFont? = nil,
-                      subtitleColor: UIColor? = nil,
-                      subtitleTextAlign: NSTextAlignment? = nil) {
+    func applyStyling(
+        cornerRadius: CGFloat? = nil,
+        titleFont: UIFont? = nil,
+        titleColor: UIColor? = nil,
+        titleTextAlign: NSTextAlignment? = nil,
+        subtitleFont: UIFont? = nil,
+        subtitleColor: UIColor? = nil,
+        subtitleTextAlign: NSTextAlignment? = nil
+    ) {
         
         if let cornerRadius = cornerRadius {
             contentView.layer.cornerRadius = cornerRadius
