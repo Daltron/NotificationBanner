@@ -242,10 +242,10 @@ banner.delegate = self
 Then just make sure to implement the following methods:
 
 ```swift
-internal func notificationBannerWillAppear(_ banner: BaseNotificationBanner)
-internal func notificationBannerDidAppear(_ banner: BaseNotificationBanner)
-internal func notificationBannerWillDisappear(_ banner: BaseNotificationBanner)
-internal func notificationBannerDidDisappear(_ banner: BaseNotificationBanner)
+func notificationBannerWillAppear(_ banner: BaseNotificationBanner)
+func notificationBannerDidAppear(_ banner: BaseNotificationBanner)
+func notificationBannerWillDisappear(_ banner: BaseNotificationBanner)
+func notificationBannerDidDisappear(_ banner: BaseNotificationBanner)
 ```
 
 ## Haptic Feedback Support
@@ -253,10 +253,10 @@ By default, when a banner is displayed, a haptic feedback will be generated on d
 
 ```swift
 public enum BannerHaptic {
-    case light
-    case medium
-    case heavy
-    case none
+	case light
+   	case medium
+	case heavy
+  	case none
 }
 ```
 
@@ -301,50 +301,66 @@ let bannerQueueToDisplaySeveralBanners = NotificationBannerQueue(maxBannersOnScr
 Create five different banners:
 
 ```swift
-let banner1 = FloatingNotificationBanner(title: "Success Notification - 1",
-                                         subtitle: "First Notification from 5 in current queue with 3 banners allowed simultaneously",
-                                         style: .success)
+let banner1 = FloatingNotificationBanner(
+	title: "Success Notification - 1",
+	subtitle: "First Notification from 5 in current queue with 3 banners allowed simultaneously",
+	style: .success
+)
 banner1.delegate = self
 
-let banner2 = FloatingNotificationBanner(title: "Danger Notification - 2",
-                                         subtitle: "Second Notification from 5 in current queue with 3 banners allowed simultaneously",
-                                         style: .danger)
+let banner2 = FloatingNotificationBanner(
+	title: "Danger Notification - 2",
+	subtitle: "Second Notification from 5 in current queue with 3 banners allowed simultaneously",
+	style: .danger
+)
 banner2.delegate = self
 
-let banner3 = FloatingNotificationBanner(title: "Info Notification - 3",
-                                         subtitle: "Third Notification from 5 in current queue with 3 banners allowed simultaneously",
-                                         style: .info)
+let banner3 = FloatingNotificationBanner(
+	title: "Info Notification - 3",
+	subtitle: "Third Notification from 5 in current queue with 3 banners allowed simultaneously",
+	style: .info
+)
 banner3.delegate = self
 
-let banner4 = FloatingNotificationBanner(title: "Success Notification - 4",
-                                         subtitle: "Fourth Notification from 5 in current queue with 3 banners allowed simultaneously",
-                                         style: .success)
+let banner4 = FloatingNotificationBanner(
+	title: "Success Notification - 4",
+	subtitle: "Fourth Notification from 5 in current queue with 3 banners allowed simultaneously",
+	style: .success
+)
 banner4.delegate = self
 
-let banner5 = FloatingNotificationBanner(title: "Info Notification - 5",
-                                         subtitle: "Fifth Notification from 5 in current queue with 3 banners allowed simultaneously",
-                                         style: .info)
+let banner5 = FloatingNotificationBanner(
+	title: "Info Notification - 5",
+	subtitle: "Fifth Notification from 5 in current queue with 3 banners allowed simultaneously",
+	style: .info
+)
 banner5.delegate = self
 ```
 
 and show all five banners at once:
 ```swift
-showBanners([banner1, banner2, banner3, banner4, banner5],
-            in: bannerQueue5AllowedMixed)
+showBanners(
+	[banner1, banner2, banner3, banner4, banner5],
+	in: bannerQueue5AllowedMixed
+)
 ```
 
 using this supporting method
 
 ```swift
-func showBanners(_ banners: [FloatingNotificationBanner],
-                 in notificationBannerQueue: NotificationBannerQueue) {
+func showBanners(
+	_ banners: [FloatingNotificationBanner],
+	in notificationBannerQueue: NotificationBannerQueue
+) {
     banners.forEach { banner in
-        banner.show(bannerPosition: selectedBannerPosition(),
-                    queue: notificationBannerQueue,
-                    cornerRadius: 8,
-                    shadowColor: UIColor(red: 0.431, green: 0.459, blue: 0.494, alpha: 1),
-                    shadowBlurRadius: 16,
-                    shadowEdgeInsets: UIEdgeInsets(top: 8, left: 8, bottom: 0, right: 8))
+      	banner.show(
+	      	bannerPosition: selectedBannerPosition(),
+		 	queue: notificationBannerQueue,
+		 	cornerRadius: 8,
+			shadowColor: UIColor(red: 0.431, green: 0.459, blue: 0.494, alpha: 1),
+		  	shadowBlurRadius: 16,
+			shadowEdgeInsets: UIEdgeInsets(top: 8, left: 8, bottom: 0, right: 8)
+	   )
     }
 }
 ```

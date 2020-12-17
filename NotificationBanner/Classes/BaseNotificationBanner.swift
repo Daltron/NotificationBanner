@@ -217,9 +217,11 @@ open class BaseNotificationBanner: UIView {
     }
 
     deinit {
-        NotificationCenter.default.removeObserver(self,
-                                                  name: UIDevice.orientationDidChangeNotification,
-                                                  object: nil)
+        NotificationCenter.default.removeObserver(
+            self,
+            name: UIDevice.orientationDidChangeNotification,
+            object: nil
+        )
     }
 
     /**
@@ -508,8 +510,9 @@ open class BaseNotificationBanner: UIView {
         Changes the frame of the notification banner when the orientation of the device changes
     */
     @objc private dynamic func onOrientationChanged() {
-        guard let window = appWindow else { return }
-
+        guard let window = appWindow,
+              currentDeviceOrientationIsSupportedByApp() else { return }
+        
         updateSpacerViewHeight()
 
         let edgeInsets = bannerEdgeInsets ?? .zero
@@ -619,8 +622,8 @@ open class BaseNotificationBanner: UIView {
 
 
     /**
-        Determines wether or not the status bar should be shown when displaying a banner underneath
-        the navigation bar
+        Determines wether or not the status bar should be shown when displaying
+        a banner underneath the navigation bar
      */
     private func statusBarShouldBeShown() -> Bool {
 
@@ -631,6 +634,27 @@ open class BaseNotificationBanner: UIView {
         }
 
         return true
+    }
+    
+    /**
+        Determines wether or not the current orientation that the device is in
+        is supported by the current application.
+     */
+    private func currentDeviceOrientationIsSupportedByApp() -> Bool {
+        let supportedOrientations = UIApplication.shared.supportedInterfaceOrientations(for: appWindow)
+        
+        switch UIDevice.current.orientation {
+        case .portrait:
+            return supportedOrientations.contains(.portrait)
+        case .portraitUpsideDown:
+            return supportedOrientations.contains(.portraitUpsideDown)
+        case .landscapeLeft:
+            return supportedOrientations.contains(.landscapeLeft)
+        case .landscapeRight:
+            return supportedOrientations.contains(.landscapeRight)
+        default:
+            return false
+        }
     }
 
     /**
