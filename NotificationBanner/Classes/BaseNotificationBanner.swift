@@ -98,7 +98,7 @@ open class BaseNotificationBanner: UIView {
     }
 
     /// The type of haptic to generate when a banner is displayed
-    public var haptic: BannerHaptic = .heavy
+    public var haptic: BannerHaptic = .info
 
     /// If true, notification will dismissed when tapped
     public var dismissOnTap: Bool = true

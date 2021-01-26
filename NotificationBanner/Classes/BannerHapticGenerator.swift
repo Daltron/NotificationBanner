@@ -19,36 +19,53 @@
 import UIKit
 
 public enum BannerHaptic {
-    case light
-    case medium
-    case heavy
+    case error
+    case warning
+    case success
+    case info
     case none
-
+    
     @available(iOS 10.0, *)
     var impactStyle: UIImpactFeedbackGenerator.FeedbackStyle? {
         switch self {
-        case .light:
-            return .light
-        case .medium:
-            return .medium
-        case .heavy:
+        case .info:
             return .heavy
-        case .none:
+        default:
+            return nil
+        }
+    }
+    
+    var notificationStyle: UINotificationFeedbackGenerator.FeedbackType? {
+        switch self {
+        case .error:
+            return .error
+        case .warning:
+            return .warning
+        case .success:
+            return .success
+        default:
             return nil
         }
     }
 }
 
 open class BannerHapticGenerator: NSObject {
-
+    
     /**
-        Generates a haptic based on the given haptic
-        -parameter haptic: The haptic strength to generate when a banner is shown
+     Generates a haptic based on the given haptic
+     -parameter haptic: The haptic strength to generate when a banner is shown
      */
     open class func generate(_ haptic: BannerHaptic) {
-        guard let style = haptic.impactStyle else { return }
-        let feedbackGenerator = UIImpactFeedbackGenerator(style: style)
-        feedbackGenerator.prepare()
-        feedbackGenerator.impactOccurred()
+        if let impactStyle = haptic.impactStyle {
+            let feedbackGenerator = UIImpactFeedbackGenerator(style: impactStyle)
+            feedbackGenerator.prepare()
+            feedbackGenerator.impactOccurred()
+        }
+        
+        if let notificationStyle = haptic.notificationStyle {
+            let feedbackGenerator = UINotificationFeedbackGenerator()
+            feedbackGenerator.prepare()
+            feedbackGenerator.notificationOccurred(notificationStyle)
+        }
     }
 }
