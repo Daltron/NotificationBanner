@@ -7,9 +7,9 @@
 
 import UIKit
 
-extension UIWindow {
+internal extension UIWindow {
 
-    public var width: CGFloat {
+    var width: CGFloat {
         let orientation = UIDevice.current.orientation
         switch orientation {
         case .landscapeLeft, .landscapeRight:
@@ -21,7 +21,7 @@ extension UIWindow {
         }
     }
 
-    public var height: CGFloat {
+    var height: CGFloat {
         let orientation = UIDevice.current.orientation
         switch orientation {
         case .landscapeLeft, .landscapeRight:
