@@ -136,8 +136,8 @@ open class NotificationBanner: BaseNotificationBanner {
             
             if let subtitleLabel = subtitleLabel {
                 make.bottom.equalTo(subtitleLabel)
-            } else {
-                make.bottom.equalTo(titleLabel!)
+            } else if let titleLabel = titleLabel {
+                make.bottom.equalTo(titleLabel)
             }
         }
         
