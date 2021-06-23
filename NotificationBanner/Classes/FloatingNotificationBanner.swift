@@ -113,10 +113,12 @@ open class FloatingNotificationBanner: GrowingNotificationBanner {
             contentView.subviews.last?.layer.cornerRadius = cornerRadius
         }
         
-        if style == .customView, let customView = contentView.subviews.last {
-           customView.backgroundColor = customView.backgroundColor?.withAlphaComponent(transparency)
+        if style == .customView,
+           let customView = contentView.subviews.last,
+           customView.backgroundColor != .clear {
+            customView.backgroundColor = customView.backgroundColor?.withAlphaComponent(transparency)
         }
-
+        
         show(
             queuePosition: queuePosition,
             bannerPosition: bannerPosition,
