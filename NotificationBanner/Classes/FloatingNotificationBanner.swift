@@ -19,6 +19,7 @@
 import UIKit
 import SnapKit
 
+@available(iOSApplicationExtension, unavailable)
 open class FloatingNotificationBanner: GrowingNotificationBanner {
     
     public init(
@@ -139,6 +140,7 @@ open class FloatingNotificationBanner: GrowingNotificationBanner {
     
 }
 
+@available(iOSApplicationExtension, unavailable)
 private extension FloatingNotificationBanner {
     
     /**

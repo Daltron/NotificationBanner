@@ -21,6 +21,7 @@ import UIKit
 import MarqueeLabel
 
 @objcMembers
+@available(iOSApplicationExtension, unavailable)
 open class StatusBarNotificationBanner: BaseNotificationBanner {
 
     public override var bannerHeight: CGFloat {
@@ -94,6 +95,7 @@ open class StatusBarNotificationBanner: BaseNotificationBanner {
 
 }
 
+@available(iOSApplicationExtension, unavailable)
 public extension StatusBarNotificationBanner {
     
     func applyStyling(

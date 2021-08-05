@@ -21,6 +21,7 @@ import SnapKit
 
 import MarqueeLabel
 
+@available(iOSApplicationExtension, unavailable)
 public protocol NotificationBannerDelegate: class {
     func notificationBannerWillAppear(_ banner: BaseNotificationBanner)
     func notificationBannerDidAppear(_ banner: BaseNotificationBanner)
@@ -29,6 +30,7 @@ public protocol NotificationBannerDelegate: class {
 }
 
 @objcMembers
+@available(iOSApplicationExtension, unavailable)
 open class BaseNotificationBanner: UIView {
 
     /// Notification that will be posted when a notification banner will appear
@@ -672,7 +674,6 @@ open class BaseNotificationBanner: UIView {
     /**
          Determines wether or not we should adjust the banner for notch featured iPhone
      */
-
     internal func shouldAdjustForNotchFeaturedIphone() -> Bool {
         return NotificationBannerUtilities.isNotchFeaturedIPhone()
             && UIApplication.shared.statusBarOrientation.isPortrait

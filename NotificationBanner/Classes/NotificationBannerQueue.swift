@@ -25,6 +25,7 @@ public enum QueuePosition: Int {
 }
 
 @objcMembers
+@available(iOSApplicationExtension, unavailable)
 open class NotificationBannerQueue: NSObject {
 
     /// The default instance of the NotificationBannerQueue

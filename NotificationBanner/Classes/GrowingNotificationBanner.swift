@@ -19,6 +19,7 @@
 import UIKit
 import SnapKit
 
+@available(iOSApplicationExtension, unavailable)
 open class GrowingNotificationBanner: BaseNotificationBanner {
     
     public enum IconPosition {
@@ -189,6 +190,7 @@ open class GrowingNotificationBanner: BaseNotificationBanner {
     }
 }
 
+@available(iOSApplicationExtension, unavailable)
 public extension GrowingNotificationBanner {
     
     func applyStyling(

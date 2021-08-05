@@ -22,6 +22,7 @@ import SnapKit
 import MarqueeLabel
 
 @objcMembers
+@available(iOSApplicationExtension, unavailable)
 open class NotificationBanner: BaseNotificationBanner {
     
     /// The bottom most label of the notification if a subtitle is provided
@@ -183,6 +184,7 @@ open class NotificationBanner: BaseNotificationBanner {
     
 }
 
+@available(iOSApplicationExtension, unavailable)
 public extension NotificationBanner {
     
     func applyStyling(

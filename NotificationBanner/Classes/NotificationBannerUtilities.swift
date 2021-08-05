@@ -20,6 +20,7 @@ import UIKit
 
 class NotificationBannerUtilities: NSObject {
 
+    @available(iOSApplicationExtension, unavailable)
     class func isNotchFeaturedIPhone() -> Bool {
         if #available(iOS 11, *) {
             if UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0 > CGFloat(0) {
