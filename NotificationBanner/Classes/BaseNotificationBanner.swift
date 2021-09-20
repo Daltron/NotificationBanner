@@ -325,14 +325,16 @@ open class BaseNotificationBanner: UIView {
         queuePosition: QueuePosition = .back,
         bannerPosition: BannerPosition = .top,
         queue: NotificationBannerQueue = NotificationBannerQueue.default,
-        on viewController: UIViewController? = nil
+        on viewController: UIViewController? = nil,
+        shouldPostAccessibilityNotification: Bool = true
     ) {
         parentViewController = viewController
         bannerQueue = queue
         show(
             placeOnQueue: true,
             queuePosition: queuePosition,
-            bannerPosition: bannerPosition
+            bannerPosition: bannerPosition,
+            shouldPostAccessibilityNotification: shouldPostAccessibilityNotification
         )
     }
 
@@ -346,7 +348,8 @@ open class BaseNotificationBanner: UIView {
     func show(
         placeOnQueue: Bool,
         queuePosition: QueuePosition = .back,
-        bannerPosition: BannerPosition = .top
+        bannerPosition: BannerPosition = .top,
+        shouldPostAccessibilityNotification: Bool = true
     ) {
 
         guard !isDisplaying else {
@@ -400,7 +403,10 @@ open class BaseNotificationBanner: UIView {
             )
             
             delegate?.notificationBannerWillAppear(self)
-            postAccessibilityNotification()
+            
+            if shouldPostAccessibilityNotification {
+                postAccessibilityNotification()
+            }
 
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.onTapGestureRecognizer))
             self.addGestureRecognizer(tapGestureRecognizer)
