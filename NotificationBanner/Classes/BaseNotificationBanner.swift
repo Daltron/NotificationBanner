@@ -120,6 +120,9 @@ open class BaseNotificationBanner: UIView {
 
     /// Wether or not the notification banner is currently being displayed
     public var isDisplaying: Bool = false
+    
+    /// Wheather or not to post the default accessibility notification.
+    public var shouldPostAccessibilityNotification: Bool = true
 
     /// The view that the notification layout is presented on. The constraints/frame of this should not be changed
     internal var contentView: UIView!
@@ -325,16 +328,14 @@ open class BaseNotificationBanner: UIView {
         queuePosition: QueuePosition = .back,
         bannerPosition: BannerPosition = .top,
         queue: NotificationBannerQueue = NotificationBannerQueue.default,
-        on viewController: UIViewController? = nil,
-        shouldPostAccessibilityNotification: Bool = true
+        on viewController: UIViewController? = nil
     ) {
         parentViewController = viewController
         bannerQueue = queue
         show(
             placeOnQueue: true,
             queuePosition: queuePosition,
-            bannerPosition: bannerPosition,
-            shouldPostAccessibilityNotification: shouldPostAccessibilityNotification
+            bannerPosition: bannerPosition
         )
     }
 
@@ -348,8 +349,7 @@ open class BaseNotificationBanner: UIView {
     func show(
         placeOnQueue: Bool,
         queuePosition: QueuePosition = .back,
-        bannerPosition: BannerPosition = .top,
-        shouldPostAccessibilityNotification: Bool = true
+        bannerPosition: BannerPosition = .top
     ) {
 
         guard !isDisplaying else {
@@ -404,7 +404,7 @@ open class BaseNotificationBanner: UIView {
             
             delegate?.notificationBannerWillAppear(self)
             
-            if shouldPostAccessibilityNotification {
+            if self.shouldPostAccessibilityNotification {
                 postAccessibilityNotification()
             }
 
