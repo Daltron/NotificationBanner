@@ -118,10 +118,10 @@ open class BaseNotificationBanner: UIView {
     /// Banner show and dimiss animation duration
     public var animationDuration: TimeInterval = 0.5
 
-    /// Wether or not the notification banner is currently being displayed
+    /// Whether or not the notification banner is currently being displayed
     public var isDisplaying: Bool = false
     
-    /// Wheather or not to post the default accessibility notification.
+    /// Whether or not to post the default accessibility notification.
     public var shouldPostAccessibilityNotification: Bool = true
 
     /// The view that the notification layout is presented on. The constraints/frame of this should not be changed
