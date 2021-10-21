@@ -142,6 +142,9 @@ open class BaseNotificationBanner: UIView {
     /// The view controller to display the banner on. This is useful if you are wanting to display a banner underneath a navigation bar
     internal weak var parentViewController: UIViewController?
 
+    /// The view to display the banner on. This is useful if you are wanting to display a banner on top of a View
+    internal weak var parentView: UIView?
+
     /// If this is not nil, then this height will be used instead of the auto calculated height
     internal var customBannerHeight: CGFloat?
 
@@ -325,9 +328,11 @@ open class BaseNotificationBanner: UIView {
         queuePosition: QueuePosition = .back,
         bannerPosition: BannerPosition = .top,
         queue: NotificationBannerQueue = NotificationBannerQueue.default,
-        on viewController: UIViewController? = nil
+        on viewController: UIViewController? = nil,
+        onView currentView: UIView? = nil
     ) {
         parentViewController = viewController
+        parentView = currentView
         bannerQueue = queue
         show(
             placeOnQueue: true,
@@ -384,9 +389,16 @@ open class BaseNotificationBanner: UIView {
                 if statusBarShouldBeShown() {
                     appWindow?.windowLevel = UIWindow.Level.normal
                 }
-            } else {
+            }
+            else if let currentView = parentView {
+                currentView.addSubview(self)
+                if statusBarShouldBeShown() {
+                    appWindow?.windowLevel = UIWindow.Level.normal
+                }
+            }
+            else {
                 appWindow?.addSubview(self)
-                if statusBarShouldBeShown() && !(parentViewController == nil && bannerPosition == .top) {
+                if statusBarShouldBeShown() && !(parentViewController == nil && parentView == nil && bannerPosition == .top) {
                     appWindow?.windowLevel = UIWindow.Level.normal
                 } else {
                     appWindow?.windowLevel = UIWindow.Level.statusBar + 1
@@ -628,7 +640,7 @@ open class BaseNotificationBanner: UIView {
     private func statusBarShouldBeShown() -> Bool {
 
         for banner in bannerQueue.banners {
-            if (banner.parentViewController == nil && banner.bannerPosition == .top) {
+            if (banner.parentViewController == nil && parentView == nil && banner.bannerPosition == .top) {
                 return false
             }
         }
@@ -664,7 +676,11 @@ open class BaseNotificationBanner: UIView {
     private func maximumYPosition() -> CGFloat {
         if let parentViewController = parentViewController {
             return parentViewController.view.frame.height
-        } else {
+        }
+        else if let currentView = customView {
+            return currentView.frame.height
+        }
+        else {
             return appWindow?.height ?? 0
         }
     }
