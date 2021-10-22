@@ -275,7 +275,16 @@ open class BaseNotificationBanner: UIView {
     internal func spacerViewHeight() -> CGFloat {
         return NotificationBannerUtilities.isNotchFeaturedIPhone()
             && UIApplication.shared.statusBarOrientation.isPortrait
-            && (parentViewController?.navigationController?.isNavigationBarHidden ?? true) ? 40.0 : 10.0
+            && (parentViewController?.navigationController?.isNavigationBarHidden ?? true) ? 40.0 : spaceViewCustomHeight()
+    }
+
+    private func spaceViewCustomHeight() -> CGFloat {
+        if parentView != nil {
+            return 0
+        }
+        else {
+            return 40
+        }
     }
 
     private func finishBannerYOffset() -> CGFloat {
