@@ -50,29 +50,6 @@ open class NotificationBanner: BaseNotificationBanner {
         
         super.init(style: style, colors: colors)
         
-        if let leftView = leftView {
-            contentView.addSubview(leftView)
-            
-            let size = (leftView.frame.height > 0) ? min(44, leftView.frame.height) : 44
-            
-            leftView.snp.makeConstraints({ (make) in
-                make.centerY.equalToSuperview()
-                make.left.equalToSuperview().offset(10)
-                make.size.equalTo(size)
-            })
-        }
-        
-        if let rightView = rightView {
-            contentView.addSubview(rightView)
-            
-            let size = (rightView.frame.height > 0) ? min(44, rightView.frame.height) : 44
-            rightView.snp.makeConstraints({ (make) in
-                make.centerY.equalToSuperview()
-                make.right.equalToSuperview().offset(-10)
-                make.size.equalTo(size)
-            })
-        }
-        
         let labelsView = UIView()
         contentView.addSubview(labelsView)
         
@@ -117,6 +94,29 @@ open class NotificationBanner: BaseNotificationBanner {
                     make.right.equalToSuperview()
                 }
             }
+        }
+
+        if let leftView = leftView {
+            contentView.addSubview(leftView)
+
+            let size = (leftView.frame.height > 0) ? min(44, leftView.frame.height) : 44
+
+            leftView.snp.makeConstraints({ (make) in
+                make.centerY.equalTo(titleLabel!.snp.centerY)
+                make.left.equalToSuperview().offset(10)
+                make.size.equalTo(size)
+            })
+        }
+
+        if let rightView = rightView {
+            contentView.addSubview(rightView)
+
+            let size = (rightView.frame.height > 0) ? min(44, rightView.frame.height) : 44
+            rightView.snp.makeConstraints({ (make) in
+                make.centerY.equalTo(titleLabel!.snp.centerY)
+                make.right.equalToSuperview().offset(-10)
+                make.size.equalTo(size)
+            })
         }
         
         labelsView.snp.makeConstraints { (make) in
