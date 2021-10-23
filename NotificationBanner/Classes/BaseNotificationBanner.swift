@@ -121,6 +121,9 @@ open class BaseNotificationBanner: UIView {
     /// Wether or not the notification banner is currently being displayed
     public var isDisplaying: Bool = false
 
+    /// The default value for spacerView height
+    public var spacerViewDefaultHeightConstant: CGFloat = 40
+
     /// The view that the notification layout is presented on. The constraints/frame of this should not be changed
     internal var contentView: UIView!
 
@@ -132,9 +135,6 @@ open class BaseNotificationBanner: UIView {
 
     /// The default offset for spacerView top or bottom
     internal var spacerViewDefaultOffset: CGFloat = 10.0
-
-    /// The default value for spacerView height
-    internal var spacerViewDefaultHeightConstant: CGFloat = 40
 
     /// The maximum number of banners simultaneously visible on screen
     internal var maximumVisibleBanners: Int = 1
