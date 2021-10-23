@@ -133,6 +133,9 @@ open class BaseNotificationBanner: UIView {
     /// The default offset for spacerView top or bottom
     internal var spacerViewDefaultOffset: CGFloat = 10.0
 
+    /// The default value for spacerView height
+    internal var spacerViewDefaultHeightConstant: CGFloat = 40
+
     /// The maximum number of banners simultaneously visible on screen
     internal var maximumVisibleBanners: Int = 1
 
@@ -262,7 +265,7 @@ open class BaseNotificationBanner: UIView {
          Updates the spacer view height. Specifically used for orientation changes.
      */
     private func updateSpacerViewHeight(make: ConstraintMaker? = nil) {
-        let finalHeight = spacerViewHeight()
+        let finalHeight = spacerViewDefaultHeightConstant != 40 ? 0 : spacerViewHeight()
         if let make = make {
             make.height.equalTo(finalHeight)
         } else {
