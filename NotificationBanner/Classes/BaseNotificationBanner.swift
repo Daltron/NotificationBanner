@@ -205,6 +205,7 @@ open class BaseNotificationBanner: UIView {
         addSubview(spacerView)
 
         contentView = UIView()
+        contentView.contentMode = .center
         addSubview(contentView)
 
         if let colors = colors {
