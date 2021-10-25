@@ -237,9 +237,9 @@ open class BaseNotificationBanner: UIView {
 
         spacerView.snp.remakeConstraints { (make) in
             if bannerPosition == .top {
-                make.top.equalToSuperview().offset(-spacerViewDefaultOffset)
+                make.top.equalToSuperview().offset(spacerViewDefaultHeightConstant != 40 ? 0 : -spacerViewDefaultOffset)
             } else {
-                make.bottom.equalToSuperview().offset(spacerViewDefaultOffset)
+                make.bottom.equalToSuperview().offset(spacerViewDefaultHeightConstant != 40 ? 0 : spacerViewDefaultOffset)
             }
             make.left.equalToSuperview()
             make.right.equalToSuperview()
