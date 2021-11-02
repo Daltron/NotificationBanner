@@ -94,6 +94,7 @@ open class FloatingNotificationBanner: GrowingNotificationBanner {
         bannerPosition: BannerPosition = .top,
         queue: NotificationBannerQueue = NotificationBannerQueue.default,
         on viewController: UIViewController? = nil,
+        onView currentView: UIView? = nil,
         edgeInsets: UIEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8),
         cornerRadius: CGFloat? = nil,
         shadowColor: UIColor = .black,
@@ -119,7 +120,8 @@ open class FloatingNotificationBanner: GrowingNotificationBanner {
             queuePosition: queuePosition,
             bannerPosition: bannerPosition,
             queue: queue,
-            on: viewController
+            on: viewController,
+            onView: currentView
         )
         
         applyShadow(
