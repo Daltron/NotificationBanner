@@ -21,7 +21,7 @@ import SnapKit
 
 import MarqueeLabel
 
-public protocol NotificationBannerDelegate: class {
+public protocol NotificationBannerDelegate: AnyObject {
     func notificationBannerWillAppear(_ banner: BaseNotificationBanner)
     func notificationBannerDidAppear(_ banner: BaseNotificationBanner)
     func notificationBannerWillDisappear(_ banner: BaseNotificationBanner)
