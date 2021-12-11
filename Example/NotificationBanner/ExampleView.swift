@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ExampleViewDelegate : class {
+protocol ExampleViewDelegate : AnyObject {
     func numberOfCells(for section: Int) -> Int
     func notificationBannerTitle(for section: Int) -> String
     func blockColor(at indexPath: IndexPath) -> UIColor
