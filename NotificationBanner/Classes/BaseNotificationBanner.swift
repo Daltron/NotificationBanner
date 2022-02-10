@@ -392,6 +392,8 @@ open class BaseNotificationBanner: UIView {
                     appWindow?.windowLevel = UIWindow.Level.statusBar + 1
                 }
             }
+            
+            self.updateBannerHeight()
 
             NotificationCenter.default.post(
                 name: BaseNotificationBanner.BannerWillAppear,
