@@ -90,7 +90,7 @@ You can also add this library as swift package manager.
 
 1. Go to File > Add Packages
 2. The Add Package dialog appears, by default with Apple packages. 
-3. In the upper left hand corner, paste https://github.com/Daltron/NotificationBanner into the search bar in the upper right search bar
+3. In the upper left hand corner, paste https://github.com/Daltron/NotificationBanner into the search bar
 4. Hit Return to kick off the search
 5. Click Add Package. 
 
