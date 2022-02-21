@@ -84,7 +84,7 @@ github "Daltron/NotificationBanner" "master"
 
 Then add `NotificationBanner.framework` and the dependencies `SnapKit.framework` and `MarqueeLabel.framework` in your project.
 
-#### Swift Package Manager
+### Swift Package Manager
 
 You can also add this library as swift package manager.
 
