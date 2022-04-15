@@ -27,16 +27,20 @@ public class BannerColors: BannerColorsProtocol {
 
     public func color(for style: BannerStyle) -> UIColor {
         switch style {
-            case .danger:
-                return UIColor(red:0.90, green:0.31, blue:0.26, alpha:1.00)
-            case .info:
-                return UIColor(red:0.23, green:0.60, blue:0.85, alpha:1.00)
-            case .customView:
-                return .clear
-            case .success:
-                return UIColor(red:0.22, green:0.80, blue:0.46, alpha:1.00)
-            case .warning:
-                return UIColor(red:1.00, green:0.66, blue:0.16, alpha:1.00)
+        case .danger:
+        return #colorLiteral(red: 1, green: 0.9490196078, blue: 0.7843137255, alpha: 1)
+        case .info:
+        return #colorLiteral(red: 0.8705882353, green: 0.9254901961, blue: 0.9764705882, alpha: 1)
+        case .customView:
+        return #colorLiteral(red: 0.8, green: 0.9333333333, blue: 0.937254902, alpha: 1)
+        case .success:
+        return #colorLiteral(red: 0.8078431373, green: 0.9411764706, blue: 0.8039215686, alpha: 1)
+        case .warning:
+        return #colorLiteral(red: 0.9803921569, green: 0.8117647059, blue: 0.8117647059, alpha: 1)
+        case .info1:
+        return #colorLiteral(red: 0.8, green: 0.9333333333, blue: 0.937254902, alpha: 1)
+        default:
+            return #colorLiteral(red: 0.8, green: 0.9333333333, blue: 0.937254902, alpha: 1)
         }
     }
 }

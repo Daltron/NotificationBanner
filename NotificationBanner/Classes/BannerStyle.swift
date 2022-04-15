@@ -22,6 +22,11 @@ import Foundation
 public enum BannerStyle: Int {
     case danger
     case info
+    case info1
+    case info2
+    case info3
+    case info4
+    case alert
     case customView
     case success
     case warning
