@@ -80,7 +80,7 @@ public class ConstraintMakerExtendable: ConstraintMakerRelatable {
         return self
     }
     
-    @available(*, deprecated, message:"Use lastBaseline instead")
+    @available(*, deprecated, renamed:"lastBaseline")
     public var baseline: ConstraintMakerExtendable {
         self.description.attributes += .lastBaseline
         return self
@@ -149,8 +149,24 @@ public class ConstraintMakerExtendable: ConstraintMakerRelatable {
         self.description.attributes += .edges
         return self
     }
+    public var horizontalEdges: ConstraintMakerExtendable {
+        self.description.attributes += .horizontalEdges
+        return self
+    }
+    public var verticalEdges: ConstraintMakerExtendable {
+        self.description.attributes += .verticalEdges
+        return self
+    }
     public var directionalEdges: ConstraintMakerExtendable {
         self.description.attributes += .directionalEdges
+        return self
+    }
+    public var directionalHorizontalEdges: ConstraintMakerExtendable {
+        self.description.attributes += .directionalHorizontalEdges
+        return self
+    }
+    public var directionalVerticalEdges: ConstraintMakerExtendable {
+        self.description.attributes += .directionalVerticalEdges
         return self
     }
     public var size: ConstraintMakerExtendable {
