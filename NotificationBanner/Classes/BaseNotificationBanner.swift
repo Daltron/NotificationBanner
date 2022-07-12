@@ -573,11 +573,15 @@ open class BaseNotificationBanner: UIView {
         isDisplaying = false
         remove()
 
+        // Prevent any user action from showing an additional animation
+        self.bannerQueue.activeAnimation = true
+
         UIView.animate(
             withDuration: forced ? animationDuration / 2 : animationDuration,
             animations: {
                 self.frame = self.bannerPositionFrame.startFrame
         }) { (completed) in
+            self.bannerQueue.activeAnimation = false
 
             self.removeFromSuperview()
 
