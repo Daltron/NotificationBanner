@@ -53,20 +53,20 @@ open class StatusBarNotificationBanner: BaseNotificationBanner {
     override init(style: BannerStyle, colors: BannerColorsProtocol? = nil) {
         super.init(style: style, colors: colors)
 
-        titleLabel = MarqueeLabel()
-        (titleLabel as! MarqueeLabel).animationDelay = 2
-        (titleLabel as! MarqueeLabel).type = .leftRight
-        titleLabel!.font = UIFont.systemFont(ofSize: 12.5, weight: UIFont.Weight.bold)
-        titleLabel!.textAlignment = .center
-        titleLabel!.textColor = .white
-        contentView.addSubview(titleLabel!)
+        let label = MarqueeLabel()
+        label.animationDelay = 2
+        label.type = .leftRight
+        label.font = UIFont.systemFont(ofSize: 12.5, weight: UIFont.Weight.bold)
+        label.textAlignment = .center
+        label.textColor = .white
+        contentView.addSubview(label)
 
-        titleLabel!.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(heightAdjustment)
+        label.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(5)
             make.right.equalToSuperview().offset(-5)
-            make.bottom.equalToSuperview()
+			make.bottom.equalToSuperview().offset(-5)
         }
+		titleLabel = label
 
         updateMarqueeLabelsDurations()
     }
