@@ -105,6 +105,11 @@ open class FloatingNotificationBanner: GrowingNotificationBanner {
     ) {
 
         self.bannerEdgeInsets = edgeInsets
+		if #available(iOS 11.0, *), let keyWindow = UIApplication.shared.keyWindow {
+			if bannerPosition == .top {
+				self.bannerEdgeInsets?.top = keyWindow.safeAreaInsets.top - keyWindow.safeAreaInsets.bottom + 8.0
+			}
+		}
         
         if let cornerRadius = cornerRadius {
             contentView.layer.cornerRadius = cornerRadius

@@ -27,15 +27,28 @@ open class StatusBarNotificationBanner: BaseNotificationBanner {
         get {
             if let customBannerHeight = customBannerHeight {
                 return customBannerHeight
-            } else if shouldAdjustForNotchFeaturedIphone() {
-                return 50.0
+			} else if shouldAdjustForNotchFeaturedIphone() {
+				return 10.0 + heightAdjustment
             } else {
-                return 20.0 + heightAdjustment
+                return 40.0 + heightAdjustment
             }
         } set {
             customBannerHeight = newValue
         }
     }
+
+	override var heightAdjustment: CGFloat {
+		if #available(iOS 13.0, *), NotificationBannerUtilities.isNotchFeaturedIPhone() {
+			if let keyWindow = UIApplication.shared.keyWindow {
+				if bannerPosition == .top, UIApplication.shared.statusBarFrame.height != keyWindow.safeAreaInsets.top {
+					return UIApplication.shared.statusBarFrame.height + 8.0
+				}
+			}
+			return UIApplication.shared.statusBarFrame.height
+		}
+
+		return 0
+	}
 
     override init(style: BannerStyle, colors: BannerColorsProtocol? = nil) {
         super.init(style: style, colors: colors)
