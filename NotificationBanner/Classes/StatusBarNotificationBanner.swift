@@ -27,6 +27,8 @@ open class StatusBarNotificationBanner: BaseNotificationBanner {
         get {
             if let customBannerHeight = customBannerHeight {
                 return customBannerHeight
+            } else if shouldAdjustForDynamicIsland() {
+                return 70.0
             } else if shouldAdjustForNotchFeaturedIphone() {
                 return 50.0
             } else {
