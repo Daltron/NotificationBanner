@@ -36,6 +36,10 @@ open class NotificationBannerQueue: NSObject {
     /// The notification banners currently placed on the queue
     private(set) var maxBannersOnScreenSimultaneously: Int = 1
 
+    /// This is a mutex to prevent too many notification banners from appearing on screen at once
+    /// while our BaseNotificationBanner is animating itself off screen
+    public var activeAnimation = false
+
     /// The current number of notification banners on the queue
     public var numberOfBanners: Int {
         return banners.count
@@ -61,7 +65,7 @@ open class NotificationBannerQueue: NSObject {
             banners.append(banner)
 
             let bannersCount =  banners.filter { $0.isDisplaying }.count
-            if bannersCount < maxBannersOnScreenSimultaneously {
+            if bannersCount < maxBannersOnScreenSimultaneously && self.activeAnimation == false {
                 banner.show(placeOnQueue: false, bannerPosition: banner.bannerPosition)
             }
 
