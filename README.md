@@ -1,6 +1,5 @@
 ![Notification Banner](NotificationBanner/Assets/header.png)
 
-[![GitHub Release](https://img.shields.io/github/release/daltron/NotificationBanner.svg?style=flat)]()
 [![GitHub contributors](https://img.shields.io/github/contributors/daltron/notificationbanner.svg?style=flat)]() 
 [![License](https://img.shields.io/cocoapods/l/NotificationBannerSwift.svg?style=flat)](http://cocoapods.org/pods/NotificationBannerSwift)
 [![PayPal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.com/donate/?hosted_button_id=QEBVNMTVX6N88)  
