@@ -33,6 +33,7 @@ NotificationBanner is an extremely customizable and lightweight library that mak
 - Built in banner queue ✅
 - Allow to display several banners simultaneously, configurable in banners queue ✅
 - Accessibility support ✅
+- Dynamic Island Support ✅
 
 ## Requirements
 
