@@ -68,7 +68,7 @@ open class NotificationBanner: BaseNotificationBanner {
             let size = (rightView.frame.height > 0) ? min(44, rightView.frame.height) : 44
             rightView.snp.makeConstraints({ (make) in
                 make.centerY.equalToSuperview().offset(heightAdjustment / 4)
-                make.left.equalToSuperview().offset(10)
+                make.right.equalToSuperview().offset(-10)
                 make.size.equalTo(size)
             })
         }
