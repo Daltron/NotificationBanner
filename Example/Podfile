@@ -1,7 +1,0 @@
-use_frameworks!
-platform :ios, '10.0'
-
-target 'NotificationBanner_Example' do
-  pod 'NotificationBannerSwift', :path => '../'
-  pod 'Reveal-SDK', :configurations => ['Debug']
-end
