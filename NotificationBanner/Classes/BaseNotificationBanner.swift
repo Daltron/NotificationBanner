@@ -168,7 +168,7 @@ open class BaseNotificationBanner: UIView {
     }()
 
     /// The position the notification banner should slide in from
-    private(set) var bannerPosition: BannerPosition!
+    private(set) var bannerPosition: BannerPosition = .top
 
     /// The notification banner sides edges insets from superview. If presented - spacerView color will be transparent
     internal var bannerEdgeInsets: UIEdgeInsets? = nil {
