@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/cbpowell/MarqueeLabel",
         "state": {
           "branch": null,
-          "revision": "f2c72a5f8568579dade6350dc26a482076d3d346",
-          "version": "4.3.0"
+          "revision": "877e810534cda9afabb8143ae319b7c3341b121b",
+          "version": "4.5.0"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/SnapKit/SnapKit",
         "state": {
           "branch": null,
-          "revision": "f222cbdf325885926566172f6f5f06af95473158",
-          "version": "5.6.0"
+          "revision": "2842e6e84e82eb9a8dac0100ca90d9444b0307f4",
+          "version": "5.7.1"
         }
       }
     ]
