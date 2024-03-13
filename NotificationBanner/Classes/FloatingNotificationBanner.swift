@@ -34,7 +34,8 @@ open class FloatingNotificationBanner: GrowingNotificationBanner {
         rightView: UIView? = nil,
         style: BannerStyle = .info,
         colors: BannerColorsProtocol? = nil,
-        iconPosition: IconPosition = .center
+        iconPosition: IconPosition = .center,
+        alwaysInFront: Bool = true
     ) {
 
         super.init(
@@ -72,9 +73,13 @@ open class FloatingNotificationBanner: GrowingNotificationBanner {
         if let subtitleTextAlign = subtitleTextAlign {
             subtitleLabel!.textAlignment = subtitleTextAlign
         }
+ 
+        if alwaysInFront {
+            setAlwaysInFront()
+        }
     }
     
-    public init(customView: UIView) {
+    public init(customView: UIView, alwaysInFront: Bool = false) {
         super.init(style: .customView)
         self.customView = customView
         
@@ -84,6 +89,10 @@ open class FloatingNotificationBanner: GrowingNotificationBanner {
         }
         
         spacerView.backgroundColor = customView.backgroundColor
+
+        if alwaysInFront {
+            setAlwaysInFront()
+        }
     }
     
     /**
@@ -174,4 +183,7 @@ private extension FloatingNotificationBanner {
         contentView.layer.shouldRasterize = true
     }
     
+    private func setAlwaysInFront() {
+        self.layer.zPosition = CGFloat(Float.greatestFiniteMagnitude)
+    }
 }
