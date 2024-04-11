@@ -17,8 +17,7 @@ let package = Package(
         .target(
             name: "NotificationBannerSwift",
             dependencies: [.byName(name: "MarqueeLabel"), .byName(name: "SnapKit")],
-            path: "NotificationBanner/Classes",
-            resources: [.copy("NotificationBanner/Supporting Files/PrivacyInfo.xcprivacy")]
+            path: "NotificationBanner/Classes"
         )
     ],
     swiftLanguageVersions: [.v5]
