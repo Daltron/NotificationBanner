@@ -21,6 +21,7 @@
 		A999043F1EEF64F0006DA132 /* BannerHapticGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A999043E1EEF64F0006DA132 /* BannerHapticGenerator.swift */; };
 		BDB71E322BC8508500E946A4 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = BDB71E312BC8508500E946A4 /* SnapKit */; };
 		BDB71E372BC8509E00E946A4 /* MarqueeLabel in Frameworks */ = {isa = PBXBuildFile; productRef = BDB71E362BC8509E00E946A4 /* MarqueeLabel */; };
+		BDB71E3B2BC8577200E946A4 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = BDB71E3A2BC8577200E946A4 /* PrivacyInfo.xcprivacy */; };
 		F63A905B2381423E00F70CEB /* UIWindow+orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63A90592381423E00F70CEB /* UIWindow+orientation.swift */; };
 		F7E13CF61FB192ED0008EE4C /* NotificationBannerUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7E13CF51FB192ED0008EE4C /* NotificationBannerUtilities.swift */; };
 /* End PBXBuildFile section */
@@ -42,6 +43,7 @@
 		823255A71EB87313006F95C3 /* NotificationBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationBanner.h; sourceTree = "<group>"; };
 		951D609C1F71BF82008E4BCC /* NotificationBannerUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBannerUtilities.swift; sourceTree = "<group>"; };
 		A999043E1EEF64F0006DA132 /* BannerHapticGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerHapticGenerator.swift; sourceTree = "<group>"; };
+		BDB71E3A2BC8577200E946A4 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		F63A90592381423E00F70CEB /* UIWindow+orientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+orientation.swift"; sourceTree = "<group>"; };
 		F7E13CF51FB192ED0008EE4C /* NotificationBannerUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationBannerUtilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -110,6 +112,7 @@
 		823255A51EB87313006F95C3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				BDB71E3A2BC8577200E946A4 /* PrivacyInfo.xcprivacy */,
 				823255A61EB87313006F95C3 /* Info.plist */,
 				823255A71EB87313006F95C3 /* NotificationBanner.h */,
 			);
@@ -202,6 +205,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDB71E3B2BC8577200E946A4 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
