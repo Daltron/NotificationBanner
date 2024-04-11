@@ -19,4 +19,8 @@ NotificationBanner is an extremely customizable and lightweight library that mak
     s.dependency 'SnapKit', '~> 5.7.1'
     s.dependency 'MarqueeLabel', '~> 4.5.0'
 
+    s.resource_bundle = {
+        "NotificationBannerPrivacyInfo" => "NotificationBanner/Supporting Files/PrivacyInfo.xcprivacy"
+    }
+
 end
