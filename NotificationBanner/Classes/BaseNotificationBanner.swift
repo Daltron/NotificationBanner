@@ -702,13 +702,13 @@ open class BaseNotificationBanner: UIView {
 
     internal func shouldAdjustForDynamicIsland() -> Bool {
         return NotificationBannerUtilities.hasDynamicIsland()
-            && UIApplication.shared.statusBarOrientation.isPortrait
+        && (UIApplication.shared.orientation?.isPortrait ?? false)
             && (self.parentViewController?.navigationController?.isNavigationBarHidden ?? true)
     }
     
     internal func shouldAdjustForNotchFeaturedIphone() -> Bool {
         return NotificationBannerUtilities.isNotchFeaturedIPhone()
-            && UIApplication.shared.statusBarOrientation.isPortrait
+            && (UIApplication.shared.orientation?.isPortrait ?? false)
             && (self.parentViewController?.navigationController?.isNavigationBarHidden ?? true)
     }
     /**
